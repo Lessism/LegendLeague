@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring
+						http://mybatis.org/schema/mybatis-spring-1.2.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+						
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value=""/>
+		<property name="username" value=""/>
+		<property name="password" value=""/>
+	</bean>
+	
+	<bean id="log4jDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSource"/>
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL : &#10;&#9;&#9;"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="log4jDataSource"/>
+		<property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mappers/**/*"/>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+</beans>
