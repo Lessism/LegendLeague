@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FIFA">
+
+
+<!--	구단 생성	  -->
+
+	<insert id="insertclub" parameterType="map">
+	
+		INSERT
+			INTO FIFA (
+				id,
+				name,
+				role
+			)
+			VALUES (
+				#{id},
+				#{name},
+				#{role}
+			)
+			
+	</insert>
+	
+	
+<!--	감독 생성	  -->
+
+	<insert id="insertmanager" parameterType="map">
+	
+		INSERT
+			INTO FIFA (
+				id,
+				name,
+				role
+			)
+			VALUES (
+				#{id},
+				#{name},
+				#{role}
+			)
+			
+	</insert>
+	
+	
+<!--	선수 생성	  -->
+
+	<insert id="insertplayer" parameterType="map">
+	
+		INSERT
+			INTO FIFA (
+				id,
+				name,
+				role
+			)
+			VALUES (
+				#{id},
+				#{name},
+				#{role}
+			)
+			
+	</insert>
+
+</mapper>
