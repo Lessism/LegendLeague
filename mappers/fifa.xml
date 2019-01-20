@@ -59,5 +59,19 @@
 			)
 			
 	</insert>
+	
+	
+<!-- 	로그인	 -->
+
+	<select id="login" parameterType="String" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			FIFA
+		WHERE
+			id = #{id}
+			
+	</select>
 
 </mapper>
