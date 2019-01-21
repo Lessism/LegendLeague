@@ -39,11 +39,4 @@
 		<a class="active item" href="${path}">Home</a>
 		<a class="item" href="${path}/board/list.w9?page=1">Board</a>
 	</nav>
-<script>
-$(function(){
-	$('#logout').click(function(){
-		$('#logout_form').submit()
-	})
-})
-</script>
 </header>
