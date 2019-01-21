@@ -13,4 +13,20 @@ public class MainController {
 			
 			return "main";
 		}
+		
+		
+//	로그인
+		
+		@RequestMapping(value="/login.ll", method=RequestMethod.GET)
+		public String login() {
+			return "fifa/login";
+		}
+		
+		
+//	에러페이지
+		
+		@RequestMapping(value="/error_403.ll")
+		public String errorpage() {
+				return "error_403";
+		}
 }
