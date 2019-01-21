@@ -16,13 +16,13 @@
 	<security:access-denied-handler error-page="/error_403.ll"/>
 	<security:intercept-url pattern="/**" access="permitAll"/>
 	<security:form-login
-		login-processing-url="/fifa/login_process"
-		default-target-url="/"
-		authentication-failure-url="/fifa/login.ll?error"
+		login-processing-url="/login_process"
 		username-parameter="id"
-		password-parameter="pw"/>
+		password-parameter="pw"
+		default-target-url="/"
+		authentication-failure-url="/login.ll?error"/>
 	<security:logout
-		logout-url="/fifa/logout.ll"
+		logout-url="/logout.ll"
 		logout-success-url="/"
 		invalidate-session="true"/>
 	</security:http>
