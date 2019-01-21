@@ -3,5 +3,12 @@
 	<h6 class="f k r">Legend League ver 0</h6>
 </footer>
 </div>
+<script>
+$(function(){
+	$('#logout').click(function(){
+		$('#logout_form').submit()
+	})
+})
+</script>
 </body>
 </html>
