@@ -26,6 +26,7 @@
 			</div>
 		</div>
 		<input type="hidden" name="role" value="Club">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<hr>
 		<div class="ui center aligned container">
 			<input class="ui black button f k r" type="submit" value="가입">
