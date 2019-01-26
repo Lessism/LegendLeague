@@ -32,9 +32,18 @@ public class MainController {
 		
 		@RequestMapping(value = "image.ll", method = RequestMethod.GET)
 		public ResponseEntity<byte[]> imageConvert(@RequestParam Map<String, Object> map) throws IOException {
-		
+			
+			byte[] img = null;
+			String role = (String)map.get("role");
+			
 			map = fDAO.selectImg(map);
-			byte[] img = (byte[])map.get("emblem");
+			if(role.equals("Club")) {
+				img = (byte[])map.get("emblem");
+			}
+			if(!role.equals("Club")) {
+				img = (byte[])map.get("profile");
+			}
+			
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(MediaType.IMAGE_JPEG);
 			
