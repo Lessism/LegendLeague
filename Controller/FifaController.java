@@ -1,12 +1,16 @@
 package com.lessism.legendleague.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lessism.legendleague.dao.FifaDAO;
 
@@ -16,6 +20,8 @@ public class FifaController {
 	
 	@Autowired
 	private FifaDAO fDAO;
+	@Autowired
+	private BCryptPasswordEncoder pw;
 	
 	
 //	로그인
@@ -45,8 +51,12 @@ public class FifaController {
 		}
 		
 		@RequestMapping(value="join_club.ll", method=RequestMethod.POST)
-		public String joinClub(@RequestParam Map<String, Object> map) {
+		public String joinClub(
+				@RequestParam Map<String, Object> map,
+				MultipartHttpServletRequest img) throws IOException {
 			
+			map.replace("pw", pw.encode((String)map.get("pw")));
+			map.put("emblem", img.getFile("emblem").getBytes());
 			fDAO.insertClub(map);
 			
 			return "redirect:/";
@@ -62,8 +72,12 @@ public class FifaController {
 		}
 		
 		@RequestMapping(value="join_manager.ll", method=RequestMethod.POST)
-		public String joinManager(@RequestParam Map<String, Object> map) {
+		public String joinManager(
+				@RequestParam Map<String, Object> map,
+				MultipartHttpServletRequest img) throws IOException {
 			
+			map.replace("pw", pw.encode((String)map.get("pw")));
+			map.put("profile", img.getFile("profile").getBytes());
 			fDAO.insertManager(map);
 			
 			return "redirect:/";
@@ -79,15 +93,25 @@ public class FifaController {
 		}
 		
 		@RequestMapping(value="join_player.ll", method=RequestMethod.POST)
-		public String joinPlayer(@RequestParam Map<String, Object> map) {
+		public String joinPlayer(
+				@RequestParam Map<String, Object> map,
+				MultipartHttpServletRequest img) throws IOException {
 			
+			map.replace("pw", pw.encode((String)map.get("pw")));
+			map.put("profile", img.getFile("profile").getBytes());
 			fDAO.insertPlayer(map);
 			
 			return "redirect:/";
 		}
 		
 		
+//	클럽 리스트
 		
+		@RequestMapping(value="/list_club.w9")
+		public ModelAndView list() {
+			
+			return new ModelAndView("fifa/list_club", "list", fDAO.listClub());
+		}
 		
 		
 		
