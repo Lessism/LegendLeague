@@ -107,11 +107,31 @@ public class FifaController {
 		
 //	클럽 리스트
 		
-		@RequestMapping(value="/list_club.w9")
-		public ModelAndView list() {
+		@RequestMapping(value="/list_club.ll")
+		public ModelAndView listClub() {
 			
 			return new ModelAndView("fifa/list_club", "list", fDAO.listClub());
 		}
+		
+		
+//	감독 리스트
+		
+		@RequestMapping(value="/list_manager.ll")
+		public ModelAndView listManager() {
+			
+			return new ModelAndView("fifa/list_manager", "list", fDAO.listManager());
+		}
+			
+			
+//	클럽 리스트
+	
+		@RequestMapping(value="/list_player.ll")
+		public ModelAndView listPlayer() {
+			
+			return new ModelAndView("fifa/list_player", "list", fDAO.listPlayer());
+		}
+		
+		
 		
 		
 		
