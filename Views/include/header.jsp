@@ -22,11 +22,11 @@
 		</div>
 		<div class="ui inverted right menu">
 			<s:authorize access="isAnonymous()">
-				<a class="item" href="${path}/login.ll">Login</a>
+				<a class="item" href="${path}/fifa/login.ll">Login</a>
 				<a class="item" href="${path}/fifa/join_select.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
-				<form id="logout_form" method="post" action="${path}/logout.ll">
+				<form id="logout_form" method="post" action="${path}/fifa/logout.ll">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<a class="item" id="logout">Logout</a>
 				</form>
@@ -36,6 +36,8 @@
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
 		<a class="active item" href="${path}">Home</a>
-		<a class="item" href="${path}/board/list.w9?page=1">Board</a>
+		<a class="item" href="${path}/fifa/list_club.w9">Club</a>
+		<a class="item" href="${path}/fifa/list_manager.w9">Manager</a>
+		<a class="item" href="${path}/fifa/list_player.w9">Player</a>
 	</nav>
 </header>
