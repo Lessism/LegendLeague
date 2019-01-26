@@ -18,9 +18,9 @@
 	</select>
 	
 	
-<!--	구단 생성	  -->
+<!-- 	피파 등록	 -->
 
-	<insert id="insertclub" parameterType="map">
+	<insert id="insertfifa" parameterType="map">
 	
 		INSERT
 			INTO FIFA (
@@ -34,6 +34,27 @@
 				#{pw},
 				#{name},
 				#{role}
+			)
+				
+	</insert>
+	
+	
+<!--	구단 생성	  -->
+
+	<insert id="insertclub" parameterType="map">
+	
+		INSERT
+			INTO Club (
+				name,
+				emblem,
+				anchorage,
+				stadium
+			)
+			VALUES (
+				#{name},
+				#{emblem},
+				#{anchorage},
+				#{stadium}
 			)
 			
 	</insert>
@@ -44,17 +65,25 @@
 	<insert id="insertmanager" parameterType="map">
 	
 		INSERT
-			INTO FIFA (
-				id,
-				pw,
+			INTO Manager (
 				name,
-				role
+				profile,
+				country,
+				birth,
+				height,
+				weight,
+				ovr,
+				tactic
 			)
 			VALUES (
-				#{id},
-				#{pw},
 				#{name},
-				#{role}
+				#{profile},
+				#{country},
+				#{birth},
+				#{height},
+				#{weight},
+				#{ovr},
+				#{tactic}
 			)
 			
 	</insert>
@@ -65,22 +94,59 @@
 	<insert id="insertplayer" parameterType="map">
 	
 		INSERT
-			INTO FIFA (
-				id,
-				pw,
+			INTO Player (
 				name,
-				role
+				profile,
+				country,
+				birth,
+				height,
+				weight,
+				fovr,
+				movr,
+				dovr,
+				govr
 			)
 			VALUES (
-				#{id},
-				#{pw},
 				#{name},
-				#{role}
+				#{profile},
+				#{country},
+				#{birth},
+				#{height},
+				#{weight},
+				#{fovr},
+				#{movr},
+				#{dovr},
+				#{govr}
 			)
 			
 	</insert>
 	
 	
+<!--	 클럽 리스트		-->
 
+	<select id="listclub" resultType="map">
+	
+		SELECT
+			name,
+			stadium,
+			anchorage,
+			regdate
+		FROM
+			Club
+		ORDER BY
+			regdate ASC
+			
+	</select>
+	
+	
+<!-- 	이미지 셀렉트	 -->
+	<select id="selectimg" parameterType="String" resultType="map">
+		SELECT
+			${img}
+		FROM
+			${role}
+		WHERE
+			name = #{name}
+	</select>
 
 </mapper>
