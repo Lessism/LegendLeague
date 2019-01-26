@@ -52,4 +52,16 @@ public class FifaDAO {
 	}
 	
 	
+//	감독 리스트
+	
+	public List<Map<String, Object>> listManager() {
+		return db.selectList("FIFA.listmanager");
+	}
+	
+	
+//	선수 리스트
+	
+	public List<Map<String, Object>> listPlayer() {
+		return db.selectList("FIFA.listplayer");
+	}
 }
