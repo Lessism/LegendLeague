@@ -36,8 +36,8 @@
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
 		<a class="active item" href="${path}">Home</a>
-		<a class="item" href="${path}/fifa/list_club.w9">Club</a>
-		<a class="item" href="${path}/fifa/list_manager.w9">Manager</a>
-		<a class="item" href="${path}/fifa/list_player.w9">Player</a>
+		<a class="item" href="${path}/fifa/list_club.ll">Club</a>
+		<a class="item" href="${path}/fifa/list_manager.ll">Manager</a>
+		<a class="item" href="${path}/fifa/list_player.ll">Player</a>
 	</nav>
 </header>
