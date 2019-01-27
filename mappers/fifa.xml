@@ -18,6 +18,20 @@
 	</select>
 	
 	
+<!-- 	이미지 셀렉트	 -->
+
+	<select id="selectimg" parameterType="String" resultType="map">
+	
+		SELECT
+			${img}
+		FROM
+			${role}
+		WHERE
+			name = #{name}
+			
+	</select>
+	
+	
 <!-- 	피파 등록	 -->
 
 	<insert id="insertfifa" parameterType="map">
@@ -139,14 +153,100 @@
 	</select>
 	
 	
-<!-- 	이미지 셀렉트	 -->
-	<select id="selectimg" parameterType="String" resultType="map">
+<!--	 감독 리스트		-->
+
+	<select id="listmanager" resultType="map">
+	
 		SELECT
-			${img}
+			name,
+			ovr,
+			tactic
 		FROM
-			${role}
+			Manager
+		ORDER BY
+			ovr DESC
+			
+	</select>
+	
+	
+<!--	 선수 리스트		-->
+
+	<select id="listplayer" resultType="map">
+	
+		SELECT
+			name,
+			fovr,
+			movr,
+			dovr,
+			govr
+		FROM
+			Player
+		ORDER BY
+			fovr DESC
+			
+	</select>
+	
+	
+<!-- 	클럽 정보	 -->
+
+	<select id="infoclub" parameterType="map" resultType="map">
+	
+		SELECT
+			name,
+			anchorage,
+			stadium,
+			regdate
+		FROM
+			Club
 		WHERE
 			name = #{name}
+			
 	</select>
+	
+	
+<!-- 	감독 정보	 -->
 
+	<select id="infomanager" parameterType="map" resultType="map">
+	
+		SELECT
+			name,
+			country,
+			birth,
+			height,
+			weight,
+			ovr,
+			tactic
+		FROM
+			Manager
+		WHERE
+			name = #{name}
+			
+	</select>
+	
+	
+<!-- 	선수 정보	 -->
+
+	<select id="infoplayer" parameterType="map" resultType="map">
+	
+		SELECT
+			name,
+			country,
+			birth,
+			height,
+			weight,
+			fovr,
+			movr,
+			dovr,
+			govr,
+			history,
+			club
+		FROM
+			Player
+		WHERE
+			name = #{name}
+			
+	</select>
+	
+	
+	
 </mapper>
