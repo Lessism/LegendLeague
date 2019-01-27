@@ -6,8 +6,7 @@
 	<table class="ui striped center aligned table">
 		<thead>
 		<tr class="ui inverted center aligned table f k r">
-			<th>프로필</th>
-			<th>감독명</th>
+			<th colspan="2">감독명</th>
 			<th>OVR</th>
 			<th>전술</th>
 		</tr>
@@ -15,8 +14,8 @@
 		<tbody>
 		<c:forEach var="manager" items="${list}">
 			<tr>
-				<td style="width:10%"><img src="${path}/image.ll?role=Manager&img=profile&name=${manager.name}" height="50px" width="75px"></td>
-				<td style="width:40%"><a href="${path}/fifa/manager.ll?name=${manager.name}">${manager.name}</a></td>
+				<td style="width:10%"><a class="link" href="${path}/fifa/manager.ll?name=${manager.name}"><img class="ui rounded fluid image" src="${path}/image.ll?role=Manager&img=profile&name=${manager.name}"></a></td>
+				<td style="width:40%"><a class="link" href="${path}/fifa/manager.ll?name=${manager.name}">${manager.name}</a></td>
 				<td style="width:20%">${manager.ovr}</td>
 				<td style="width:30%">${manager.tactic}</td>
 			</tr>
