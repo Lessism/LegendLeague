@@ -17,6 +17,7 @@ public class FifaDAO {
 // 이미지 셀렉트
 
 	public Map<String, Object> selectImg(Map<String, Object> map){
+		
 		return db.selectOne("FIFA.selectimg", map);
 	}
 	
@@ -24,7 +25,9 @@ public class FifaDAO {
 //	구단 생성
 	
 	public int insertClub(Map<String, Object> map) {
+		
 		db.insert("FIFA.insertfifa", map);
+		
 		return db.insert("FIFA.insertclub", map);
 	}
 	
@@ -32,7 +35,9 @@ public class FifaDAO {
 //	감독 생성
 	
 	public int insertManager(Map<String, Object> map) {
+		
 		db.insert("FIFA.insertfifa", map);
+		
 		return db.insert("FIFA.insertmanager", map);
 	}
 	
@@ -40,7 +45,9 @@ public class FifaDAO {
 //	선수 생성
 	
 	public int insertPlayer(Map<String, Object> map) {
+		
 		db.insert("FIFA.insertfifa", map);
+		
 		return db.insert("FIFA.insertplayer", map);
 	}
 	
@@ -48,6 +55,7 @@ public class FifaDAO {
 //	클럽 리스트
 	
 	public List<Map<String, Object>> listClub() {
+		
 		return db.selectList("FIFA.listclub");
 	}
 	
@@ -55,6 +63,7 @@ public class FifaDAO {
 //	감독 리스트
 	
 	public List<Map<String, Object>> listManager() {
+		
 		return db.selectList("FIFA.listmanager");
 	}
 	
@@ -62,6 +71,31 @@ public class FifaDAO {
 //	선수 리스트
 	
 	public List<Map<String, Object>> listPlayer() {
+		
 		return db.selectList("FIFA.listplayer");
+	}
+	
+	
+//	구단 정보
+	
+	public Map<String, Object> infoClub(Map<String, Object> map) {
+		
+		return db.selectOne("FIFA.infoclub", map);
+	}
+	
+	
+//	감독 정보
+	
+	public Map<String, Object> infoManager(Map<String, Object> map) {
+		
+		return db.selectOne("FIFA.infomanager", map);
+	}
+	
+	
+//	선수 정보
+	
+	public Map<String, Object> infoPlayer(Map<String, Object> map) {
+		
+		return db.selectOne("FIFA.infoplayer", map);
 	}
 }
