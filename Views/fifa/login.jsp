@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../include/header.jsp" %>
 <section class="ui black segment text container">
-	<form class="ui form" action="${path}/login_process" method="post">
+	<form class="ui form" action="${path}/fifa/login_process" method="post">
 		<h1 class="ui center aligned header f k r">로그인</h1>
 		<hr>
 		<div class="ui field">
@@ -16,8 +16,8 @@
 				<input type="password" name="pw" id="pw" placeholder="Password"/>
 			</div>
 		</div>
-		<hr>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<hr>
 		<div class="ui center aligned container">
 			<input class="ui black button f k r" type="submit" value="로그인">
 			<a class="ui button f k r" href="${path}">메인</a>
