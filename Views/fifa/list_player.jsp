@@ -6,19 +6,21 @@
 	<table class="ui striped center aligned table">
 		<thead>
 		<tr class="ui inverted center aligned table f k r">
-			<th>프로필</th>
-			<th>선수명</th>
-			<th>F ovr</th>
-			<th>M ovr</th>
-			<th>D ovr</th>
-			<th>G ovr</th>
+			<th colspan="2" rowspan="2">선수명</th>
+			<th colspan="5">Overall</th>
+			<tr class="ui inverted center aligned table f k r">
+				<th>Fow</th>
+				<th>Mid</th>
+				<th>Def</th>
+				<th>Gk</th>
+			</tr>
 		</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="player" items="${list}">
 			<tr>
-				<td style="width:10%"><img src="${path}/image.ll?role=Player&img=profile&name=${player.name}" height="50px" width="75px"></td>
-				<td style="width:30%"><a href="${path}/fifa/player.ll?name=${player.name}">${player.name}</a></td>
+				<td style="width:10%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&img=profile&name=${player.name}"></a></td>
+				<td style="width:30%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}">${player.name}</a></td>
 				<td style="width:15%">${player.fovr}</td>
 				<td style="width:15%">${player.movr}</td>
 				<td style="width:15%">${player.dovr}</td>
