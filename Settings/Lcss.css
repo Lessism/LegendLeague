@@ -8,6 +8,12 @@
 .f.k.r {
 	font-family:'Noto Serif KR', serif;
 }
+a.link {
+	color:black;
+}
+a.link:hover {
+	border-bottom:1px solid black;
+}
 .absolute.left {
 	position:absolute;
 	left:10px;
@@ -58,4 +64,7 @@ input[type="text"].l.inp[readonly='readonly'] {
 div.ui.search.action.labeled.input {
 	width:50%;
 	padding:10px;
+}
+.ui.action.input input[type="file"] {
+	display:none;
 }
