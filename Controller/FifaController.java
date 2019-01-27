@@ -107,7 +107,7 @@ public class FifaController {
 		
 //	클럽 리스트
 		
-		@RequestMapping(value="/list_club.ll")
+		@RequestMapping(value="list_club.ll")
 		public ModelAndView listClub() {
 			
 			return new ModelAndView("fifa/list_club", "list", fDAO.listClub());
@@ -116,23 +116,45 @@ public class FifaController {
 		
 //	감독 리스트
 		
-		@RequestMapping(value="/list_manager.ll")
+		@RequestMapping(value="list_manager.ll")
 		public ModelAndView listManager() {
 			
 			return new ModelAndView("fifa/list_manager", "list", fDAO.listManager());
 		}
 			
 			
-//	클럽 리스트
+//	선수 리스트
 	
-		@RequestMapping(value="/list_player.ll")
+		@RequestMapping(value="list_player.ll")
 		public ModelAndView listPlayer() {
 			
 			return new ModelAndView("fifa/list_player", "list", fDAO.listPlayer());
 		}
 		
 		
+//	구단 정보
+		
+		@RequestMapping(value="club.ll")
+		public ModelAndView infoClub(@RequestParam Map<String, Object> map) {
+			
+			return new ModelAndView("fifa/club", "info", fDAO.infoClub(map));
+		}
+
+		
+//	감독 정보
+			
+		@RequestMapping(value="manager.ll")
+		public ModelAndView infoManager(@RequestParam Map<String, Object> map) {
+			
+			return new ModelAndView("fifa/manager", "info", fDAO.infoManager(map));
+		}
 		
 		
+//	선수 정보
 		
+		@RequestMapping(value="player.ll")
+		public ModelAndView infoPlayer(@RequestParam Map<String, Object> map) {
+			
+			return new ModelAndView("fifa/player", "info", fDAO.infoPlayer(map));
+		}
 }
