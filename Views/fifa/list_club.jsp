@@ -6,8 +6,7 @@
 	<table class="ui striped center aligned table">
 		<thead>
 		<tr class="ui inverted center aligned table f k r">
-			<th>엠블럼</th>
-			<th>클럽명</th>
+			<th colspan="2">클럽명</th>
 			<th>연고지</th>
 			<th>경기장</th>
 			<th>창단일자</th>
@@ -16,8 +15,8 @@
 		<tbody>
 		<c:forEach var="club" items="${list}">
 			<tr>
-				<td style="width:10%"><img src="${path}/image.ll?role=Club&img=emblem&name=${club.name}" height="50px" width="75px"></td>
-				<td style="width:40%"><a href="${path}/fifa/club.ll?name=${club.name}">${club.name}</a></td>
+				<td style="width:10%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${club.name}"></a></td>
+				<td style="width:40%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}">${club.name}</a></td>
 				<td style="width:30%">${club.stadium}</td>
 				<td style="width:10%">${club.anchorage}</td>
 				<td style="width:10%">${club.regdate}</td>
