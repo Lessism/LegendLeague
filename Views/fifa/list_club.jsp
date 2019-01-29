@@ -7,8 +7,8 @@
 		<thead>
 		<tr class="ui inverted center aligned table f k r">
 			<th colspan="2">클럽명</th>
-			<th>연고지</th>
 			<th>경기장</th>
+			<th>연고지</th>
 			<th>창단일자</th>
 		</tr>
 		</thead>

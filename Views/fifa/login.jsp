@@ -7,16 +7,16 @@
 		<div class="ui field">
 			<div class="ui labeled input">
 				<label class="ui basic label llab f k r" for="id">아이디</label>
-				<input type="text" name="id" id="id" placeholder="ID"/>
+				<input type="text" name="id" id="id" placeholder="ID">
 			</div>
 		</div>
 		<div class="ui field">
 			<div class="ui labeled input">
 				<label class="ui basic label llab f k r" for="pw">암호</label>
-				<input type="password" name="pw" id="pw" placeholder="Password"/>
+				<input type="password" name="pw" id="pw" placeholder="Password">
 			</div>
 		</div>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<hr>
 		<div class="ui center aligned container">
 			<input class="ui black button f k r" type="submit" value="로그인">
