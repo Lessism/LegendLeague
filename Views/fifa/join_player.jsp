@@ -57,26 +57,8 @@
 			</div>
 			<div class="ui field">
 				<div class="ui labeled input">
-					<label class="ui basic label llab f k r" for="fovr">F ovr</label>
-					<input type="text" name="fovr" id="fovr" placeholder="Forward Overall">
-				</div>
-			</div>
-			<div class="ui field">
-				<div class="ui labeled input">
-					<label class="ui basic label llab f k r" for="movr">M ovr</label>
-					<input type="text" name="movr" id="movr" placeholder="Midfielder Overall">
-				</div>
-			</div>
-			<div class="ui field">
-				<div class="ui labeled input">
-					<label class="ui basic label llab f k r" for="dovr">D ovr</label>
-					<input type="text" name="dovr" id="dovr" placeholder="Defender Overall">
-				</div>
-			</div>
-			<div class="ui field">
-				<div class="ui labeled input">
-					<label class="ui basic label llab f k r" for="govr">G ovr</label>
-					<input type="text" name="govr" id="govr" placeholder="Goalkeeper Overall">
+					<label class="ui basic label llab f k r" for="ovr">OVR</label>
+					<input type="text" name="ovr" id="ovr" placeholder="Overall">
 				</div>
 			</div>
 			<div class="ui field">

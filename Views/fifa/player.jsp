@@ -46,26 +46,8 @@
 			<div class="ui eight wide column">
 				<div class="ui field">
 					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="fovr">F ovr</label>
-						<input type="text" name="fovr" id="fovr" value="${info.fovr}" readonly>
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="movr">M ovr</label>
-						<input type="text" name="movr" id="movr" value="${info.movr}" readonly>
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="dovr">D ovr</label>
-						<input type="text" name="dovr" id="dovr" value="${info.dovr}" readonly>
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="govr">G ovr</label>
-						<input type="text" name="govr" id="govr" value="${info.govr}" readonly>
+						<label class="ui basic label llab f k r" for="ovr">OVR</label>
+						<input type="text" name="ovr" id="ovr" value="${info.ovr}" readonly>
 					</div>
 				</div>
 			</div>

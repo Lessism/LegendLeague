@@ -6,25 +6,16 @@
 	<table class="ui striped center aligned table">
 		<thead>
 		<tr class="ui inverted center aligned table f k r">
-			<th colspan="2" rowspan="2">선수명</th>
-			<th colspan="5">Overall</th>
-			<tr class="ui inverted center aligned table f k r">
-				<th>Fow</th>
-				<th>Mid</th>
-				<th>Def</th>
-				<th>Gk</th>
-			</tr>
+			<th colspan="2">선수명</th>
+			<th>Overall</th>
 		</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="player" items="${list}">
 			<tr>
 				<td style="width:10%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&img=profile&name=${player.name}"></a></td>
-				<td style="width:30%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}">${player.name}</a></td>
-				<td style="width:15%">${player.fovr}</td>
-				<td style="width:15%">${player.movr}</td>
-				<td style="width:15%">${player.dovr}</td>
-				<td style="width:15%">${player.govr}</td>
+				<td style="width:65%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}">${player.name}</a></td>
+				<td style="width:25%">${player.ovr}</td>
 			</tr>
 		</c:forEach>
 		</tbody>
