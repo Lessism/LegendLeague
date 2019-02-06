@@ -15,12 +15,12 @@
 					</thead>
 					<tbody class="roster">
 						<c:forEach begin="0" end="9" step="1" varStatus="idx">
-							<c:if test="${!empty roster.club[idx.index]}">
+							<c:if test="${!empty roster.roster[idx.index]}">
 								<tr>
 									<td style="width:10%"><input type="checkbox" class="addedchk"></td>
-									<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${roster.club[idx.index]}"></td>
+									<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${roster.roster[idx.index]}"></td>
 									<td class="addedclub" style="width:70%">
-										<input type="hidden" name="rosterlist" value="${roster.club[idx.index]}">${roster.club[idx.index]}
+										<input type="hidden" name="rosterlist" value="${roster.roster[idx.index]}">${roster.roster[idx.index]}
 									</td>
 								</tr>
 							</c:if>
