@@ -1,14 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<footer class="ui inverted vertical center aligned footer segment">
-	<h6 class="f k r">Legend League ver 0</h6>
-</footer>
-</div>
 <script>
 $(function(){
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	$(function() {
+	    $(document).ajaxSend(function(e, xhr, options) {
+	        xhr.setRequestHeader(header, token);
+	    });
+	});
+	
 	$('#logout').click(function(){
 		$('#logout_form').submit()
 	})
 })
+/*	
+	$('#progress').click(function(){
+		$('.ui.sidebar')
+		  .sidebar('setting', 'transition', 'overlay')
+		  .sidebar('toggle')
+	})
+ */
 </script>
 </body>
 </html>
