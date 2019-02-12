@@ -7,11 +7,10 @@
 <head>
 	<title>Legend League</title>
 	<meta charset="UTF-8">
-	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+	<meta id="csrf_token" name="csrf_token" content="${_csrf.token}">
+	<meta id="csrf_header" name="csrf_header" content="${_csrf.headerName}">
 	<link rel="stylesheet" href="${path}/resources/css/Lcss.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:500&amp;subset=korean" >
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:500&amp;subset=korean">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.0/semantic.min.css">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.0/semantic.min.js"></script>
@@ -25,12 +24,12 @@
 		<div class="ui inverted right menu">
 			<s:authorize access="isAnonymous()">
 				<a class="item" href="${path}/fifa/login.ll">Login</a>
-				<a class="item" href="${path}/fifa/join_select.ll">Join</a>
+				<a class="item" href="${path}/fifa/join.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
 				<form id="logout_form" method="post" action="${path}/fifa/logout.ll">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<a class="item" id="logout">Logout</a>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 				<a class="item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
 			</s:authorize>

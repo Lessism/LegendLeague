@@ -2,18 +2,14 @@
 <script>
 $(function(){
 	
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	
-	$(function() {
-	    $(document).ajaxSend(function(e, xhr, options) {
-	        xhr.setRequestHeader(header, token);
-	    });
-	});
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader($("meta[name='csrf_header']").attr("content"), $("meta[name='csrf_token']").attr("content"))
+	})
 	
 	$('#logout').click(function(){
 		$('#logout_form').submit()
 	})
+	
 })
 /*	
 	$('#progress').click(function(){
