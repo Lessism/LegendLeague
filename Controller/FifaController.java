@@ -1,11 +1,14 @@
 package com.lessism.legendleague.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,29 +29,22 @@ public class FifaController {
 	
 //	로그인
 	
-		@RequestMapping(value="login.ll", method=RequestMethod.GET)
+		@RequestMapping("login.ll")
 		public String login() {
-			
 			return "fifa/login";
 		}
 		
 		
 //	가입 유형
 	
-		@RequestMapping(value="join_select.ll")
-		public String joinSelect() {
-			
-			return "fifa/join_select";
+		@RequestMapping("join.ll")
+		public String join() {
+			return "fifa/join";
 		}
 		
 		
-//	구단 가입
+//	구단 생성
 		
-		@RequestMapping(value="join_club.ll", method=RequestMethod.GET)
-		public String joinClub() {
-			
-			return "fifa/join_club";
-		}
 		
 		@RequestMapping(value="join_club.ll", method=RequestMethod.POST)
 		public String joinClub(
@@ -65,12 +61,7 @@ public class FifaController {
 	
 //	감독 생성
 	
-		@RequestMapping(value="join_manager.ll", method=RequestMethod.GET)
-		public String joinManager() {
-			
-			return "fifa/join_manager";
-		}
-		
+
 		@RequestMapping(value="join_manager.ll", method=RequestMethod.POST)
 		public String joinManager(
 				@RequestParam Map<String, Object> map,
@@ -86,11 +77,6 @@ public class FifaController {
 		
 //	선수 생성
 		
-		@RequestMapping(value="join_player.ll", method=RequestMethod.GET)
-		public String joinPlayer() {
-			
-			return "fifa/join_player";
-		}
 		
 		@RequestMapping(value="join_player.ll", method=RequestMethod.POST)
 		public String joinPlayer(
@@ -153,8 +139,34 @@ public class FifaController {
 //	선수 정보
 		
 		@RequestMapping(value="player.ll")
-		public ModelAndView infoPlayer(@RequestParam Map<String, Object> map) {
+		public ModelAndView infoPlayer(@RequestParam Map<String, Object> map) throws UnsupportedEncodingException {
 			
 			return new ModelAndView("fifa/player", "info", fDAO.infoPlayer(map));
+		}
+		
+		
+//	리그 로스터
+		
+		@RequestMapping(value="league_roster.ll", method=RequestMethod.GET)
+		public String leagueRoster(Model model) {
+			
+			List<Map<String, Object>> clublist = fDAO.listClub();
+			Map<String, Object> roster = fDAO.infoLeague();
+			if(roster.get("roster") != null) {
+				roster.replace("roster", roster.get("roster").toString().split(","));
+			}
+			
+			model.addAttribute("roster", roster);
+			model.addAttribute("list", clublist);
+			
+			return "fifa/league_roster";
+		}
+		
+		@RequestMapping(value="league_roster.ll", method=RequestMethod.POST)
+		public String leagueRoster(@RequestParam(value="rosterlist", required=false) String rosterlist) {
+			
+			fDAO.updateRoster(rosterlist);
+			
+			return "redirect:/";
 		}
 }
