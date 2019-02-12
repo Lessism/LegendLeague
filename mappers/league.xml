@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="League">
+
+
+<!--	현재 시즌		-->
+
+	<select id="season" resultType="map">
+		
+		SELECT
+			*
+		FROM
+			Season
+		WHERE
+			(
+				SELECT
+					MAX(season)
+				FROM
+					Season
+			);
+		
+	</select>
+	
+	
+<!--	Free Season		-->
+
+	<select id="info_roster" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Club
+		WHERE
+			roster = 1
+		ORDER BY
+			ovr DESC
+			
+	</select>
+
+
+<!--	Key Player		-->
+
+	<select id="keyplayer" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Player
+		WHERE
+			club = 'Free'
+		ORDER BY
+			ovr DESC
+		LIMIT
+			1
+			
+	</select>
+	
+<!-- 		SELECT
+			name
+		FROM
+			Player
+		where
+			ovr = (
+			    SELECT
+					max(ovr)
+				FROM
+					Player
+				where
+			    	club = 'Free'
+			) -->
+	
+<!-- 	시즌 정보	 -->
+
+	<select id="info_season" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Season
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	라운드 생성		-->
+
+	<insert id="insert_round" parameterType="map">
+	
+		INSERT
+			INTO Round (
+				round,
+				versus
+			)
+			VALUES (
+				#{round},
+				#{versus}
+			)
+	
+	</insert>
+	
+	
+<!--	라운드 업데이트		-->
+
+	<update id="update_round" parameterType="map">
+		
+		UPDATE
+			Season
+		SET
+			round = #{round}
+		WHERE
+			season = #{season}
+		
+	</update>
+	
+	
+<!-- 	라운드 정보	 -->
+
+	<select id="info_round" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Round
+		WHERE
+			round = #{round}
+			
+	</select>	
+</mapper>

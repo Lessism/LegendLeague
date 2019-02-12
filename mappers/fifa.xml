@@ -115,10 +115,7 @@
 				birth,
 				height,
 				weight,
-				fovr,
-				movr,
-				dovr,
-				govr
+				ovr
 			)
 			VALUES (
 				#{name},
@@ -127,10 +124,7 @@
 				#{birth},
 				#{height},
 				#{weight},
-				#{fovr},
-				#{movr},
-				#{dovr},
-				#{govr}
+				#{ovr}
 			)
 			
 	</insert>
@@ -144,7 +138,7 @@
 			name,
 			stadium,
 			anchorage,
-			regdate
+			DATE_FORMAT(regdate, '%Y-%m-%d') regdate
 		FROM
 			Club
 		ORDER BY
@@ -158,9 +152,7 @@
 	<select id="listmanager" resultType="map">
 	
 		SELECT
-			name,
-			ovr,
-			tactic
+			*
 		FROM
 			Manager
 		ORDER BY
@@ -174,15 +166,11 @@
 	<select id="listplayer" resultType="map">
 	
 		SELECT
-			name,
-			fovr,
-			movr,
-			dovr,
-			govr
+			*
 		FROM
 			Player
 		ORDER BY
-			fovr DESC
+			ovr DESC
 			
 	</select>
 	
@@ -192,10 +180,7 @@
 	<select id="infoclub" parameterType="map" resultType="map">
 	
 		SELECT
-			name,
-			anchorage,
-			stadium,
-			regdate
+			*
 		FROM
 			Club
 		WHERE
@@ -230,14 +215,12 @@
 	
 		SELECT
 			name,
+			profile,
 			country,
 			birth,
 			height,
 			weight,
-			fovr,
-			movr,
-			dovr,
-			govr,
+			ovr,
 			history,
 			club
 		FROM
@@ -248,5 +231,50 @@
 	</select>
 	
 	
+<!-- 	리그 로스터	 -->
+
+	<select id="infoleague" resultType="map">
 	
+		SELECT
+			*
+		FROM
+			League
+	
+	</select>
+	
+	
+<!-- 	로스터 등록	 -->
+
+	<update id="updateroster" parameterType="String">
+	
+		UPDATE
+			League
+		SET
+			roster = #{rosterlist}
+		WHERE
+			name = 'Legend League'
+		
+	</update>
+	
+	
+<!-- 	로스터  등록 클럽	 -->
+
+	<update id="updaterosterclubclear">
+	
+		UPDATE
+			Club
+		SET
+			roster = 0
+		
+	</update>
+	<update id="updaterosterclub" parameterType="String">
+	
+		UPDATE
+			Club
+		SET
+			roster = 1
+		WHERE
+			name = #{rosterlist}
+		
+	</update>
 </mapper>
