@@ -27,7 +27,7 @@ public class FifaController {
 	private BCryptPasswordEncoder pw;
 	
 	
-//	로그인
+//	Login
 	
 		@RequestMapping("login.ll")
 		public String login() {
@@ -35,27 +35,28 @@ public class FifaController {
 		}
 		
 		
-//	가입 유형
+//	Join
 	
-		@RequestMapping("join.ll")
+		@RequestMapping(value="join.ll", method=RequestMethod.GET)
 		public String join() {
 			return "fifa/join";
 		}
 		
-		
-//	구단 생성
-		
-		
-		@RequestMapping(value="join_club.ll", method=RequestMethod.POST)
-		public String joinClub(
+		@RequestMapping(value="join.ll", method=RequestMethod.POST)
+		public String join(
 				@RequestParam Map<String, Object> map,
-				MultipartHttpServletRequest img) throws IOException {
+				MultipartHttpServletRequest img
+				) throws IOException {
 			
 			map.replace("pw", pw.encode((String)map.get("pw")));
-			map.put("emblem", img.getFile("emblem").getBytes());
-			fDAO.insertClub(map);
+			map.put("img", img.getFile("img").getBytes());
+			if (img.getFile("img1") != null) {
+				map.put("img1", img.getFile("img1").getBytes());
+			}
 			
-			return "redirect:/";
+			fDAO.insertJoin(map);
+			
+			return "redirect:login.ll";
 		}
 		
 	
