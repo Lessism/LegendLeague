@@ -4,7 +4,21 @@
 <mapper namespace="FIFA">
 
 
-<!-- 	로그인	 -->
+<!-- 	Image Convert	 -->
+
+	<select id="image_convert" parameterType="int" resultType="_byte[]">
+	
+		SELECT
+			img
+		FROM
+			Image
+		WHERE
+			img_no = #{no}
+			
+	</select>
+	
+	
+<!-- 	Login	 -->
 
 	<select id="login" parameterType="String" resultType="map">
 	
@@ -18,23 +32,9 @@
 	</select>
 	
 	
-<!-- 	이미지 셀렉트	 -->
+<!-- 	Join	 -->
 
-	<select id="selectimg" parameterType="String" resultType="map">
-	
-		SELECT
-			${img}
-		FROM
-			${role}
-		WHERE
-			name = #{name}
-			
-	</select>
-	
-	
-<!-- 	피파 등록	 -->
-
-	<insert id="insertfifa" parameterType="map">
+	<insert id="join" parameterType="map">
 	
 		INSERT
 			INTO FIFA (
@@ -48,8 +48,49 @@
 				#{pw},
 				#{name},
 				#{role}
-			)
+			);
+			
+		<if test="role == 'Club'">
+			
+			INSERT
+				INTO Image (
+					img
+				)
+				VALUES (
+					#{img1}
+				);
+			INSERT
+				INTO Stadium (
+					std_name,
+					std_img
+				)
+				VALUES (
+					#{stadium},
+					LAST_INSERT_ID()
+				);
+			INSERT
+				INTO Image (
+					img
+				)
+				VALUES (
+					#{img}
+				);
+			INSERT
+				INTO Club (
+					name,
+					emblem,
+					anchorage,
+					stadium
+				)
+				VALUES (
+					#{name},
+					LAST_INSERT_ID(),
+					#{anchorage},
+					#{stadium}
+				);
 				
+		</if>
+		
 	</insert>
 	
 	
@@ -137,6 +178,7 @@
 		SELECT
 			name,
 			stadium,
+			emblem,
 			anchorage,
 			DATE_FORMAT(regdate, '%Y-%m-%d') regdate
 		FROM
