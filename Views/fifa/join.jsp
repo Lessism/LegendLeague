@@ -17,7 +17,7 @@
 </c:if>
 <c:if test="${!empty param.Role}">
 	<section class="ui black segment container">
-		<form class="ui form" method="post" action="${path}/fifa/join.ll" enctype="multipart/form-data">
+		<form class="ui form" method="post" action="${path}/fifa/join.ll?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 			<div>
 				<h1 class="ui center aligned header f k r">
 					<c:if test="${param.Role eq 'Club'}">구단 생성</c:if>
@@ -40,7 +40,6 @@
 					</div>
 				</div>
 				<input type="hidden" name="role" value="${param.Role}">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</div>
 			<hr>
 	<c:if test="${param.Role eq 'Club'}">
@@ -52,8 +51,8 @@
 						<a class="tabular item" data-tab="stadium">Stadium</a>
 					</div>
 					<div class="ui bottom attached tab segment active" data-tab="club">
-						<div><img class="ui rounded fluid image" id="club_emblem_view" src="${path}/image.ll?role=Club&img=emblem&name=Barcelona"></div>
-						<div class="ui center aligned header f k r" id="club_name_view">Club</div>
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?role=Club&img=emblem&name=Barcelona"></div>
+						<div class="ui center aligned header f k r" id="name_view">Club</div>
 					</div>
 					<div class="ui bottom attached tab segment" data-tab="stadium">
 						<div><img class="ui rounded fluid image" id="stadium_img_view" src="${path}/image.ll?role=Club&img=emblem&name=Barcelona"></div>
@@ -73,7 +72,7 @@
 							<label class="ui basic label llab f k r" for="emblem">엠블럼</label>
 							<div class="ui action input">
 								<input type="text" placeholder="Emblem" readonly>
-								<input type="file" accept="image/*" name="emblem" id="emblem">
+								<input type="file" accept="image/*" name="img" id="emblem">
 								<div class="ui icon button">
 									<i class="attach icon"></i>
 								</div>
@@ -92,7 +91,7 @@
 							<label class="ui basic label llab f k r" for="stadium_img">구장 전경</label>
 							<div class="ui action input">
 								<input type="text" placeholder="Stadium Image" readonly>
-								<input type="file" accept="image/*" name="stadium_img" id="stadium_img">
+								<input type="file" accept="image/*" name="img1" id="stadium_img">
 								<div class="ui icon button">
 									<i class="attach icon"></i>
 								</div>
@@ -109,60 +108,73 @@
 			</div>
 	</c:if>
 	<c:if test="${param.Role eq 'Manager'}">
-			<div>
-				<h3 class="ui header f k r">세부정보</h3>
-				<div class="ui field">
-					<div class="ui labeled input field">
-						<label class="ui basic label llab f k r" for="name">감독명</label>
-						<input type="text" name="name" id="name" placeholder="Manager Name">
-						<label class="ui left pointing basic label llab chk"></label>
+			<h3 class="ui header f k r">세부정보</h3>
+			<div class="ui grid">
+				<div class="ui six wide column">
+					<div>
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=14"></div>
+						<div class="ui center aligned header f k r" id="name_view">Manager</div>
 					</div>
 				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="country">국적</label>
-						<input type="text" name="country" id="country" placeholder="Country">
+				<div class="ui ten wide column">
+					<div class="ui field">
+						<div class="ui labeled input field">
+							<label class="ui basic label llab f k r" for="name">감독명</label>
+							<input type="text" name="name" id="name" placeholder="Manager Name">
+							<label class="ui left pointing basic label llab chk"></label>
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="birth">생년월일</label>
-						<input type="date" name="birth" id="birth" placeholder="Birth">
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="height">키</label>
-						<input type="text" name="height" id="height" placeholder="Height">
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="weight">몸무게</label>
-						<input type="text" name="weight" id="weight" placeholder="Weight">
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="ovr">OVR</label>
-						<input type="text" name="ovr" id="ovr" placeholder="Overall">
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="tactic">전술</label>
-						<input type="text" name="tactic" id="tactic" placeholder="Tactic">
-					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="profile">프로필</label>
-						<div class="ui action input">
-							<input type="text" placeholder="Profile" readonly>
-							<input type="file" accept="image/*" name="profile" id="profile">
-							<div class="ui icon button">
-								<i class="attach icon"></i>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="profile">프로필</label>
+							<div class="ui action input">
+								<input type="text" placeholder="Profile" readonly>
+								<input type="file" accept="image/*" name="img" id="profile">
+								<div class="ui icon button">
+									<i class="attach icon"></i>
+								</div>
 							</div>
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="country">국적</label>
+							<div class="ui fluid search selection dropdown">
+						  		<input type="hidden" name="country">
+								<div class="default text">Country</div>
+									<i class="dropdown icon"></i>
+									<div class="menu"><c:import url="../include/country.jsp"/></div>
+							</div>
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="birth">생년월일</label>
+							<input type="date" name="birth" id="birth" placeholder="Birth">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="height">키</label>
+							<input type="text" name="height" id="height" placeholder="Height">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="weight">몸무게</label>
+							<input type="text" name="weight" id="weight" placeholder="Weight">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="ovr">OVR</label>
+							<input type="text" name="ovr" id="ovr" placeholder="Overall">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="tactic">전술</label>
+							<input type="text" name="tactic" id="tactic" placeholder="Tactic">
 						</div>
 					</div>
 				</div>
@@ -224,6 +236,7 @@
 	</c:if>
 			<hr>
 			<div class="ui center aligned container">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<input class="ui black button f k r" type="submit" value="가입">
 				<a class="ui button f k r" href="${path}/fifa/join.ll">취소</a>
 			</div>
@@ -234,6 +247,8 @@
 
 	$('.tabular.item').tab()
 	
+	$('.fluid.search.selection.dropdown').dropdown()
+  
 	$("input:text").click(function() {
 		$(this).parent().find("input:file").click()
 	})
@@ -244,10 +259,10 @@
 		var fileReader = new FileReader()
 		fileReader.readAsDataURL(e.target.files[0])
 		fileReader.onload = function(e) {
-			if (img == 'emblem'){
-				$('#club_emblem_view').attr('src', e.target.result)
+			if (img == 'img'){
+				$('#img_view').attr('src', e.target.result)
 			}
-			if (img == 'stadium_img'){
+			if (img == 'img1'){
 				$('#stadium_img_view').attr('src', e.target.result)
 			}
 		}
@@ -255,7 +270,7 @@
 	
 	$('#name, #stadium').keyup(function(){
 		if ($(this).attr('name') == 'name'){
-			$('#club_name_view').text($(this).val())
+			$('#name_view').text($(this).val())
 		}
 		if ($(this).attr('name') == 'stadium'){
 			$('#stadium_name_view').text($(this).val())
