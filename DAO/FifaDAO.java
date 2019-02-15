@@ -25,7 +25,7 @@ public class FifaDAO {
 	
 //	Join
 	
-		public int insertJoin(Map<String, Object> map) {
+		public int join(Map<String, Object> map) {
 			return db.insert("FIFA.join", map);
 		}
 	
