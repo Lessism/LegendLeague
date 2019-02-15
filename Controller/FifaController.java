@@ -53,8 +53,7 @@ public class FifaController {
 			if (img.getFile("img1") != null) {
 				map.put("img1", img.getFile("img1").getBytes());
 			}
-			
-			fDAO.insertJoin(map);
+			fDAO.join(map);
 			
 			return "redirect:login.ll";
 		}
