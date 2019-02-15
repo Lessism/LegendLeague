@@ -130,7 +130,7 @@
 							<div class="ui action input">
 								<input type="text" placeholder="Profile" readonly>
 								<input type="file" accept="image/*" name="img" id="profile">
-								<div class="ui icon button">
+								<div class="ui basic icon button">
 									<i class="attach icon"></i>
 								</div>
 							</div>
@@ -140,23 +140,28 @@
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="country">국적</label>
 							<div class="ui fluid search selection dropdown">
-						  		<input type="hidden" name="country">
+						  		<input type="hidden" name="country" value="ax">
 								<div class="default text">Country</div>
-									<i class="dropdown icon"></i>
-									<div class="menu"><c:import url="../include/country.jsp"/></div>
+								<i class="dropdown icon"></i>
+								<div class="menu">
+									<c:import url="../include/country.jsp"/>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="ui field">
-						<div class="ui labeled input">
+						<div class="ui labeled icon input calendar">
 							<label class="ui basic label llab f k r" for="birth">생년월일</label>
-							<input type="date" name="birth" id="birth" placeholder="Birth">
+							<input type="text" name="birth" id="birth" placeholder="Birth">
+							<i class="calendar alternate outline icon"></i>
 						</div>
 					</div>
+					
 					<div class="ui field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="height">키</label>
 							<input type="text" name="height" id="height" placeholder="Height">
+							
 						</div>
 					</div>
 					<div class="ui field">
@@ -174,7 +179,16 @@
 					<div class="ui field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="tactic">전술</label>
-							<input type="text" name="tactic" id="tactic" placeholder="Tactic">
+							<div class="ui fluid search selection dropdown">
+						  		<input type="hidden" name="tactic" id="tactic">
+								<div class="default text">Tactic</div>
+								<i class="dropdown icon"></i>
+								<div class="menu">
+									<div class="item">4-3-3</div>
+									<div class="item">4-4-2</div>
+									<div class="item">4-5-1</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -243,13 +257,16 @@
 		</form>
 	</section>
 </c:if>
+<script src="${path}/resources/js/calendar.js"></script>
 <script>
 
 	$('.tabular.item').tab()
-	
 	$('.fluid.search.selection.dropdown').dropdown()
-  
-	$("input:text").click(function() {
+	$('.labeled.input.calendar').calendar({
+		type: 'date'
+	})
+	
+	$("input:text, .basic.icon.button").click(function() {
 		$(this).parent().find("input:file").click()
 	})
 	
