@@ -42,7 +42,7 @@
 				<input type="hidden" name="role" value="${param.Role}">
 			</div>
 			<hr>
-	<c:if test="${param.Role eq 'Club'}">
+		<c:if test="${param.Role eq 'Club'}">
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
@@ -106,8 +106,8 @@
 					</div>
 				</div>
 			</div>
-	</c:if>
-	<c:if test="${param.Role eq 'Manager'}">
+		</c:if>
+		<c:if test="${param.Role eq 'Manager'}">
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
@@ -156,7 +156,6 @@
 							<i class="calendar alternate outline icon"></i>
 						</div>
 					</div>
-					
 					<div class="ui field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="height">키</label>
@@ -193,61 +192,118 @@
 					</div>
 				</div>
 			</div>
-	</c:if>
-	<c:if test="${param.Role eq 'Player'}">
-			<div>
-				<h3 class="ui header f k r">세부정보</h3>
-				<div class="ui field">
-					<div class="ui labeled input field">
-						<label class="ui basic label llab f k r" for="name">선수명</label>
-						<input type="text" name="name" id="name" placeholder="Player Name">
-						<label class="ui left pointing basic label llab chk"></label>
+		</c:if>
+		<c:if test="${param.Role eq 'Player'}">
+			<h3 class="ui header f k r">세부정보</h3>
+			<div class="ui grid">
+				<div class="ui six wide column">
+					<div>
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=14"></div>
+						<div class="ui center aligned header f k r" id="name_view">Player</div>
 					</div>
 				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="country">국적</label>
-						<input type="text" name="country" id="country" placeholder="Country">
+				<div class="ui ten wide column">
+					<div class="ui field">
+						<div class="ui labeled input field">
+							<label class="ui basic label llab f k r" for="name">선수명</label>
+							<input type="text" name="name" id="name" placeholder="Manager Name">
+							<label class="ui left pointing basic label llab chk"></label>
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="birth">생년월일</label>
-						<input type="date" name="birth" id="birth" placeholder="Birth">
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="profile">프로필</label>
+							<div class="ui action input">
+								<input type="text" placeholder="Profile" readonly>
+								<input type="file" accept="image/*" name="img" id="profile">
+								<div class="ui basic icon button">
+									<i class="attach icon"></i>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="height">키</label>
-						<input type="text" name="height" id="height" placeholder="Height">
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="country">국적</label>
+							<div class="ui fluid search selection dropdown">
+						  		<input type="hidden" name="country">
+								<div class="default text">Country</div>
+								<i class="dropdown icon"></i>
+								<div class="menu">
+									<%-- <c:import url="../include/country.jsp"/> --%>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="weight">몸무게</label>
-						<input type="text" name="weight" id="weight" placeholder="Weight">
+					<div class="ui field">
+						<div class="ui labeled icon input calendar">
+							<label class="ui basic label llab f k r" for="birth">생년월일</label>
+							<input type="text" name="birth" id="birth" placeholder="Birth">
+							<i class="calendar alternate outline icon"></i>
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="ovr">OVR</label>
-						<input type="text" name="ovr" id="ovr" placeholder="Overall">
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="height">키</label>
+							<input type="text" name="height" id="height" placeholder="Height">
+							
+						</div>
 					</div>
-				</div>
-				<div class="ui field">
-					<div class="ui labeled input">
-						<label class="ui basic label llab f k r" for="profile">프로필</label>
-						<div class="ui action input">
-							<input type="text" placeholder="Profile" readonly>
-							<input type="file" accept="image/*" name="profile" id="profile">
-							<div class="ui icon button">
-								<i class="attach icon"></i>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="weight">몸무게</label>
+							<input type="text" name="weight" id="weight" placeholder="Weight">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="ovr">OVR</label>
+							<input type="text" name="ovr" id="ovr" placeholder="Overall">
+						</div>
+					</div>
+					<div class="ui field">
+						<div class="ui labeled input">
+							<label class="ui basic label llab f k r" for="position">포지션</label>
+							<div class="ui fluid dropdown">
+								<input type="hidden" name="position">
+								<div class="default text">Position</div>
+								<i class="dropdown icon"></i>
+								<div class="ui menu">
+									<div class="ui item">
+										<i class="dropdown icon"></i>
+										<span class="text">Forward</span>
+										<div class="ui menu">
+											<div class="item">Striker</div>
+											<div class="item">Center Foward</div>
+											<div class="item">Wing Foward</div>
+										</div>
+									</div>
+									<div class="item">
+										<i class="dropdown icon"></i>
+										<span class="text">Midfielder</span>
+										<div class="ui menu">
+											<div class="item">Center Midfielder</div>
+											<div class="item">Defensive Midfielder</div>
+											<div class="item">Attacking Midfielder</div>
+											<div class="item">Wing Midfielder</div>
+										</div>
+									</div>
+									<div class="item">
+										<i class="dropdown icon"></i>
+										<span class="text">Defender</span>
+										<div class="ui menu">
+											<div class="item">Centerback</div>
+											<div class="item">Wingback</div>
+										</div>
+									</div>
+									<div class="item">Goalkeeper</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-	</c:if>
+		</c:if>
 			<hr>
 			<div class="ui center aligned container">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -261,7 +317,10 @@
 <script>
 
 	$('.tabular.item').tab()
-	$('.fluid.search.selection.dropdown').dropdown()
+	$('.dropdown').dropdown()
+	$('#type').dropdown({
+		on: 'hover'
+	})
 	$('.labeled.input.calendar').calendar({
 		type: 'date'
 	})
