@@ -63,10 +63,12 @@
 			INSERT
 				INTO Stadium (
 					std_name,
+					std_owner,
 					std_img
 				)
 				VALUES (
 					#{stadium},
+					#{name},
 					LAST_INSERT_ID()
 				);
 				
@@ -125,57 +127,39 @@
 				)
 				
 		</if>
+		<if test="role == 'Player'">
 		
-	</insert>
-	
-	
-<!--	구단 생성	  -->
-
-	<insert id="insertclub" parameterType="map">
-	
-		INSERT
-			INTO Club (
-				name,
-				emblem,
-				anchorage,
-				stadium
-			)
-			VALUES (
-				#{name},
-				#{emblem},
-				#{anchorage},
-				#{stadium}
-			)
-			
-	</insert>
-	
-	
-<!--	감독 생성	  -->
-
-	<insert id="insertmanager" parameterType="map">
-	
-		INSERT
-			INTO Manager (
-				name,
-				profile,
-				country,
-				birth,
-				height,
-				weight,
-				ovr,
-				tactic
-			)
-			VALUES (
-				#{name},
-				#{profile},
-				#{country},
-				#{birth},
-				#{height},
-				#{weight},
-				#{ovr},
-				#{tactic}
-			)
-			
+			INSERT
+				INTO Image (
+					img
+				)
+				VALUES (
+					#{img}
+				);
+			INSERT
+				INTO Player (
+					name,
+					profile,
+					country,
+					birth,
+					height,
+					weight,
+					ovr,
+					position
+				)
+				VALUES (
+					#{name},
+					LAST_INSERT_ID(),
+					#{country},
+					#{birth},
+					#{height},
+					#{weight},
+					#{ovr},
+					#{position}
+				)
+		
+		</if>
+		
 	</insert>
 	
 	
