@@ -59,38 +59,6 @@ public class FifaController {
 		}
 		
 	
-//	감독 생성
-	
-
-		@RequestMapping(value="join_manager.ll", method=RequestMethod.POST)
-		public String joinManager(
-				@RequestParam Map<String, Object> map,
-				MultipartHttpServletRequest img) throws IOException {
-			
-			map.replace("pw", pw.encode((String)map.get("pw")));
-			map.put("profile", img.getFile("profile").getBytes());
-			fDAO.insertManager(map);
-			
-			return "redirect:/";
-		}
-		
-		
-//	선수 생성
-		
-		
-		@RequestMapping(value="join_player.ll", method=RequestMethod.POST)
-		public String joinPlayer(
-				@RequestParam Map<String, Object> map,
-				MultipartHttpServletRequest img) throws IOException {
-			
-			map.replace("pw", pw.encode((String)map.get("pw")));
-			map.put("profile", img.getFile("profile").getBytes());
-			fDAO.insertPlayer(map);
-			
-			return "redirect:/";
-		}
-		
-		
 //	클럽 리스트
 		
 		@RequestMapping(value="list_club.ll")
