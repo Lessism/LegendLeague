@@ -30,26 +30,6 @@ public class FifaDAO {
 		}
 	
 	
-//	감독 생성
-	
-	public int insertManager(Map<String, Object> map) {
-		
-		db.insert("FIFA.insertfifa", map);
-		
-		return db.insert("FIFA.insertmanager", map);
-	}
-	
-	
-//	선수 생성
-	
-	public int insertPlayer(Map<String, Object> map) {
-		
-		db.insert("FIFA.insertfifa", map);
-		
-		return db.insert("FIFA.insertplayer", map);
-	}
-	
-	
 //	클럽 리스트
 	
 	public List<Map<String, Object>> listClub() {
