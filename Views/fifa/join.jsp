@@ -4,13 +4,28 @@
 	<section class="ui black segment container">
 		<div class="ui three column grid">
 			<div class="column">
-				<a href="${path}/fifa/join.ll?Role=Club">구단 생성</a>
+				<div class="ui segment">
+					<a href="${path}/fifa/join.ll?Role=Club">
+					<span><img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=1"></span>
+					<span class="ui header segment f k r" style="text-align:center; display:block;">구단 생성</span>
+					</a>
+				</div>
 			</div>
 			<div class="column">
-				<a href="${path}/fifa/join.ll?Role=Manager">감독 생성</a>
+				<div class="ui segment">
+					<a href="${path}/fifa/join.ll?Role=Manager">
+						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=2">
+						<span class="ui header segment f k r" style="text-align:center; display:block;">감독 생성</span>
+					</a>
+				</div>
 			</div>
 			<div class="column">
-				<a href="${path}/fifa/join.ll?Role=Player">선수 생성</a>
+				<div class="ui segment">
+					<a href="${path}/fifa/join.ll?Role=Player">
+						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=3">
+						<span class="ui header segment f k r" style="text-align:center; display:block;">선수 생성</span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -51,11 +66,11 @@
 						<a class="tabular item" data-tab="stadium">Stadium</a>
 					</div>
 					<div class="ui bottom attached tab segment active" data-tab="club">
-						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?role=Club&img=emblem&name=Barcelona"></div>
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=1"></div>
 						<div class="ui center aligned header f k r" id="name_view">Club</div>
 					</div>
 					<div class="ui bottom attached tab segment" data-tab="stadium">
-						<div><img class="ui rounded fluid image" id="stadium_img_view" src="${path}/image.ll?role=Club&img=emblem&name=Barcelona"></div>
+						<div><img class="ui rounded fluid image" id="stadium_img_view" src="${path}/image.ll?img_no=1"></div>
 						<div class="ui center aligned header f k r" id="stadium_name_view">Stadium</div>
 					</div>
 				</div>
@@ -111,8 +126,8 @@
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
-					<div>
-						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=14"></div>
+					<div class="ui segment">
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=2"></div>
 						<div class="ui center aligned header f k r" id="name_view">Manager</div>
 					</div>
 				</div>
@@ -152,7 +167,7 @@
 					<div class="ui field">
 						<div class="ui labeled icon input calendar">
 							<label class="ui basic label llab f k r" for="birth">생년월일</label>
-							<input type="text" name="birth" id="birth" placeholder="Birth">
+							<input type="text" name="birth" id="birth" placeholder="Birth" autocomplete=off>
 							<i class="calendar alternate outline icon"></i>
 						</div>
 					</div>
@@ -197,8 +212,8 @@
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
-					<div>
-						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=14"></div>
+					<div class="ui segment">
+						<div><img class="ui rounded fluid image" id="img_view" src="${path}/image.ll?img_no=3"></div>
 						<div class="ui center aligned header f k r" id="name_view">Player</div>
 					</div>
 				</div>
@@ -230,7 +245,7 @@
 								<div class="default text">Country</div>
 								<i class="dropdown icon"></i>
 								<div class="menu">
-									<%-- <c:import url="../include/country.jsp"/> --%>
+									<c:import url="../include/country.jsp"/>
 								</div>
 							</div>
 						</div>
@@ -238,7 +253,7 @@
 					<div class="ui field">
 						<div class="ui labeled icon input calendar">
 							<label class="ui basic label llab f k r" for="birth">생년월일</label>
-							<input type="text" name="birth" id="birth" placeholder="Birth">
+							<input type="text" name="birth" id="birth" placeholder="Birth" autocomplete=off>
 							<i class="calendar alternate outline icon"></i>
 						</div>
 					</div>
@@ -264,39 +279,26 @@
 					<div class="ui field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="position">포지션</label>
-							<div class="ui fluid dropdown">
-								<input type="hidden" name="position">
+							<div class="ui fluid search selection dropdown">
+						  		<input type="hidden" name="position">
 								<div class="default text">Position</div>
 								<i class="dropdown icon"></i>
-								<div class="ui menu">
-									<div class="ui item">
-										<i class="dropdown icon"></i>
-										<span class="text">Forward</span>
-										<div class="ui menu">
-											<div class="item">Striker</div>
-											<div class="item">Center Foward</div>
-											<div class="item">Wing Foward</div>
-										</div>
-									</div>
-									<div class="item">
-										<i class="dropdown icon"></i>
-										<span class="text">Midfielder</span>
-										<div class="ui menu">
-											<div class="item">Center Midfielder</div>
-											<div class="item">Defensive Midfielder</div>
-											<div class="item">Attacking Midfielder</div>
-											<div class="item">Wing Midfielder</div>
-										</div>
-									</div>
-									<div class="item">
-										<i class="dropdown icon"></i>
-										<span class="text">Defender</span>
-										<div class="ui menu">
-											<div class="item">Centerback</div>
-											<div class="item">Wingback</div>
-										</div>
-									</div>
-									<div class="item">Goalkeeper</div>
+								<div class="menu">
+									<h3 class="ui header">Forward</h3>
+										<div class="ui divider"></div>
+										<div class="item" data-value="ST"><i class="dot circle outline red icon"></i>Striker</div>
+										<div class="item" data-value="CF"><i class="dot circle outline red icon"></i>Center Foward</div>
+										<div class="item" data-value="WF"><i class="dot circle outline red icon"></i>Wing Foward</div>
+									<h3 class="ui header">Midfielder</h3>
+										<div class="ui divider"></div>
+										<div class="item" data-value="CM"><i class="dot circle outline green icon"></i>Center Midfielder</div>
+										<div class="item" data-value="DM"><i class="dot circle outline green icon"></i>Defensive Midfielder</div>
+										<div class="item" data-value="AM"><i class="dot circle outline green icon"></i>Attacking Midfielder</div>
+										<div class="item" data-value="WM"><i class="dot circle outline green icon"></i>Wing Midfielder</div>
+									<h3 class="ui header">Defender</h3>
+										<div class="ui divider"></div>
+										<div class="item" data-value="CB"><i class="dot circle outline blue icon"></i>Centerback</div>
+										<div class="item" data-value="WB"><i class="dot circle outline blue icon"></i>Wingback</div>
 								</div>
 							</div>
 						</div>
