@@ -67,24 +67,6 @@ public class FifaController {
 		}
 		
 		
-//	감독 리스트
-		
-		@RequestMapping(value="list_manager.ll")
-		public ModelAndView listManager() {
-			
-			return new ModelAndView("fifa/list_manager", "list", fDAO.listManager());
-		}
-			
-			
-//	선수 리스트
-	
-		@RequestMapping(value="list_player.ll")
-		public ModelAndView listPlayer() {
-			
-			return new ModelAndView("fifa/list_player", "list", fDAO.listPlayer());
-		}
-		
-		
 //	구단 정보
 		
 		@RequestMapping(value="club.ll")
