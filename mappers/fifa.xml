@@ -163,75 +163,23 @@
 	</insert>
 	
 	
-<!--	선수 생성	  -->
-
-	<insert id="insertplayer" parameterType="map">
-	
-		INSERT
-			INTO Player (
-				name,
-				profile,
-				country,
-				birth,
-				height,
-				weight,
-				ovr
-			)
-			VALUES (
-				#{name},
-				#{profile},
-				#{country},
-				#{birth},
-				#{height},
-				#{weight},
-				#{ovr}
-			)
-			
-	</insert>
-	
-	
-<!--	 클럽 리스트		-->
-
-	<select id="listclub" resultType="map">
-	
-		SELECT
-			name,
-			stadium,
-			emblem,
-			anchorage,
-			DATE_FORMAT(regdate, '%Y-%m-%d') regdate
-		FROM
-			Club
-		ORDER BY
-			regdate ASC
-			
-	</select>
-	
-	
-<!--	 감독 리스트		-->
-
-	<select id="listmanager" resultType="map">
+<!--	 FIFA List		-->
+<!-- DATE_FORMAT(regdate, '%Y-%m-%d') regdate -->
+	<select id="list" parameterType="map" resultType="map">
 	
 		SELECT
 			*
 		FROM
-			Manager
-		ORDER BY
-			ovr DESC
+			${Role}
 			
-	</select>
-	
-	
-<!--	 선수 리스트		-->
-
-	<select id="listplayer" resultType="map">
-	
-		SELECT
-			*
-		FROM
-			Player
+			<if test="Role == null">
+			
+				Club
+				
+			</if>
+			
 		ORDER BY
-			ovr DESC
+			name ASC
 			
 	</select>
 	
