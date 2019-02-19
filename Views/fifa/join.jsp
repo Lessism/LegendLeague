@@ -319,10 +319,7 @@
 <script>
 
 	$('.tabular.item').tab()
-	$('.dropdown').dropdown()
-	$('#type').dropdown({
-		on: 'hover'
-	})
+	
 	$('.labeled.input.calendar').calendar({
 		type: 'date'
 	})
