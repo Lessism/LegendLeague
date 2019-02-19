@@ -8,6 +8,10 @@ $(function(){
 	
 	$('.dropdown').dropdown()
 	
+	$('#popup_fifa').popup({
+		hoverable  : true
+	})
+	
 	$('#logout').click(function(){
 		$('#logout_form').submit()
 	})
@@ -16,18 +20,9 @@ $(function(){
 		if ($('.nav.item').eq(i).attr('href') == window.location.pathname){
 			$('.nav.item').eq(i).addClass('active')
 		}
-		console.log($('.nav.item').eq(i).attr('href'))
 	}
 	
-	$('#popup').popup({
-	    inline     : true,
-	    hoverable  : true,
-	    position   : 'bottom left',
-	    delay: {
-	      show: 300,
-	      hide: 800
-	    }
-	  })
+	
 })
 </script>
 </body>

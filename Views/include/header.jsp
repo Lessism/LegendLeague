@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <div class="item" data-value="af"><i class="${f:toLowerCase('Afghanistan')} flag"></i>Afghanistan</div> --%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -24,53 +25,28 @@
 		<div class="ui inverted left menu">
 			<a class="ui inverted button" href="https://github.com/Lessism">Lessism</a>
 		</div>
-		<div class="ui inverted right menu">
+		<div class="ui inverted secondary pointing right menu">
 			<s:authorize access="isAnonymous()">
-				<a class="item" href="${path}/fifa/login.ll">Login</a>
-				<a class="item" href="${path}/fifa/join.ll">Join</a>
+				<a class="nav item" href="${path}/fifa/login.ll">Login</a>
+				<a class="nav item" href="${path}/fifa/join.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
 				<form id="logout_form" method="post" action="${path}/fifa/logout.ll">
 					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
+				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
 			</s:authorize>
 		</div>
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
 		<a class="nav item" href="${path}/">League</a>
-		<div class="ui dropdown item">
-			FIFA
-			<i class="dropdown icon"></i>
-			<div class="menu">
-				<a class="nav item" href="${path}/fifa/fifa_list.ll">Club</a>
-				<a class="nav item" href="${path}">Manager</a>
-				<a class="nav item" href="${path}">Player</a>
-				<div class="divider"></div>
-				<div class="item">Stadium</div>
-			</div>
+		<a class="nav item" id="popup_fifa" href="${path}/fifa/list.ll">FIFA</a>
+		<div class="ui inverted flowing popup bottom left transition hidden">
+			<a class="item" href="${path}/fifa/list.ll?Role=Club"><i class="dot circle outline mini icon"></i>Club</a>
+			<a class="item" href="${path}/fifa/list.ll?Role=Manager"><i class="dot circle outline mini icon"></i>Manager</a>
+			<a class="item" href="${path}/fifa/list.ll?Role=Player"><i class="dot circle outline mini icon"></i>Player</a>
 		</div>
-<div class="ui button" id="popup">Show flowing popup</div>
-	<div class="ui flowing popup top left transition hidden">
-		<div class="ui three column divided center aligned grid">
-			<div class="column">
-				<h4 class="ui header">Basic Plan</h4>
-				<p><b>2</b> projects, $10 a month</p>
-				<div class="ui button">Choose</div>
-			</div>
-			<div class="column">
-				<h4 class="ui header">Business Plan</h4>
-				<p><b>5</b> projects, $20 a month</p>
-				<div class="ui button">Choose</div>
-			</div>
-			<div class="column">
-				<h4 class="ui header">Premium Plan</h4>
-				<p><b>8</b> projects, $25 a month</p>
-				<div class="ui button">Choose</div>
-			</div>
-		</div>
-	</div>
 	</nav>
 </header>
 <s:authorize access="isAuthenticated()">
