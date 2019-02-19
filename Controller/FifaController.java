@@ -59,12 +59,11 @@ public class FifaController {
 		}
 		
 	
-//	클럽 리스트
+//	FIFA List
 		
-		@RequestMapping(value="list_club.ll")
-		public ModelAndView listClub() {
-			
-			return new ModelAndView("fifa/list_club", "list", fDAO.listClub());
+		@RequestMapping(value="list.ll")
+		public ModelAndView listClub(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/list", "list", fDAO.list(map));
 		}
 		
 		
@@ -118,7 +117,8 @@ public class FifaController {
 		@RequestMapping(value="league_roster.ll", method=RequestMethod.GET)
 		public String leagueRoster(Model model) {
 			
-			List<Map<String, Object>> clublist = fDAO.listClub();
+			Map<String, Object> map = null;
+			List<Map<String, Object>> clublist = fDAO.list(map);
 			Map<String, Object> roster = fDAO.infoLeague();
 			if(roster.get("roster") != null) {
 				roster.replace("roster", roster.get("roster").toString().split(","));
