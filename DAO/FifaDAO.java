@@ -30,28 +30,11 @@ public class FifaDAO {
 		}
 	
 	
-//	클럽 리스트
+//	FIFA List
 	
-	public List<Map<String, Object>> listClub() {
-		
-		return db.selectList("FIFA.listclub");
-	}
-	
-	
-//	감독 리스트
-	
-	public List<Map<String, Object>> listManager() {
-		
-		return db.selectList("FIFA.listmanager");
-	}
-	
-	
-//	선수 리스트
-	
-	public List<Map<String, Object>> listPlayer() {
-		
-		return db.selectList("FIFA.listplayer");
-	}
+		public List<Map<String, Object>> list(Map<String, Object> map) {
+			return db.selectList("FIFA.list", map);
+		}
 	
 	
 //	구단 정보
