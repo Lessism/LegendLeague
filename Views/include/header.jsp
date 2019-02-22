@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <div class="item" data-value="af"><i class="${f:toLowerCase('Afghanistan')} flag"></i>Afghanistan</div> --%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Legend League</title>
 	<meta charset="UTF-8">
-	<meta id="csrf_token" name="csrf_token" content="${_csrf.token}">
-	<meta id="csrf_header" name="csrf_header" content="${_csrf.headerName}">
+	<meta name="csrf_token" content="${_csrf.token}">
+	<meta name="csrf_header" content="${_csrf.headerName}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${path}/resources/css/Lcss.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:500&amp;subset=korean">
@@ -40,6 +39,7 @@
 		</div>
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
+		<a class="item" id="menu">Menu</a>
 		<a class="nav item" href="${path}/">League</a>
 		<a class="nav item" id="popup_fifa" href="${path}/fifa/list.ll">FIFA</a>
 		<div class="ui inverted flowing popup bottom left transition hidden">
@@ -50,7 +50,7 @@
 	</nav>
 </header>
 <s:authorize access="isAuthenticated()">
-	<div class="ui visible vertical menu inverted sidebar">
+	<div class="ui vertical inverted menu sidebar">
 		<a class="item" href="${path}/fifa/league_roster.ll">리그 편집</a>
 		<a class="item" href="${path}/edit/list_club.ll">구단 편집</a>
 	</div>
