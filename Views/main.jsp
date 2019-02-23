@@ -27,7 +27,7 @@
 					<c:forEach var="club" items="${league.roster}" varStatus="idx">
 						<tr>
 							<td style="width:15%">${idx.count}</td>
-							<td style="width:10%"><img class="ui rounded fluid image" src="data:image/*; base64, ${club.emblem}"></td>
+							<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${club.name}"></td>
 							<td style="width:65%">${club.name}</td>
 							<td style="width:10%">${club.ovr}</td>
 						</tr>
@@ -92,7 +92,7 @@
 					<c:forEach var="club" items="${league.roster}" varStatus="idx">
 						<tr>
 							<td style="width:15%">${idx.count}</td>
-							<td style="width:10%"><img class="ui rounded fluid image" src="data:image/*; base64, ${club.emblem}"></td>
+							<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${club.name}"></td>
 							<td style="width:65%">${club.name}</td>
 							<td style="width:10%">0</td>
 							<td style="width:10%">0</td>
@@ -174,7 +174,7 @@
 	<div class="ui centered grid segment">
 		<c:forEach var="club" items="${league.roster}" varStatus="idx">
 			<div class="column">
-				<img class="ui rounded fluid image" src="data:image/*; base64, ${club.emblem}">
+				<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${club.name}">
 			</div>
 		</c:forEach>
 	</div>
