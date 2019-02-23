@@ -2,12 +2,12 @@
 <%@ include file="../include/header.jsp" %>
 <section class="ui black segment container">
 	<h1 class="ui center aligned header f k r">
-		<c:if test="${param.Role eq 'Club' or empty param.Role}">구단 목록</c:if>
-		<c:if test="${param.Role eq 'Manager'}">감독 목록</c:if>
-		<c:if test="${param.Role eq 'Player'}">선수 목록</c:if>
+		<c:if test="${param.role eq 'Club' or empty param.role}">구단 목록</c:if>
+		<c:if test="${param.role eq 'Manager'}">감독 목록</c:if>
+		<c:if test="${param.role eq 'Player'}">선수 목록</c:if>
 	</h1>
 	<hr>
-	<c:if test="${param.Role eq 'Club' or empty param.Role}">
+	<c:if test="${param.role eq 'Club' or empty param.role}">
 		<table class="ui striped center aligned table">
 			<thead>
 			<tr class="ui inverted center aligned table f k r">
@@ -30,7 +30,7 @@
 			</tbody>
 		</table>
 	</c:if>
-	<c:if test="${param.Role eq 'Manager'}">
+	<c:if test="${param.role eq 'Manager'}">
 		<table class="ui striped center aligned table">
 			<thead>
 			<tr class="ui inverted center aligned table f k r">
@@ -55,7 +55,7 @@
 			</tbody>
 		</table>
 	</c:if>
-	<c:if test="${param.Role eq 'Player'}">
+	<c:if test="${param.role eq 'Player'}">
 		<table class="ui striped center aligned table">
 			<thead>
 			<tr class="ui inverted center aligned table f k r">

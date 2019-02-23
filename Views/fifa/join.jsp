@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../include/header.jsp" %>
-<c:if test="${empty param.Role}">
+<c:if test="${empty param.role}">
 	<section class="ui black segment container">
 		<div class="ui three column grid">
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?Role=Club">
+					<a href="${path}/fifa/join.ll?role=Club">
 					<span><img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=1"></span>
 					<span class="ui header segment f k r" style="text-align:center; display:block;">구단 생성</span>
 					</a>
@@ -13,7 +13,7 @@
 			</div>
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?Role=Manager">
+					<a href="${path}/fifa/join.ll?role=Manager">
 						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=2">
 						<span class="ui header segment f k r" style="text-align:center; display:block;">감독 생성</span>
 					</a>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?Role=Player">
+					<a href="${path}/fifa/join.ll?role=Player">
 						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?img_no=3">
 						<span class="ui header segment f k r" style="text-align:center; display:block;">선수 생성</span>
 					</a>
@@ -30,14 +30,14 @@
 		</div>
 	</section>
 </c:if>
-<c:if test="${!empty param.Role}">
+<c:if test="${!empty param.role}">
 	<section class="ui black segment container">
 		<form class="ui form" method="post" action="${path}/fifa/join.ll?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 			<div>
 				<h1 class="ui center aligned header f k r">
-					<c:if test="${param.Role eq 'Club'}">구단 생성</c:if>
-					<c:if test="${param.Role eq 'Manager'}">감독 생성</c:if>
-					<c:if test="${param.Role eq 'Player'}">선수 생성</c:if>
+					<c:if test="${param.role eq 'Club'}">구단 생성</c:if>
+					<c:if test="${param.role eq 'Manager'}">감독 생성</c:if>
+					<c:if test="${param.role eq 'Player'}">선수 생성</c:if>
 				</h1>
 				<hr>
 				<div class="ui field">
@@ -54,10 +54,10 @@
 						<label class="ui left pointing basic label llab chk"></label>
 					</div>
 				</div>
-				<input type="hidden" name="role" value="${param.Role}">
+				<input type="hidden" name="role" value="${param.role}">
 			</div>
 			<hr>
-		<c:if test="${param.Role eq 'Club'}">
+		<c:if test="${param.role eq 'Club'}">
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
@@ -70,7 +70,7 @@
 						<div class="ui center aligned header f k r" id="name_view">Club</div>
 					</div>
 					<div class="ui bottom attached tab segment" data-tab="stadium">
-						<div><img class="ui rounded fluid image" id="stadium_img_view" src="${path}/image.ll?img_no=1"></div>
+						<div><img class="ui rounded fluid image" id="stadium_img_view" src="${path}/image.ll?img_no=4"></div>
 						<div class="ui center aligned header f k r" id="stadium_name_view">Stadium</div>
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${param.Role eq 'Manager'}">
+		<c:if test="${param.role eq 'Manager'}">
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
@@ -208,7 +208,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${param.Role eq 'Player'}">
+		<c:if test="${param.role eq 'Player'}">
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
