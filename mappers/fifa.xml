@@ -63,12 +63,10 @@
 			INSERT
 				INTO Stadium (
 					std_name,
-					std_owner,
 					std_img
 				)
 				VALUES (
 					#{stadium},
-					#{name},
 					LAST_INSERT_ID()
 				);
 				
@@ -163,16 +161,42 @@
 	</insert>
 	
 	
+<!-- 	리그 로스터	 -->
+
+	<select id="infoleague" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			League
+	
+	</select>
+	
+	
+<!-- 	로스터 등록	 -->
+
+	<update id="updateroster" parameterType="String">
+	
+		UPDATE
+			League
+		SET
+			roster = #{rosterlist}
+		WHERE
+			name = 'Legend League'
+		
+	</update>
+	
+	
 <!--	 FIFA List		-->
-<!-- DATE_FORMAT(regdate, '%Y-%m-%d') regdate -->
+	
 	<select id="list" parameterType="map" resultType="map">
 	
 		SELECT
 			*
 		FROM
-			${Role}
+			${role}
 			
-			<if test="Role == null">
+			<if test="role == null">
 			
 				Club
 				
@@ -238,32 +262,6 @@
 			name = #{name}
 			
 	</select>
-	
-	
-<!-- 	리그 로스터	 -->
-
-	<select id="infoleague" resultType="map">
-	
-		SELECT
-			*
-		FROM
-			League
-	
-	</select>
-	
-	
-<!-- 	로스터 등록	 -->
-
-	<update id="updateroster" parameterType="String">
-	
-		UPDATE
-			League
-		SET
-			roster = #{rosterlist}
-		WHERE
-			name = 'Legend League'
-		
-	</update>
 	
 	
 <!-- 	로스터  등록 클럽	 -->
