@@ -43,15 +43,13 @@
 		<a class="nav item" href="${path}/">League</a>
 		<a class="nav item" id="popup_fifa" href="${path}/fifa/list.ll">FIFA</a>
 		<div class="ui inverted flowing popup bottom left transition hidden">
-			<a class="item" href="${path}/fifa/list.ll?Role=Club"><i class="dot circle outline mini icon"></i>Club</a>
-			<a class="item" href="${path}/fifa/list.ll?Role=Manager"><i class="dot circle outline mini icon"></i>Manager</a>
-			<a class="item" href="${path}/fifa/list.ll?Role=Player"><i class="dot circle outline mini icon"></i>Player</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Club"><i class="dot circle outline mini icon"></i>Club</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Manager"><i class="dot circle outline mini icon"></i>Manager</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Player"><i class="dot circle outline mini icon"></i>Player</a>
 		</div>
 	</nav>
 </header>
-<s:authorize access="isAuthenticated()">
-	<div class="ui vertical inverted menu sidebar">
-		<a class="item" href="${path}/fifa/league_roster.ll">리그 편집</a>
-		<a class="item" href="${path}/edit/list_club.ll">구단 편집</a>
-	</div>
-</s:authorize>
+<div class="ui vertical inverted menu sidebar">
+	<a class="item" href="${path}/fifa/roster_league.ll">리그 편집</a>
+	<a class="item" href="${path}/edit/list_club.ll">구단 편집</a>
+</div>
