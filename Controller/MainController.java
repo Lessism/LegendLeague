@@ -1,9 +1,5 @@
 package com.lessism.legendleague;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,39 +22,24 @@ public class MainController {
 	@Autowired
 	private LeagueDAO lDAO;
 	
+	
+//	Main System
+	
 		@RequestMapping(value = "/", method = RequestMethod.GET)
-		public ModelAndView main() throws UnsupportedEncodingException {
+		public ModelAndView main() {
 			return new ModelAndView("main", "league", lDAO.season());
 		}
 		
-		@RequestMapping(value = "test", method = RequestMethod.GET)
-		public String test() {
-			
-			return "test";
-		}
 		
-		
-//	Image convert
+//	Image Convert
 		
 		@RequestMapping(value = "image.ll", method = RequestMethod.GET)
-		public ResponseEntity<byte[]> imageConvert(@RequestParam Map<String, Object> map) throws IOException {
-			
-			byte[] img = null;
-			String role = (String)map.get("role");
-			
-			map = fDAO.selectImg(map);
-			
-			if(role.equals("Club")) {
-				img = (byte[])map.get("emblem");
-			}
-			if(!role.equals("Club")) {
-				img = (byte[])map.get("profile");
-			}
+		public ResponseEntity<byte[]> imageConvert(@RequestParam("img_no") int no) {
 			
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(MediaType.IMAGE_JPEG);
 			
-			return  new ResponseEntity<byte[]>(img, header, HttpStatus.OK);
+			return  new ResponseEntity<byte[]>(fDAO.imageConvert(no), header, HttpStatus.OK);
 		}
 		
 		
