@@ -13,6 +13,24 @@ public class EditDAO {
 	private SqlSession db;
 	
 	
+//	Roster list
+	
+	public Map<String, Object> listRoster(Map<String, Object> map) {
+		
+		map.put("roster", db.selectList("FIFA.roster_list", map));
+		map.put("list", db.selectList("FIFA.list", map));
+		
+		return map;
+	}
+	
+	
+//	Roster update
+	
+	public int updateRoster(Map<String, Object> map) {
+		return db.update("Edit.update_roster", map);
+	}
+	
+	
 //	클럽 로스터 리스트
 	
 	public Map<String, Object> rosterlistclub(Map<String, Object> map) {

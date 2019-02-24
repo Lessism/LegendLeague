@@ -32,7 +32,7 @@ public class FifaDAO {
 	
 //	FIFA List
 	
-		public List<Map<String, Object>> list(Map<String, Object> map) {
+		public List<Map<String, Object>> listFIFA(Map<String, Object> map) {
 			return db.selectList("FIFA.list", map);
 		}
 	
