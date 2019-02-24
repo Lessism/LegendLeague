@@ -161,6 +161,61 @@
 	</insert>
 	
 	
+<!--	 FIFA List		-->
+	
+	<select id="list" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			${role}
+			
+			<if test="role == null">
+			
+				Club
+				
+			</if>
+			
+		ORDER BY
+			ovr DESC
+			
+	</select>
+	
+	
+<!--	 Roster List		-->
+	
+	<select id="roster_list" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			${role}
+			
+			<if test="role == null">
+			
+				Club
+				
+			</if>
+			
+		WHERE
+		
+			<if test="role == null">
+			
+				roster = 1
+				
+			</if>
+			<if test="role == 'Player'">
+			
+				club = #{club}
+				
+			</if>
+			
+		ORDER BY
+			ovr DESC
+			
+	</select>
+	
+	
 <!-- 	리그 로스터	 -->
 
 	<select id="infoleague" resultType="map">
@@ -185,27 +240,6 @@
 			name = 'Legend League'
 		
 	</update>
-	
-	
-<!--	 FIFA List		-->
-	
-	<select id="list" parameterType="map" resultType="map">
-	
-		SELECT
-			*
-		FROM
-			${role}
-			
-			<if test="role == null">
-			
-				Club
-				
-			</if>
-			
-		ORDER BY
-			name ASC
-			
-	</select>
 	
 	
 <!-- 	클럽 정보	 -->

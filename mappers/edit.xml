@@ -4,6 +4,40 @@
 <mapper namespace="Edit">
 
 
+<!--	Roster update		-->
+
+	<update id="update_roster" parameterType="map">
+	
+		UPDATE
+			League
+		SET
+			roster = #{rosterlist}
+		WHERE
+			name = 'Legend League';
+		
+		UPDATE
+			Club
+		SET
+			roster = 0
+		WHERE
+			roster = 1;
+		
+		<if test="clublist != null">
+			<foreach collection="clublist" index="idx" separator=";">
+			
+				UPDATE
+					Club
+				SET
+					roster = 1
+				WHERE
+					name = #{clublist[${idx}]}
+			
+			</foreach>
+		</if>
+	
+	</update>
+	
+	
 <!-- 	로스터 등록	 -->
 
 	<update id="updaterosterclub" parameterType="map">
