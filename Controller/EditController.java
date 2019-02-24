@@ -1,11 +1,9 @@
 package com.lessism.legendleague.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,28 +22,24 @@ public class EditController {
 	private FifaDAO fDAO;
 	
 	
-//	리그 로스터
+//	Roster league
 	
 		@RequestMapping(value="roster_league.ll", method=RequestMethod.GET)
-		public String leagueRoster(Model model) {
-			
-			Map<String, Object> map = null;
-			List<Map<String, Object>> clublist = fDAO.list(map);
-			Map<String, Object> roster = fDAO.infoLeague();
-			if(roster.get("roster") != null) {
-				roster.replace("roster", roster.get("roster").toString().split(","));
-			}
-			
-			model.addAttribute("roster", roster);
-			model.addAttribute("list", clublist);
-			
-			return "fifa/league_roster";
+		public ModelAndView leagueRoster(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("edit/roster_league", "rosterlist", eDAO.listRoster(map));
 		}
 		
-		@RequestMapping(value="league_roster.ll", method=RequestMethod.POST)
-		public String leagueRoster(@RequestParam(value="rosterlist", required=false) String rosterlist) {
+		@RequestMapping(value="roster_league.ll", method=RequestMethod.POST)
+		public String leagueRoster(
+				@RequestParam Map<String, Object> map,
+				@RequestParam(value="rosterlist", required=false) String rosterlist
+				) {
 			
-			fDAO.updateRoster(rosterlist);
+			if (rosterlist != null) {
+				map.put("rosterlist", rosterlist);
+				map.put("clublist", rosterlist.split(","));
+			}
+			eDAO.updateRoster(map);
 			
 			return "redirect:/";
 		}
@@ -55,7 +49,7 @@ public class EditController {
 		@RequestMapping(value="list_club", method=RequestMethod.GET)
 		public ModelAndView editListClub() {
 			
-			return new ModelAndView("edit/list_club", "list", fDAO.list(null));
+			return new ModelAndView("edit/list_club", "list", fDAO.listFIFA(null));
 		}
 		
 		
