@@ -8,31 +8,63 @@
 
 	<update id="update_roster" parameterType="map">
 	
-		UPDATE
-			League
-		SET
-			roster = #{rosterlist}
-		WHERE
-			name = 'Legend League';
-		
-		UPDATE
-			Club
-		SET
-			roster = 0
-		WHERE
-			roster = 1;
-		
-		<if test="clublist != null">
-			<foreach collection="clublist" index="idx" separator=";">
+		<if test="name == null">
+			UPDATE
+				League
+			SET
+				roster = #{roster}
+			WHERE
+				name = 'Legend League';
 			
-				UPDATE
-					Club
-				SET
-					roster = 1
-				WHERE
-					name = #{clublist[${idx}]}
+			UPDATE
+				Club
+			SET
+				roster = 0
+			WHERE
+				roster = 1;
 			
-			</foreach>
+			<if test="rosterlist != null">
+				<foreach collection="rosterlist" index="idx" separator=";">
+				
+					UPDATE
+						Club
+					SET
+						roster = 1
+					WHERE
+						name = #{rosterlist[${idx}]}
+				
+				</foreach>
+			</if>
+		</if>
+		<if test="name != null">
+		
+			UPDATE
+				Club
+			SET
+				Manager = #{manager},
+				Player = #{roster}
+			WHERE
+				name = #{name};
+			
+			UPDATE
+				Player, Manager
+			SET
+				club = null
+			WHERE
+				club = #{name};
+			
+			<if test="rosterlist != null">
+				<foreach collection="rosterlist" index="idx" separator=";">
+				
+					UPDATE
+						Player
+					SET
+						club = #{name}
+					WHERE
+						name = #{rosterlist[${idx}]}
+				
+				</foreach>
+			</if>
 		</if>
 	
 	</update>
