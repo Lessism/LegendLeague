@@ -20,7 +20,7 @@
 			<tbody>
 			<c:forEach var="club" items="${list}">
 				<tr>
-					<td style="width:10%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}"><img class="ui rounded fluid image" src="${path}/image.ll?img_no=${club.emblem}"></a></td>
+					<td style="width:10%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}"><img class="ui rounded fluid image" src="${path}/image.ll?no=${club.emblem}"></a></td>
 					<td style="width:30%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}">${club.name}</a></td>
 					<td style="width:30%"><a class="link" href="${path}/fifa/stadium.ll?name=${club.stadium}">${club.stadium}</a></td>
 					<td style="width:10%">${club.anchorage}</td>
@@ -44,7 +44,7 @@
 			<tbody>
 			<c:forEach var="manager" items="${list}">
 				<tr>
-					<td style="width:10%"><a class="link" href="${path}/fifa/manager.ll?name=${manager.name}"><img class="ui rounded fluid image" src="${path}/image.ll?img_no=${manager.profile}"></a></td>
+					<td style="width:10%"><a class="link" href="${path}/fifa/manager.ll?name=${manager.name}"><img class="ui rounded fluid image" src="${path}/image.ll?no=${manager.profile}"></a></td>
 					<td style="width:40%"><a class="link" href="${path}/fifa/manager.ll?name=${manager.name}">${manager.name}</a></td>
 					<td style="width:10%"><i class="${f:toLowerCase(manager.country)} flag"></i>${manager.country}</td>
 					<td style="width:10%">${manager.ovr}</td>
@@ -69,7 +69,7 @@
 			<tbody>
 			<c:forEach var="player" items="${list}">
 				<tr>
-					<td style="width:10%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}"><img class="ui rounded fluid image" src="${path}/image.ll?img_no=${player.profile}"></a></td>
+					<td style="width:10%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}"><img class="ui rounded fluid image" src="${path}/image.ll?no=${player.profile}"></a></td>
 					<td style="width:40%"><a class="link" href="${path}/fifa/player.ll?name=${player.name}">${player.name}</a></td>
 					<td style="width:10%"><i class="${f:toLowerCase(player.country)} flag"></i>${player.country}</td>
 					<td style="width:10%">${player.ovr}</td>
