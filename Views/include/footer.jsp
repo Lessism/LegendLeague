@@ -3,17 +3,18 @@
 $(function(){
 	
 	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader($('meta[name="csrf_header"]').attr('content'), $('meta[name="csrf_token"]').attr('content'))
+		xhr.setRequestHeader($("meta[name='csrf_header']").attr("content"), $("meta[name='csrf_token']").attr("content"))
 	})
 	
 	$('.dropdown').dropdown()
-	
-	$('#popup_fifa').popup({
-		hoverable  : true
-	})
+	$('.tabular.item').tab()
 	
 	$('#menu').click(function(){
 		$('.sidebar').sidebar('toggle')
+	})
+	
+	$('#popup_fifa').popup({
+		hoverable : true
 	})
 	
 	$('#logout').click(function(){
