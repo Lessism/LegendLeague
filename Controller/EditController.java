@@ -24,13 +24,13 @@ public class EditController {
 	
 //	Roster league
 	
-		@RequestMapping(value="roster_league.ll", method=RequestMethod.GET)
-		public ModelAndView leagueRoster(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("edit/roster_league", "rosterlist", eDAO.listRoster(map));
+		@RequestMapping(value="roster.ll", method=RequestMethod.GET)
+		public ModelAndView roster(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("edit/roster", "rosterlist", eDAO.listRoster(map));
 		}
 		
-		@RequestMapping(value="roster_league.ll", method=RequestMethod.POST)
-		public String leagueRoster(
+		@RequestMapping(value="roster.ll", method=RequestMethod.POST)
+		public String roster(
 				@RequestParam Map<String, Object> map,
 				@RequestParam(value="rosterlist", required=false) String rosterlist
 				) {
@@ -46,10 +46,9 @@ public class EditController {
 	
 //	클럽 리스트
 	
-		@RequestMapping(value="list_club", method=RequestMethod.GET)
-		public ModelAndView editListClub() {
-			
-			return new ModelAndView("edit/list_club", "list", fDAO.listFIFA(null));
+		@RequestMapping(value="club.ll", method=RequestMethod.GET)
+		public ModelAndView editClub() {
+			return new ModelAndView("edit/club", "list", fDAO.listFIFA(null));
 		}
 		
 		
