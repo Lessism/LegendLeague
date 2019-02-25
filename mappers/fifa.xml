@@ -182,31 +182,24 @@
 	</select>
 	
 	
-<!--	 Roster List		-->
+<!--	 Roster list		-->
 	
 	<select id="roster_list" parameterType="map" resultType="map">
 	
 		SELECT
 			*
 		FROM
-			${role}
-			
-			<if test="role == null">
-			
-				Club
-				
-			</if>
-			
+			Club
 		WHERE
 		
-			<if test="role == null">
+			<if test="name == null">
 			
 				roster = 1
 				
 			</if>
-			<if test="role == 'Player'">
+			<if test="name != null">
 			
-				club = #{club}
+				name = #{name}
 				
 			</if>
 			
