@@ -179,52 +179,39 @@ $(function(){
 				var ovr = $('.addchk:checked').eq(i).parent().parent().siblings('.ovr').text()
 				var img = $('.addchk:checked').eq(i).parent().parent().siblings('.img').children('img').attr('src')
 				var chk = true
-				if ($('.addchk:checked').eq(i).attr('role') == 'club'){
-					if ($('input[name="rosterlist"]').length < 10){
-						for (var v = 0; v < $('input[name="rosterlist"]').length; v++){
-							if (name == $('input[name="rosterlist"]').eq(v).val()){
-								chk = false
-							}
-						}
-						if (chk){
-							$('.roster').append(
-								'<tr>'+
-								'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
-								'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
-								'	<td class="club" style="width:70%"><input type="hidden" name="rosterlist" value="'+name+'">'+name+'</td>'+
-								'</tr>'
-							)
+				if (($('.addchk:checked').eq(i).attr('role') == 'club' && $('input[name="rosterlist"]').length < 10) || ($('.addchk:checked').eq(i).attr('role') == 'player' && $('input[name="rosterlist"]').length < 11)){
+					for (var v = 0; v < $('input[name="rosterlist"]').length; v++){
+						if (name == $('input[name="rosterlist"]').eq(v).val()){
+							chk = false
 						}
 					}
-				}
-				if ($('.addchk:checked').eq(i).attr('role') == 'manager'){
-					if ($('input[name="manager"]').length < 1){
-						$('.roster').prepend(
+					if (chk && $('.addchk:checked').eq(i).attr('role') == 'club'){
+						$('.roster').append(
 							'<tr>'+
 							'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
 							'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
-							'	<td style="width:60%"><input type="hidden" name="manager" value="'+name+'"><input type="hidden" name="ovr" value="'+ovr+'">'+name+'</td>'+
+							'	<td class="club" style="width:70%"><input type="hidden" name="rosterlist" value="'+name+'">'+name+'</td>'+
+							'</tr>'
+						)
+					}
+					if (chk && $('.addchk:checked').eq(i).attr('role') == 'player'){
+						$('.roster').append(
+							'<tr>'+
+							'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
+							'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
+							'	<td style="width:60%"><input type="hidden" name="rosterlist" value="'+name+'"><input type="hidden" name="ovr" value="'+ovr+'">'+name+'</td>'+
 							'</tr>'
 						)
 					}
 				}
-				if ($('.addchk:checked').eq(i).attr('role') == 'player'){
-					if ($('input[name="rosterlist"]').length < 11){
-						for (var v = 0; v < $('input[name="rosterlist"]').length; v++){
-							if (name == $('input[name="rosterlist"]').eq(v).val()){
-								chk = false
-							}
-						}
-						if (chk){
-							$('.roster').append(
-								'<tr>'+
-								'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
-								'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
-								'	<td style="width:60%"><input type="hidden" name="rosterlist" value="'+name+'"><input type="hidden" name="ovr" value="'+ovr+'">'+name+'</td>'+
-								'</tr>'
-							)
-						}
-					}
+				if ($('.addchk:checked').eq(i).attr('role') == 'manager' && $('input[name="manager"]').length < 1){
+					$('.roster').prepend(
+						'<tr>'+
+						'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
+						'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
+						'	<td style="width:60%"><input type="hidden" name="manager" value="'+name+'"><input type="hidden" name="ovr" value="'+ovr+'">'+name+'</td>'+
+						'</tr>'
+					)
 				}
 			}
 		}
