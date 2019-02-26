@@ -18,7 +18,7 @@
 						<c:forEach var="roster" items="${rosterlist.roster}">
 							<tr>
 								<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>
-								<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?no=${!empty roster.emblem ? roster.emblem : 1}"></td>
+								<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?no=${roster.emblem}"></td>
 								<td style="width:70%"><input type="hidden" name="rosterlist" value="${roster.name}">${roster.name}</td>
 							</tr>
 						</c:forEach>
@@ -55,7 +55,7 @@
 					<c:forEach var="club" items="${rosterlist.club}">
 						<tr>
 							<td style="width:10%"><div class="ui checkbox"><input type="checkbox" role="club" class="addchk"><label></label></div></td>
-							<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${!empty club.emblem ? club.emblem : 1}"></td>
+							<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${club.emblem}"></td>
 							<td style="width:40%" class="name">${club.name}</td>
 							<td style="width:30%">${club.stadium}</td>
 							<td style="width:10%"><fmt:formatDate value="${club.regdate}" pattern="yyyy-MM-dd"/></td>
@@ -135,7 +135,7 @@
 						<c:forEach var="manager" items="${rosterlist.manager}">
 							<tr>
 								<td style="width:10%"><div class="ui radio checkbox"><input type="radio" role="manager" class="addchk" name="radio"><label></label></div></td>
-								<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${!empty manager.profile ? manager.profile : 2}"></td>
+								<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${manager.profile}"></td>
 								<td style="width:40%" class="name">${manager.name}</td>
 								<td style="width:30%" class="ovr">${manager.ovr}</td>
 								<td style="width:10%">${manager.tactic}</td>
@@ -157,7 +157,7 @@
 						<c:forEach var="player" items="${rosterlist.player}">
 							<tr>
 								<td style="width:10%"><div class="ui checkbox"><input type="checkbox" role="player" class="addchk"><label></label></div></td>
-								<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${!empty player.profile ? player.profile : 3}"></td>
+								<td style="width:10%" class="img"><img class="ui rounded fluid image" src="${path}/image.ll?no=${player.profile}"></td>
 								<td style="width:50%" class="name">${player.name}</td>
 								<td style="width:30%" class="ovr">${player.ovr}</td>
 							</tr>
