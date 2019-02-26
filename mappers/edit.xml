@@ -47,11 +47,25 @@
 				name = #{name};
 			
 			UPDATE
-				Player, Manager
+				Manager
 			SET
 				club = null
 			WHERE
 				club = #{name};
+				
+			UPDATE
+				Player
+			SET
+				club = null
+			WHERE
+				club = #{name};
+			
+			UPDATE
+				Manager
+			SET
+				club = #{name}
+			WHERE
+				name = #{manager};
 			
 			<if test="rosterlist != null">
 				<foreach collection="rosterlist" index="idx" separator=";">

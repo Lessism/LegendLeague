@@ -6,15 +6,40 @@
 
 <!-- 	Image Convert	 -->
 
-	<select id="image_convert" parameterType="int" resultType="_byte[]">
+	<select id="image_convert" parameterType="map" resultType="_byte[]">
 	
 		SELECT
 			img
 		FROM
 			Image
 		WHERE
-			img_no = #{no}
+			img_no =
 			
+			<if test="no != null">
+			
+				#{no}
+			
+			</if>
+			<if test="role != null">
+			
+				(
+					SELECT
+						<choose>
+							<when test="role == 'Club'">
+								emblem
+							</when>
+							<otherwise>
+								profile
+							</otherwise>
+						</choose>
+					FROM
+						${role}
+					WHERE
+						name = #{name}
+				)
+				
+			</if>
+	
 	</select>
 	
 	
@@ -51,61 +76,32 @@
 			);
 			
 		<if test="role == 'Club'">
-			
-			INSERT
-				INTO Image (
-					img
-				)
-				VALUES (
-					#{img1}
-				);
-				
+		
 			INSERT
 				INTO Stadium (
-					std_name,
-					std_img
+					std_name
 				)
 				VALUES (
-					#{stadium},
-					LAST_INSERT_ID()
+					#{stadium}
 				);
-				
-			INSERT
-				INTO Image (
-					img
-				)
-				VALUES (
-					#{img}
-				);
-				
 			INSERT
 				INTO Club (
 					name,
-					emblem,
 					anchorage,
 					stadium
 				)
 				VALUES (
 					#{name},
-					LAST_INSERT_ID(),
 					#{anchorage},
 					#{stadium}
-				)
-				
+				);
+		
 		</if>
 		<if test="role == 'Manager'">
 		
 			INSERT
-				INTO Image (
-					img
-				)
-				VALUES (
-					#{img}
-				);
-			INSERT
 				INTO Manager (
 					name,
-					profile,
 					country,
 					birth,
 					height,
@@ -115,7 +111,6 @@
 				)
 				VALUES (
 					#{name},
-					LAST_INSERT_ID(),
 					#{country},
 					#{birth},
 					#{height},
@@ -123,21 +118,13 @@
 					#{ovr},
 					#{tactic}
 				)
-				
+			
 		</if>
 		<if test="role == 'Player'">
 		
 			INSERT
-				INTO Image (
-					img
-				)
-				VALUES (
-					#{img}
-				);
-			INSERT
 				INTO Player (
 					name,
-					profile,
 					country,
 					birth,
 					height,
@@ -147,7 +134,6 @@
 				)
 				VALUES (
 					#{name},
-					LAST_INSERT_ID(),
 					#{country},
 					#{birth},
 					#{height},
@@ -157,7 +143,48 @@
 				)
 		
 		</if>
-		
+		<if test="img != null">
+			
+			INSERT
+				INTO Image (
+					img
+				)
+				VALUES (
+					#{img}
+				);
+			UPDATE
+				${role}
+			SET
+				<choose>
+					<when test="role == 'Club'">
+						emblem
+					</when>
+					<otherwise>
+						profile
+					</otherwise>
+				</choose>
+				= LAST_INSERT_ID()
+			WHERE
+				name = #{name};
+				
+		</if>
+		<if test="img1 != null">
+			
+			INSERT
+				INTO Image (
+					img
+				)
+				VALUES (
+					#{img1}
+				);
+			UPDATE
+				Stadium
+			SET
+				std_img = LAST_INSERT_ID()
+			WHERE
+				std_name = #{stadium};
+			
+		</if>
 	</insert>
 	
 	
