@@ -18,8 +18,8 @@ public class FifaDAO {
 	
 //	Image Convert
 
-		public byte[] imageConvert(int no){
-			return db.selectOne("FIFA.image_convert", no);
+		public byte[] imageConvert(Map<String, Object> map){
+			return db.selectOne("FIFA.image_convert", map);
 		}
 		
 	
