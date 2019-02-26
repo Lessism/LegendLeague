@@ -52,7 +52,7 @@ public class FifaController {
 			if (!img.getFile("img").isEmpty()) {
 				map.put("img", img.getFile("img").getBytes());
 			}
-			if (!img.getFile("img1").isEmpty()) {
+			if (map.get("role") == "Club" && !img.getFile("img").isEmpty()) {
 				map.put("img1", img.getFile("img1").getBytes());
 			}
 			fDAO.join(map);
