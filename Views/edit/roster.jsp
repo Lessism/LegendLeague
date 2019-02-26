@@ -79,22 +79,22 @@
 					</thead>
 					<tbody class="roster">
 						<c:forEach var="roster" items="${rosterlist.roster}">
-						<c:if test="${!empty roster.manager}">
-							<tr>
-								<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>
-								<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Manager&img=profile&name=${info.manager}"></td>
-								<td class="manager" style="width:60%"><input type="hidden" name="manager" value="${info.manager}">${info.manager}</td>
-							</tr>
-						</c:if>
-						<c:if test="${!empty roster.player}">
-							<c:forEach begin="0" end="10" step="1" varStatus="idx">
+							<c:if test="${!empty roster.manager}">
 								<tr>
 									<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>
-									<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&img=profile&name=${info.player[idx.index]}"></td>
-									<td class="player" style="width:60%"><input type="hidden" name="player" value="${info.player[idx.index]}">${info.player[idx.index]}</td>
+									<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Manager&name=${roster.manager}"></td>
+									<td class="manager" style="width:60%"><input type="hidden" name="manager" value="${roster.manager}">${roster.manager}</td>
 								</tr>
-							</c:forEach>
-						</c:if>
+							</c:if>
+							<c:if test="${!empty roster.player}">
+								<c:forEach var="player" items="${f:split(roster.player, ',')}">
+									<tr>
+										<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>
+										<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&name=${player}"></td>
+										<td class="player" style="width:60%"><input type="hidden" name="rosterlist" value="${player}">${player}</td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -190,7 +190,7 @@ $(function(){
 							'<tr>'+
 							'	<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>'+
 							'	<td style="width:20%"><img class="ui rounded fluid image" src="'+img+'"></td>'+
-							'	<td class="club" style="width:70%"><input type="hidden" name="rosterlist" value="'+name+'">'+name+'</td>'+
+							'	<td style="width:70%"><input type="hidden" name="rosterlist" value="'+name+'">'+name+'</td>'+
 							'</tr>'
 						)
 					}
