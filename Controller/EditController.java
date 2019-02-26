@@ -36,8 +36,8 @@ public class EditController {
 				) {
 			
 			if (rosterlist != null) {
-				map.put("rosterlist", rosterlist);
-				map.put("clublist", rosterlist.split(","));
+				map.put("roster", rosterlist);
+				map.put("rosterlist", rosterlist.split(","));
 			}
 			eDAO.updateRoster(map);
 			

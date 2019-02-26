@@ -49,8 +49,10 @@ public class FifaController {
 				) throws IOException {
 			
 			map.replace("pw", pw.encode((String)map.get("pw")));
-			map.put("img", img.getFile("img").getBytes());
-			if (img.getFile("img1") != null) {
+			if (!img.getFile("img").isEmpty()) {
+				map.put("img", img.getFile("img").getBytes());
+			}
+			if (!img.getFile("img1").isEmpty()) {
 				map.put("img1", img.getFile("img1").getBytes());
 			}
 			fDAO.join(map);
