@@ -115,8 +115,15 @@
 					</div>
 					<div class="ui field">
 						<div class="ui labeled input">
-							<label class="ui basic label llab f k r" for="anchorage">연고지</label>
-							<input type="text" name="anchorage" id="anchorage" placeholder="Anchorage">
+							<label class="ui basic label llab f k r" for="country">소속 국가</label>
+							<div class="ui fluid search selection dropdown">
+						  		<input type="hidden" name="country">
+								<div class="default text">Country</div>
+								<i class="dropdown icon"></i>
+								<div class="menu">
+									<c:import url="../include/country.jsp"/>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -284,21 +291,28 @@
 								<div class="default text">Position</div>
 								<i class="dropdown icon"></i>
 								<div class="menu">
-									<h3 class="ui header">Forward</h3>
-										<div class="ui divider"></div>
+									<div class="divider"></div>
+									<div class="header">Forward</div>
+									<div class="divider"></div>
 										<div class="item" data-value="ST"><i class="dot circle outline red icon"></i>Striker</div>
 										<div class="item" data-value="CF"><i class="dot circle outline red icon"></i>Center Foward</div>
 										<div class="item" data-value="WF"><i class="dot circle outline red icon"></i>Wing Foward</div>
-									<h3 class="ui header">Midfielder</h3>
-										<div class="ui divider"></div>
+									<div class="divider"></div>
+									<div class="header">Midfielder</div>
+									<div class="divider"></div>
 										<div class="item" data-value="CM"><i class="dot circle outline green icon"></i>Center Midfielder</div>
 										<div class="item" data-value="DM"><i class="dot circle outline green icon"></i>Defensive Midfielder</div>
 										<div class="item" data-value="AM"><i class="dot circle outline green icon"></i>Attacking Midfielder</div>
 										<div class="item" data-value="WM"><i class="dot circle outline green icon"></i>Wing Midfielder</div>
-									<h3 class="ui header">Defender</h3>
-										<div class="ui divider"></div>
+									<div class="divider"></div>
+									<div class="header">Defender</div>
+									<div class="divider"></div>
 										<div class="item" data-value="CB"><i class="dot circle outline blue icon"></i>Centerback</div>
 										<div class="item" data-value="WB"><i class="dot circle outline blue icon"></i>Wingback</div>
+									<div class="divider"></div>
+									<div class="header">Goalkeeper</div>
+									<div class="divider"></div>
+										<div class="item" data-value="GK"><i class="dot circle outline yellow icon"></i>Goalkeeper</div>
 								</div>
 							</div>
 						</div>

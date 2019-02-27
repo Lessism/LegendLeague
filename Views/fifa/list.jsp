@@ -23,7 +23,7 @@
 					<td style="width:10%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}"><img class="ui rounded fluid image" src="${path}/image.ll?no=${club.emblem}"></a></td>
 					<td style="width:30%"><a class="link" href="${path}/fifa/club.ll?name=${club.name}">${club.name}</a></td>
 					<td style="width:30%"><a class="link" href="${path}/fifa/stadium.ll?name=${club.stadium}">${club.stadium}</a></td>
-					<td style="width:10%">${club.anchorage}</td>
+					<td style="width:10%"><i class="${f:toLowerCase(club.country)} flag"></i>${club.country}</td>
 					<td style="width:20%"><fmt:formatDate value="${club.regdate}" pattern="yyyy-MM-dd"/></td>
 				</tr>
 			</c:forEach>
