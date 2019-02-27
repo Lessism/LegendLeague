@@ -87,12 +87,12 @@
 			INSERT
 				INTO Club (
 					name,
-					anchorage,
+					country,
 					stadium
 				)
 				VALUES (
 					#{name},
-					#{anchorage},
+					#{country},
 					#{stadium}
 				);
 		
@@ -117,7 +117,7 @@
 					#{weight},
 					#{ovr},
 					#{tactic}
-				)
+				);
 			
 		</if>
 		<if test="role == 'Player'">
@@ -140,7 +140,7 @@
 					#{weight},
 					#{ovr},
 					#{position}
-				)
+				);
 		
 		</if>
 		<if test="img != null">
@@ -301,15 +301,7 @@
 	<select id="infoplayer" parameterType="map" resultType="map">
 	
 		SELECT
-			name,
-			profile,
-			country,
-			birth,
-			height,
-			weight,
-			ovr,
-			history,
-			club
+			*
 		FROM
 			Player
 		WHERE
