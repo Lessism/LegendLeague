@@ -1,5 +1,7 @@
 package com.lessism.legendleague;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,12 +36,12 @@ public class MainController {
 //	Image Convert
 		
 		@RequestMapping(value = "image.ll", method = RequestMethod.GET)
-		public ResponseEntity<byte[]> imageConvert(@RequestParam("img_no") int no) {
+		public ResponseEntity<byte[]> imageConvert(@RequestParam Map<String, Object> map) {
 			
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(MediaType.IMAGE_JPEG);
 			
-			return  new ResponseEntity<byte[]>(fDAO.imageConvert(no), header, HttpStatus.OK);
+			return  new ResponseEntity<byte[]>(fDAO.imageConvert(map), header, HttpStatus.OK);
 		}
 		
 		
