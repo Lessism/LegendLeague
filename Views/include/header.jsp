@@ -11,12 +11,13 @@
 	<meta charset="UTF-8">
 	<meta name="csrf_token" content="${_csrf.token}">
 	<meta name="csrf_header" content="${_csrf.headerName}">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${path}/resources/css/Lcss.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:500&amp;subset=korean">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.0/semantic.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.0/semantic.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+	<script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
 </head>
 <body>
 <header class="ui inverted vertical segment">
@@ -45,7 +46,7 @@
 		<div class="ui inverted flowing popup bottom left transition hidden">
 			<a class="item" href="${path}/fifa/list.ll?role=Club">Club</a>
 			<a class="item" href="${path}/fifa/list.ll?role=Manager">Manager</a>
-			<a class="item" href="${path}/fifa/list.ll?role=Player"><i class="dot circle outline mini icon"></i>Player</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Player">Player</a>
 		</div>
 	</nav>
 </header>
