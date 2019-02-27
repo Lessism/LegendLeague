@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
 
 @Service
 public class FifaDAO {
@@ -56,9 +55,7 @@ public class FifaDAO {
 //	선수 정보
 	
 	public Map<String, Object> infoPlayer(Map<String, Object> map) throws UnsupportedEncodingException {
-		map = db.selectOne("FIFA.infoplayer", map);
-		map.replace("profile", new String(Base64Utils.encode((byte[])map.get("profile")), "UTF-8"));
-		return map;
+		return  db.selectOne("FIFA.infoplayer", map);
 	}
 	
 	
