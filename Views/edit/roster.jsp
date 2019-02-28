@@ -86,15 +86,16 @@
 									<td class="manager" style="width:60%"><input type="hidden" name="manager" value="${roster.manager}">${roster.manager}</td>
 								</tr>
 							</c:if>
-							<c:if test="${!empty roster.player}">
-								<c:forEach var="player" items="${f:split(roster.player, ',')}">
+							<c:forEach var="idx" begin="0" end="10">
+								<c:set var="player" value="player${idx}"/>
+								<c:if test="${!empty roster[player]}">
 									<tr>
 										<td style="width:10%"><div class="ui checkbox"><input type="checkbox" class="removechk"><label></label></div></td>
-										<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&name=${player}"></td>
-										<td class="player" style="width:60%"><input type="hidden" name="rosterlist" value="${player}">${player}</td>
+										<td style="width:20%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Player&name=${roster[player]}"></td>
+										<td class="player" style="width:60%"><input type="hidden" name="rosterlist" value="${roster[player]}">${roster[player]}</td>
 									</tr>
-								</c:forEach>
-							</c:if>
+								</c:if>
+							</c:forEach>
 						</c:forEach>
 					</tbody>
 				</table>
