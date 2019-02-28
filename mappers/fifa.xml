@@ -310,24 +310,4 @@
 	</select>
 	
 	
-<!-- 	로스터  등록 클럽	 -->
-
-	<update id="updaterosterclubclear">
-	
-		UPDATE
-			Club
-		SET
-			roster = 0
-		
-	</update>
-	<update id="updaterosterclub" parameterType="String">
-	
-		UPDATE
-			Club
-		SET
-			roster = 1
-		WHERE
-			name = #{rosterlist}
-		
-	</update>
 </mapper>

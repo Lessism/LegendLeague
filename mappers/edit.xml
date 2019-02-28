@@ -9,10 +9,20 @@
 	<update id="update_roster" parameterType="map">
 	
 		<if test="name == null">
+		
 			UPDATE
 				League
 			SET
-				roster = #{roster}
+				club0 = null,
+				club1 = null,
+				club2 = null,
+				club3 = null,
+				club4 = null,
+				club5 = null,
+				club6 = null,
+				club7 = null,
+				club8 = null,
+				club9 = null
 			WHERE
 				name = 'Legend League';
 			
@@ -25,6 +35,13 @@
 			
 			<if test="rosterlist != null">
 				<foreach collection="rosterlist" index="idx" separator=";">
+				
+					UPDATE
+						League
+					SET
+						club${idx} = #{rosterlist[${idx}]}
+					WHERE
+						name = 'Legend League';
 				
 					UPDATE
 						Club
@@ -41,8 +58,18 @@
 			UPDATE
 				Club
 			SET
-				Manager = #{manager},
-				Player = #{roster}
+				manager = #{manager},
+				player0 = null,
+				player1 = null,
+				player2 = null,
+				player3 = null,
+				player4 = null,
+				player5 = null,
+				player6 = null,
+				player7 = null,
+				player8 = null,
+				player9 = null,
+				player10 = null
 			WHERE
 				name = #{name};
 			
@@ -68,7 +95,14 @@
 				name = #{manager};
 			
 			<if test="rosterlist != null">
-				<foreach collection="rosterlist" index="idx" separator=";">
+				<foreach collection="rosterlist" index="idx" separator=";" close=";">
+				
+					UPDATE
+						Club
+					SET
+						player${idx} = #{rosterlist[${idx}]}
+					WHERE
+						name = #{name};
 				
 					UPDATE
 						Player
@@ -79,46 +113,32 @@
 				
 				</foreach>
 			</if>
+			
+			UPDATE
+				Club
+			SET
+				ovr =
+					((
+						SELECT
+							AVG(ovr)
+						FROM
+							Player
+						WHERE
+							club = #{name}
+					) + (
+						SELECT
+							ovr
+						FROM
+							Manager
+						WHERE
+							club = #{name}
+					)) / 2
+			WHERE
+				name = #{name}
+		
 		</if>
 	
 	</update>
-	
-	
-<!-- 	로스터 등록	 -->
-
-	<update id="updaterosterclub" parameterType="map">
-	
-		UPDATE
-			Club
-		SET
-			manager = #{manager},
-			player = #{player},
-			ovr = #{ovr}
-		WHERE
-			name = #{name}
-		
-	</update>
-	
-	<update id="updaterosterclubclear" parameterType="map">
-	
-		UPDATE
-			Player
-		SET
-			club = 'Free'
-		WHERE
-			club = #{name}
-		
-	</update>
-	<update id="updaterosterplayer" parameterType="map">
-	
-		UPDATE
-			Player
-		SET
-			club = #{name}
-		WHERE
-			name = #{player}
-		
-	</update>	
 	
 	
 </mapper>
