@@ -1,2 +1,2 @@
 # LegendLeague
-v.league roster
+v.Roster
