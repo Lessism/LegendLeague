@@ -14,20 +14,20 @@ public class LeagueDAO {
 	private SqlSession db;
 	
 	
-// 	시즌 라운드
+//	League Main system
 	
-		public Map<String, Object> season() {
+		public Map<String, Object> league() {
 			
-			Map<String, Object> season = db.selectOne("League.season");
-			List<Map<String, Object>> list = db.selectList("League.info_roster");
+			Map<String, Object> league = db.selectOne("League.season_round");
+			List<Map<String, Object>> roster = db.selectList("League.roster", league);
 			
-			for (Map<String, Object> map : list) {
+			for (Map<String, Object> map : roster) {
 				map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
 			}
 
-			season.replace("roster", list);
+			league.put("roster", roster);
 			
-			return season;
+			return league;
 		}
 	
 	
