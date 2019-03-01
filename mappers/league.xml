@@ -4,41 +4,42 @@
 <mapper namespace="League">
 
 
-<!--	현재 시즌		-->
+<!--	League Season Round		-->
 
-	<select id="season" resultType="map">
+	<select id="season_round" resultType="map">
 		
 		SELECT
 			*
 		FROM
 			Season
-		WHERE
-			(
-				SELECT
-					MAX(season)
-				FROM
-					Season
-			);
+		ORDER BY
+			season DESC
+		LIMIT
+			1
 		
 	</select>
 	
 	
-<!--	Free Season		-->
+<!--	League roster		-->
 
-	<select id="info_roster" resultType="map">
+	<select id="roster" parameterType="map" resultType="map">
 	
-		SELECT
-			*
-		FROM
-			Club
-		WHERE
-			roster = 1
-		ORDER BY
-			ovr DESC
-			
+		<if test="round == null">
+		
+			SELECT
+				*
+			FROM
+				Club
+			WHERE
+				roster = 1
+			ORDER BY
+				ovr DESC;
+				
+		</if>
+	
 	</select>
-
-
+	
+	
 <!--	Key Player		-->
 
 	<select id="keyplayer" resultType="map">
@@ -48,7 +49,7 @@
 		FROM
 			Player
 		WHERE
-			club = 'Free'
+			club = #{name}
 		ORDER BY
 			ovr DESC
 		LIMIT
