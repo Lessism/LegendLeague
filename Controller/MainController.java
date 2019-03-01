@@ -29,7 +29,7 @@ public class MainController {
 	
 		@RequestMapping(value = "/", method = RequestMethod.GET)
 		public ModelAndView main() {
-			return new ModelAndView("main", "league", lDAO.season());
+			return new ModelAndView("main", "league", lDAO.league());
 		}
 		
 		
