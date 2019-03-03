@@ -33,6 +33,24 @@
 			WHERE
 				roster = 1;
 			
+			UPDATE
+				Season
+			SET
+				roster = #{roster}
+			WHERE
+				season =
+					(
+						SELECT
+							*
+						FROM
+							(
+								SELECT
+									MAX(season)
+								FROM
+									Season
+							) AS a
+					);
+			
 			<if test="rosterlist != null">
 				<foreach collection="rosterlist" index="idx" separator=";">
 				

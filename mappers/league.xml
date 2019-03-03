@@ -20,11 +20,10 @@
 	</select>
 	
 	
-<!--	League roster		-->
+<!--	League information		-->
 
-	<select id="roster" parameterType="map" resultType="map">
+	<select id="information" parameterType="map" resultType="map">
 	
-		<if test="round == null">
 		
 			SELECT
 				*
@@ -35,7 +34,6 @@
 			ORDER BY
 				ovr DESC;
 				
-		</if>
 	
 	</select>
 	
@@ -57,19 +55,62 @@
 			
 	</select>
 	
-<!-- 		SELECT
-			name
-		FROM
-			Player
-		where
-			ovr = (
-			    SELECT
-					max(ovr)
-				FROM
-					Player
-				where
-			    	club = 'Free'
-			) -->
+	
+<!--	Match schedule		-->
+
+	<insert id="match_schedule" parameterType="map">
+	
+		INSERT
+			INTO Round (
+				season,
+				round,
+				versus
+			)
+			VALUES (
+				#{season},
+				#{round},
+				#{versus}
+			);
+			
+		<foreach collection="club" index="idx" separator=";">
+		
+			INSERT
+				INTO Ranking (
+					season,
+					round,
+					club
+				)
+				VALUES (
+					#{season},
+					#{round},
+					#{club[${idx}]}
+				)
+		
+		</foreach>
+	
+	</insert>
+	
+	
+<!--	Update Season		-->
+
+	<update id="update_season" parameterType="map">
+	
+		UPDATE
+			League
+		SET
+			round = 1
+		WHERE
+			season = #{season};
+			
+		UPDATE
+			Season
+		SET
+			round = 1
+		WHERE
+			season = #{season}
+	
+	</update>
+	
 	
 <!-- 	시즌 정보	 -->
 
@@ -83,23 +124,6 @@
 			season = #{season}
 			
 	</select>
-	
-	
-<!--	라운드 생성		-->
-
-	<insert id="insert_round" parameterType="map">
-	
-		INSERT
-			INTO Round (
-				round,
-				versus
-			)
-			VALUES (
-				#{round},
-				#{versus}
-			)
-	
-	</insert>
 	
 	
 <!--	라운드 업데이트		-->
