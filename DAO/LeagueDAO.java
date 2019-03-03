@@ -19,18 +19,32 @@ public class LeagueDAO {
 		public Map<String, Object> league() {
 			
 			Map<String, Object> league = db.selectOne("League.season_round");
-			List<Map<String, Object>> roster = db.selectList("League.roster", league);
+			List<Map<String, Object>> information = db.selectList("League.information", league);
 			
-			for (Map<String, Object> map : roster) {
+			for (Map<String, Object> map : information) {
 				map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
 			}
 
-			league.put("roster", roster);
+			league.put("information", information);
 			
 			return league;
 		}
-	
-	
+		
+		
+//	Match schedule
+		
+		public int matchSchedule(Map<String, Object> map) {
+			return db.insert("League.match_schedule", map);
+		}
+		
+		
+//	Update Season
+		
+		public int updateSeason(Map<String, Object> map) {
+			return db.update("League.update_season", map);
+		}
+		
+		
 //	시즌 정보
 	
 		public Map<String, Object> infoSeason(Map<String, Object> map) {
