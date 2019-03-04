@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lessism.legendleague.dao.LeagueDAO;
 
+import netscape.javascript.JSObject;
+
 @RestController
 public class LeagueRestController {
 	
@@ -44,9 +46,9 @@ public class LeagueRestController {
 					if (round <= roster.length-1) {
 						
 						if (versus == null) {
-							versus = roster[home]+"vs"+roster[away];
+							versus = roster[home]+"_"+roster[away];
 						} else {
-							versus += ","+roster[home]+"vs"+roster[away]; 
+							versus += ","+roster[home]+"_"+roster[away]; 
 						}
 						if (home < round) {
 							home = round-1;
@@ -55,9 +57,9 @@ public class LeagueRestController {
 					if (round > roster.length-1) {
 						
 						if (versus == null) {
-							versus = roster[away]+"vs"+roster[home];
+							versus = roster[away]+"_"+roster[home];
 						} else {
-							versus += ","+roster[away]+"vs"+roster[home];
+							versus += ","+roster[away]+"_"+roster[home];
 						}
 						if (home < round-(roster.length-1)) {
 							home = round-roster.length;
@@ -81,6 +83,18 @@ public class LeagueRestController {
 			}
 			
 			lDAO.updateSeason(map);
+			
+			return map;
+		}
+		
+		
+//	Matching
+		
+		@RequestMapping(value="matching", produces="application/json")
+		public Map<String, Object> matching(@RequestParam Map<String, Object> map) {
+			
+			JSObject jobj = (JSObject) map.get("match");
+				System.out.println(jobj);
 			
 			return map;
 		}
