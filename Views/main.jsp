@@ -154,26 +154,25 @@
 			</div>
 			<div class="ui center aligned container" style="margin-top:10px">
 				<input class="ui black button f k r" id="start" type="button" value="시작">
-				<input class="ui button f k r opening" type="button" value="취소"/>
+				<input class="ui button f k r opening" type="button" value="취소">
 			</div>
 		</div>
 	</c:if>
 	<c:if test="${!empty league.round}">
-		<div class="ui transition hidden center aligned black segment" id="match">
-			<h3 class="f k r">match section</h3>
-			<div class="ui centered grid segment">
-				<c:forEach var="club" items="${league.information}">
-					<div class="column">
-						<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${club.name}">
+		<div class="ui transition hidden center aligned black segment" id="matchSection">
+			<h3 class="f k r">${league.round} Round</h3>
+				<c:forEach var="match" items="${league.match}">
+					<div class="ui middle aligned centered grid segment">
+						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[0]}"></div>
+						<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[0]}</span></div>
+						<div class="center aligned four wide column" ><span class="f k r">VS</span></div>
+						<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
+						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[1]}"></div>
 					</div>
 				</c:forEach>
-			</div>
-			<div class="ui container f k r">
-				match section
-			</div>
 			<div class="ui center aligned container" style="margin-top:10px">
-				<input class="ui black button f k r" id="start" type="button" value="시작">
-				<input class="ui button f k r opening" type="button" value="취소"/>
+				<input class="ui black button f k r" id="match" type="button" value="경기 시작">
+				<input class="ui button f k r playing" type="button" value="취소">
 			</div>
 		</div>
 	</c:if>
@@ -191,18 +190,24 @@ $(function(){
 		})
 	})
 	
-	$('#playing').click(function(){
+	$('.playing').click(function(){
 		$('#rank').transition({
 			animation  : 'fade right',
 			onComplete : function() {
-				$('#match').transition('fade left')
+				$('#matchSection').transition('fade left')
 			}
 		})
 	})
 	
 	$('#start').click(function(){
-		$.post('opening', {season:'${league.season}', roster:'${league.roster}'}, function(data){},'json')
+		$.post('opening', {season : '${league.season}', roster : '${league.roster}'}, function(data){},'json')
 		window.location.reload()
+	})
+	
+	$('#match').click(function(){
+		$.post('matching', {match : '${league.match}'}, function(data){
+			
+		}, 'json')
 	})
 	
 })
