@@ -26,6 +26,8 @@ public class LeagueDAO {
 			}
 
 			league.put("information", information);
+			league.put("ranking", db.selectList("League.ranking", league));
+			league.put("match", db.selectList("League.match", league));
 			
 			return league;
 		}
