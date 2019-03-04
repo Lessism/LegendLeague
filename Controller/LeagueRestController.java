@@ -75,7 +75,7 @@ public class LeagueRestController {
 				}
 
 				map.put("round", round);
-				map.put("versus", versus);
+				map.put("versus", versus.split(","));
 				lDAO.matchSchedule(map);
 				
 			}
