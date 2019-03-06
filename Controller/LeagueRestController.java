@@ -1,5 +1,6 @@
 package com.lessism.legendleague.restcontroller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lessism.legendleague.dao.LeagueDAO;
-
-import netscape.javascript.JSObject;
 
 @RestController
 public class LeagueRestController {
@@ -89,13 +88,26 @@ public class LeagueRestController {
 		
 		
 //	Matching
-		
+
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value="matching", produces="application/json")
 		public Map<String, Object> matching(@RequestParam Map<String, Object> map) {
 			
-			JSObject jobj = (JSObject) map.get("match");
-				System.out.println(jobj);
-			
+			for (Map<String, Object> match : lDAO.match(map)) {
+				match = lDAO.lineup(match);
+				Map<String, Object> home = (Map<String, Object>)match.get("home");
+				Map<String, Object> away = (Map<String, Object>)match.get("away");
+				Map<String, Object> homeManager = (Map<String, Object>)home.get("manager");
+				Map<String, Object> awayManager = (Map<String, Object>)away.get("manager");
+				for (int i = 0; i < 11; i++) {
+					List<Map<String, Object>> homeLineup = (List<Map<String, Object>>) home.get("lineup");
+					List<Map<String, Object>> awayLineup = (List<Map<String, Object>>) away.get("lineup");
+					System.out.println(homeLineup.toArray()[i]);
+				}
+				
+				
+				
+			}
 			return map;
 		}
 }
