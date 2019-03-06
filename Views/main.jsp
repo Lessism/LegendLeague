@@ -205,7 +205,7 @@ $(function(){
 	})
 	
 	$('#match').click(function(){
-		$.post('matching', {match : '${league.match}'}, function(data){
+		$.post('matching', {season : '${league.season}', round : '${league.round}'}, function(data){
 			
 		}, 'json')
 	})
