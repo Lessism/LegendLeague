@@ -79,6 +79,7 @@
 		FROM
 			Round
 		WHERE
+			season = #{season} AND
 			round = #{round}
 	
 	</select>
@@ -143,16 +144,16 @@
 	</update>
 	
 	
-<!-- 	시즌 정보	 -->
+<!--	Lineup		-->
 
-	<select id="info_season" parameterType="map" resultType="map">
+	<select id="lineup" parameterType="map" resultType="map">
 	
 		SELECT
 			*
 		FROM
-			Season
+			${role}
 		WHERE
-			season = #{season}
+			club = #{name}
 			
 	</select>
 	
