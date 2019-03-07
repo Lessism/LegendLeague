@@ -2,6 +2,7 @@ package com.lessism.legendleague.restcontroller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,21 +94,89 @@ public class LeagueRestController {
 		@RequestMapping(value="matching", produces="application/json")
 		public Map<String, Object> matching(@RequestParam Map<String, Object> map) {
 			
+			Random dice = new Random();
+			
 			for (Map<String, Object> match : lDAO.match(map)) {
+				
 				match = lDAO.lineup(match);
-				Map<String, Object> home = (Map<String, Object>)match.get("home");
-				Map<String, Object> away = (Map<String, Object>)match.get("away");
-				Map<String, Object> homeManager = (Map<String, Object>)home.get("manager");
-				Map<String, Object> awayManager = (Map<String, Object>)away.get("manager");
+				Map<String, Object> home = (Map<String, Object>) match.get("home");
+				Map<String, Object> away = (Map<String, Object>) match.get("away");
+				Map<String, Object> homeManager = (Map<String, Object>) home.get("manager");
+				Map<String, Object> awayManager = (Map<String, Object>) away.get("manager");
+				List<Map<String, Object>> homeLineup = (List<Map<String, Object>>) home.get("lineup");
+				List<Map<String, Object>> awayLineup = (List<Map<String, Object>>) away.get("lineup");
+				
+				int homescore = 0;
+				int awayscore = 0;
+				
 				for (int i = 0; i < 11; i++) {
-					List<Map<String, Object>> homeLineup = (List<Map<String, Object>>) home.get("lineup");
-					List<Map<String, Object>> awayLineup = (List<Map<String, Object>>) away.get("lineup");
-					System.out.println(homeLineup.toArray()[i]);
+					
+					Map<String, Object> homePlayer = (Map<String, Object>) homeLineup.toArray()[i];
+					Map<String, Object> awayPlayer = (Map<String, Object>) awayLineup.toArray()[i];
+
+					int homerating = 50 + dice.nextInt(9);
+					int awayrating = 50 + dice.nextInt(9);
+					int homegoal = 0;
+					int awaygoal = 0;
+					int homeassist = 0;
+					int awayassist = 0;
+					
+					if (dice.nextInt(100) < (int) homePlayer.get("ovr") * 2 - (int) awayPlayer.get("ovr") - (int) awayManager.get("ovr")) {
+						if (!homePlayer.get("position").equals("GK")) {
+							
+							homescore += 1;
+							homegoal += 1;
+							homerating += 20;
+							
+							int chk = dice.nextInt(11);
+							if (homescore > homegoal && chk > 5) {
+								
+								homeassist += 1;
+								homerating += 10;
+								
+							}
+						}
+					} else {
+						awayrating += 20 + dice.nextInt(9);
+					}
+					if (dice.nextInt(100) < (int) awayPlayer.get("ovr") * 2 - (int) homePlayer.get("ovr") - (int) homeManager.get("ovr")) {
+						if (!awayPlayer.get("position").equals("GK")) {
+							
+							awayscore += 1;
+							awaygoal += 1;
+							awayrating += 20;
+							
+							int chk = dice.nextInt(11); 
+							if (awayscore > awaygoal && chk > 5) {
+								
+								awayassist += 1;
+								awayrating += 10;
+								
+							}
+						}
+					} else {
+						homerating += 20 + dice.nextInt(9);
+					}
+					
+					homePlayer.put("rating", homerating);
+					homePlayer.put("goal", homegoal);
+					homePlayer.put("assist", homeassist);
+					homePlayer.put("opponent", away.get("name"));
+					System.out.println("insert score");
+					
+					awayPlayer.put("rating", awayrating);
+					awayPlayer.put("goal", awaygoal);
+					awayPlayer.put("assist", awayassist);
+					awayPlayer.put("opponent", home.get("name"));
+					System.out.println("insert score");
 				}
 				
-				
+				System.out.println("insert round ranking");
 				
 			}
+			
+			System.out.println("result ranking");
 			return map;
+			
 		}
 }
