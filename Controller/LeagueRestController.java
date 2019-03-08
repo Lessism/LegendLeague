@@ -175,7 +175,7 @@ public class LeagueRestController {
 				
 			}
 			
-			System.out.println("result ranking");
+			System.out.println("result round ranking ");
 			return map;
 			
 		}
