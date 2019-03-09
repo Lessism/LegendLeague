@@ -79,8 +79,8 @@
 		FROM
 			Round
 		WHERE
-			season = #{season} AND
-			round = #{round}
+			season	= #{season} AND
+			round	= #{round}
 	
 	</select>
 	
@@ -158,30 +158,79 @@
 	</select>
 	
 	
-<!--	라운드 업데이트		-->
+<!--	Insert Score		-->
+
+	<insert id="insert_score" parameterType="map">
+	
+		INSERT
+			INTO Score (
+				season,
+				round,
+				club,
+				player,
+				rating,
+				goal,
+				assist,
+				opponent
+			)
+			VALUES (
+				#{season},
+				#{round},
+				#{club},
+				#{name},
+				#{rating},
+				#{goal},
+				#{assist},
+				#{opponent}
+			)
+	
+	</insert>
+	
+	
+<!--	Update Round		-->
 
 	<update id="update_round" parameterType="map">
-		
+	
 		UPDATE
-			Season
+			Round
 		SET
-			round = #{round}
+			lineup	= #{lineup},
+			score	= #{score}
 		WHERE
-			season = #{season}
-		
+			season	= #{season}	AND
+			round	= #{round}	AND
+			versus	= #{versus}
+	
 	</update>
 	
 	
-<!-- 	라운드 정보	 -->
-
-	<select id="info_round" parameterType="map" resultType="map">
+<!--	Update Ranking	-->
 	
-		SELECT
-			*
-		FROM
-			Round
+	<update id="update_ranking" parameterType="map">
+	
+		UPDATE
+			Ranking
+		SET
+			match	= #{round}
+		<if test="win != null">,
+			win	= ${win} + (
+				SELECT
+					win
+				FROM
+					Ranking
+				WHERE
+					season	= #{season}	AND
+					round	= #{round}	AND
+					club	= #{name}
+			)
+		</if>
 		WHERE
-			round = #{round}
-			
-	</select>	
+			season	= #{season}	AND
+			round	= #{round}	AND
+			club	= #{name}
+	
+	
+	</update>
+	
+	
 </mapper>
