@@ -52,7 +52,7 @@ public class LeagueDAO {
 		
 		public Map<String, Object> lineup(Map<String, Object> map) {
 			
-			Map<String, Object> home = new HashMap<>();
+			Map<String, Object> home = new HashMap<>(map);
 			home.put("name", map.get("versus").toString().split("_")[0]);
 			home.put("role", "Manager");
 			home.put("manager", db.selectOne("League.lineup", home));
@@ -60,7 +60,7 @@ public class LeagueDAO {
 			home.put("lineup", db.selectList("League.lineup", home));
 			map.put("home", home);
 			
-			Map<String, Object> away = new HashMap<>();
+			Map<String, Object> away = new HashMap<>(map);
 			away.put("name", map.get("versus").toString().split("_")[1]);
 			away.put("role", "Manager");
 			away.put("manager", db.selectOne("League.lineup", away));
@@ -78,6 +78,17 @@ public class LeagueDAO {
 			return db.update("League.update_season", map);
 		}
 		
+//	Insert Score
+		
+		public int insertScore(Map<String, Object> map) {
+			return db.insert("League.insert_score", map);
+		}
+		
+//	Update Round
+	
+		public int updateRound(Map<String, Object> map) {
+			return db.update("League.update_round", map);
+		}
 		
 //	라운드 생성
 		
@@ -93,9 +104,5 @@ public class LeagueDAO {
 		}
 		
 		
-//	라운드 업데이트
-		
-		public int updateRound(Map<String, Object> map) {
-			return db.update("League.update_round", map);
-		}
+
 }
