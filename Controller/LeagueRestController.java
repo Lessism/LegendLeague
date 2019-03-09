@@ -108,6 +108,8 @@ public class LeagueRestController {
 				
 				int homescore = 0;
 				int awayscore = 0;
+				String roundLineupHome = "home:";
+				String roundLineupAway = "away:";
 				
 				for (int i = 0; i < 11; i++) {
 					
@@ -120,6 +122,8 @@ public class LeagueRestController {
 					int awaygoal = 0;
 					int homeassist = 0;
 					int awayassist = 0;
+					roundLineupHome += homePlayer.get("name") + ",";
+					roundLineupAway += awayPlayer.get("name") + ",";
 					
 					if (dice.nextInt(100) < (int) homePlayer.get("ovr") * 2 - (int) awayPlayer.get("ovr") - (int) awayManager.get("ovr")) {
 						if (!homePlayer.get("position").equals("GK")) {
@@ -162,20 +166,44 @@ public class LeagueRestController {
 					homePlayer.put("goal", homegoal);
 					homePlayer.put("assist", homeassist);
 					homePlayer.put("opponent", away.get("name"));
-					System.out.println("insert score");
+					homePlayer.put("season", map.get("season"));
+					homePlayer.put("round", map.get("round"));
+					lDAO.insertScore(homePlayer);
 					
 					awayPlayer.put("rating", awayrating);
 					awayPlayer.put("goal", awaygoal);
 					awayPlayer.put("assist", awayassist);
 					awayPlayer.put("opponent", home.get("name"));
-					System.out.println("insert score");
+					awayPlayer.put("season", map.get("season"));
+					awayPlayer.put("round", map.get("round"));
+					lDAO.insertScore(awayPlayer);
+					
 				}
 				
-				System.out.println("insert round ranking");
+				match.put("lineup", roundLineupHome + "_" + roundLineupAway);
+				match.put("score", homescore + " : " + awayscore);
+				lDAO.updateRound(match);
+				
+				if (homescore > awayscore) {
+					home.put("win", 1);
+					away.put("lose", 1);
+				}
+				if (homescore < awayscore) {
+					home.put("lose", 1);
+					away.put("win", 1);
+				}
+				if (homescore == awayscore) {
+					home.put("draw", 1);
+					away.put("draw", 1);
+				}
+				
+				System.out.println(home);
+				System.out.println(away);
+				System.out.println("update ranking");
 				
 			}
 			
-			System.out.println("result round ranking ");
+			System.out.println("result ranking");
 			return map;
 			
 		}
