@@ -20,8 +20,8 @@ public class LeagueDAO {
 		public Map<String, Object> league() {
 			
 			Map<String, Object> league = db.selectOne("League.season_round");
-			List<Map<String, Object>> information = db.selectList("League.information", league);
 			
+			List<Map<String, Object>> information = db.selectList("League.information", league);
 			for (Map<String, Object> map : information) {
 				map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
 			}
@@ -90,19 +90,34 @@ public class LeagueDAO {
 			return db.update("League.update_round", map);
 		}
 		
-//	라운드 생성
+//	Update Ranking
 		
-		public int insertRound(Map<String, Object> map) {
-			return db.insert("League.insert_round", map);
+		public int updateRanking(Map<String, Object> map) {
+			return db.update("League.update_ranking", map);
 		}
 		
 		
-//	라운드 정보
+//	Check Round
 		
-		public Map<String, Object> infoRound(Map<String, Object> map) {
-			return db.selectOne("League.info_round", map);
+		public int checkRound(Map<String, Object> map) {
+			return db.selectOne("League.check_round", map);
 		}
 		
 		
-
+//	Next Round
+		
+		public int nextRound(Map<String, Object> map) {
+			return db.update("League.next_round", map);
+		}
+		
+		
+//	Result Game
+		
+		public Map<String, Object> resultGame(Map<String, Object> map) {
+			map.put("result", db.selectList("League.result_game", map));
+			return map;
+		}
+		
+		
+		
 }
