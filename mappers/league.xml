@@ -211,19 +211,73 @@
 		UPDATE
 			Ranking
 		SET
-			match	= #{round}
-		<if test="win != null">,
-			win	= ${win} + (
-				SELECT
-					win
-				FROM
-					Ranking
-				WHERE
-					season	= #{season}	AND
-					round	= #{round}	AND
-					club	= #{name}
-			)
+			game	= #{round},
+		<if test="win != null">
+			win 	= ${win} + 
+				(SELECT * FROM 
+					(
+						SELECT
+							win
+						FROM
+							Ranking
+						WHERE
+							season	= #{season}	AND
+							round	= #{round}	AND
+							club	= #{name}
+					) AS win
+				)
 		</if>
+		<if test="draw != null">
+			draw	= ${draw} + 
+				(SELECT * FROM 
+					(
+						SELECT
+							draw
+						FROM
+							Ranking
+						WHERE
+							season	= #{season}	AND
+							round	= #{round}	AND
+							club	= #{name}
+					) AS draw
+				)
+		</if>
+		<if test="lose != null">
+			lose	= ${lose} + 
+				(SELECT * FROM 
+					(
+						SELECT
+							lose
+						FROM
+							Ranking
+						WHERE
+							season	= #{season}	AND
+							round	= #{round}	AND
+							club	= #{name}
+					) AS lose
+				)
+		</if>
+		WHERE
+			season	= #{season}	AND
+			round	= #{round}	AND
+			club	= #{name};
+			
+		UPDATE
+			Ranking
+		SET
+			point = 
+				(SELECT wd.win * 3 + wd.draw FROM 
+					(
+						SELECT
+							win, draw
+						FROM
+							Ranking
+						WHERE
+							season	= #{season}	AND
+							round	= #{round}	AND
+							club	= #{name}
+					) AS wd
+				)
 		WHERE
 			season	= #{season}	AND
 			round	= #{round}	AND
@@ -231,6 +285,51 @@
 	
 	
 	</update>
+	
+	
+<!--	Check Round		-->
+
+	<select id="check_round" parameterType="map" resultType="int">
+	
+		SELECT
+			MAX(round) = ${round}
+		FROM
+			Round
+		WHERE
+			season = #{season}
+	
+	</select>
+	
+	
+<!--	Next Round		-->
+
+	<update id="next_round" parameterType="map">
+	
+		UPDATE
+			League
+		SET
+			Round	= #{round+1}
+		WHERE
+			season	= #{season};
+			
+		
+	
+	</update>
+	
+	
+<!--	Result Game		-->
+	
+	<select id="result_game" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Round
+		WHERE
+			season	= #{season} AND
+			round	= #{round}
+	
+	</select>
 	
 	
 </mapper>
