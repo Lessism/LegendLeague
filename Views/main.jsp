@@ -7,7 +7,7 @@
 			<h1 style="display:inline-block;">Legend League</h1>
 			<h3 style="display:block;">${league.season}/${f:substring(league.season+1, 2, 4)} ${!empty league.round ? seasonround : 'Free Season'}</h3>
 		</div>
-		<div class="four wide column" style="display:flex; align-items:center;">
+		<div class="hidden four wide column" style="display:flex; align-items:center;">
 			<input class="ui fluid black button f k r ${!empty league.round ? 'playing' : 'opening'}" id="${!empty league.round ? 'playing' : 'opening'}" type="button" value="${!empty league.round ? '진행' : '개막'}" style="height:75%;">
 		</div>
 	</div>
@@ -62,7 +62,7 @@
 								<td style="width:10%">${idx.count}</td>
 								<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${rank.club}"></td>
 								<td style="width:45%">${rank.club}</td>
-								<td style="width:10%">${rank.match}</td>
+								<td style="width:10%">${rank.game}</td>
 								<td style="width:5%">${rank.win}</td>
 								<td style="width:5%">${rank.draw}</td>
 								<td style="width:5%">${rank.lose}</td>
@@ -165,7 +165,7 @@
 					<div class="ui middle aligned centered grid segment">
 						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[0]}"></div>
 						<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[0]}</span></div>
-						<div class="center aligned four wide column" ><span class="f k r">VS</span></div>
+						<div class="center aligned four wide column" ><span class="${f:replace(match.versus,' ','_')} score f k r">VS</span></div>
 						<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
 						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[1]}"></div>
 					</div>
@@ -206,7 +206,9 @@ $(function(){
 	
 	$('#match').click(function(){
 		$.post('matching', {season : '${league.season}', round : '${league.round}'}, function(data){
-			
+			for (var i = 0; i < data.result.length; i++){
+				$('.'+data.result[i].versus.replace(/ /g, '_')).text(data.result[i].score)
+			}
 		}, 'json')
 	})
 	
