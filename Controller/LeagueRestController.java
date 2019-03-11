@@ -126,6 +126,7 @@ public class LeagueRestController {
 					roundLineupAway += awayPlayer.get("name") + ",";
 					
 					if (dice.nextInt(100) < (int) homePlayer.get("ovr") * 2 - (int) awayPlayer.get("ovr") - (int) awayManager.get("ovr")) {
+						
 						if (!homePlayer.get("position").equals("GK")) {
 							
 							homescore += 1;
@@ -143,7 +144,8 @@ public class LeagueRestController {
 					} else {
 						awayrating += 20 + dice.nextInt(9);
 					}
-					if (dice.nextInt(100) < (int) awayPlayer.get("ovr") * 2 - (int) homePlayer.get("ovr") - (int) homeManager.get("ovr")) {
+					if (dice.nextInt(75) < (int) awayPlayer.get("ovr") * 2 - (int) homePlayer.get("ovr") - (int) homeManager.get("ovr")) {
+						
 						if (!awayPlayer.get("position").equals("GK")) {
 							
 							awayscore += 1;
@@ -197,14 +199,16 @@ public class LeagueRestController {
 					away.put("draw", 1);
 				}
 				
-				System.out.println(home);
-				System.out.println(away);
-				System.out.println("update ranking");
+				lDAO.updateRanking(home);
+				lDAO.updateRanking(away);
 				
 			}
 			
-			System.out.println("result ranking");
-			return map;
+			if (lDAO.checkRound(map) != 1) {
+				lDAO.nextRound(map);
+			}
+			
+			return lDAO.resultGame(map);
 			
 		}
 }
