@@ -82,7 +82,7 @@ public class LeagueRestController {
 				
 			}
 			
-			lDAO.updateSeason(map);
+			lDAO.startSeason(map);
 			
 			return map;
 		}
@@ -125,7 +125,7 @@ public class LeagueRestController {
 					roundLineupHome += homePlayer.get("name") + ",";
 					roundLineupAway += awayPlayer.get("name") + ",";
 					
-					if (dice.nextInt(100) < (int) homePlayer.get("ovr") * 2 - (int) awayPlayer.get("ovr") - (int) awayManager.get("ovr")) {
+					if (dice.nextInt(25) < (int) homePlayer.get("ovr") * 2 - (int) awayPlayer.get("ovr") - (int) awayManager.get("ovr")) {
 						
 						if (!homePlayer.get("position").equals("GK")) {
 							
@@ -144,7 +144,7 @@ public class LeagueRestController {
 					} else {
 						awayrating += 20 + dice.nextInt(9);
 					}
-					if (dice.nextInt(75) < (int) awayPlayer.get("ovr") * 2 - (int) homePlayer.get("ovr") - (int) homeManager.get("ovr")) {
+					if (dice.nextInt(50) < (int) awayPlayer.get("ovr") * 2 - (int) homePlayer.get("ovr") - (int) homeManager.get("ovr")) {
 						
 						if (!awayPlayer.get("position").equals("GK")) {
 							
@@ -201,10 +201,15 @@ public class LeagueRestController {
 				
 				lDAO.updateRanking(home);
 				lDAO.updateRanking(away);
+
+				if (lDAO.checkRound(map) < 1) {
+					lDAO.nextRanking(home);
+					lDAO.nextRanking(away);
+				}
 				
 			}
 			
-			if (lDAO.checkRound(map) != 1) {
+			if (lDAO.checkRound(map) < 1) {
 				lDAO.nextRound(map);
 			}
 			
