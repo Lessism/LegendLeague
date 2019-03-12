@@ -27,8 +27,16 @@ public class LeagueDAO {
 			}
 
 			league.put("information", information);
-			league.put("ranking", db.selectList("League.ranking", league));
 			league.put("match", match(league));
+			league.put("ranking", db.selectList("League.ranking", league));
+			if (league.get("round") != null && (int)league.get("round") > 1) {
+				league.put("score", "goal");
+				league.put("goalscorer", db.selectList("League.score_ranking", league));
+				league.replace("score", "assist");
+				league.put("assistprovider", db.selectList("League.score_ranking", league));
+				league.replace("score", "rating");
+				league.put("toprating", db.selectList("League.score_ranking", league));
+			}
 			
 			return league;
 		}
@@ -74,8 +82,8 @@ public class LeagueDAO {
 		
 //	Update Season
 		
-		public int updateSeason(Map<String, Object> map) {
-			return db.update("League.update_season", map);
+		public int startSeason(Map<String, Object> map) {
+			return db.update("League.start_season", map);
 		}
 		
 //	Insert Score
@@ -108,6 +116,13 @@ public class LeagueDAO {
 		
 		public int nextRound(Map<String, Object> map) {
 			return db.update("League.next_round", map);
+		}
+		
+		
+//	Next Ranking
+		
+		public int nextRanking(Map<String, Object> map) {
+			return db.update("League.next_ranking", map);
 		}
 		
 		
