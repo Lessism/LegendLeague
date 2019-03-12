@@ -70,6 +70,30 @@
 	</select>
 	
 	
+<!--	Score ranking		-->
+	
+	<select id="score_ranking" resultType="map">
+	
+		SELECT
+			*,
+			<if test="score == 'goal'"> SUM(goal) goalscorer </if>
+			<if test="score == 'assist'"> SUM(assist) assistprovider </if>
+			<if test="score == 'rating'"> AVG(rating) toprating </if>
+		FROM
+			Score
+		WHERE
+			season = #{season}
+		group by
+			player
+		ORDER BY
+			<if test="score == 'goal'"> goalscorer DESC, assist DESC, rating DESC </if>
+			<if test="score == 'assist'"> assistprovider DESC, goal DESC, rating DESC </if>
+			<if test="score == 'rating'"> toprating DESC, goal DESC, assist DESC </if>
+		LIMIT
+			3
+	
+	</select>
+	
 <!--	Match		-->
 
 	<select id="match" parameterType="map" resultType="map">
@@ -123,9 +147,9 @@
 	</insert>
 	
 	
-<!--	Update Season		-->
+<!--	Start Season		-->
 
-	<update id="update_season" parameterType="map">
+	<update id="start_season" parameterType="map">
 	
 		UPDATE
 			League
@@ -211,52 +235,40 @@
 		UPDATE
 			Ranking
 		SET
-			game	= #{round},
-		<if test="win != null">
-			win 	= ${win} + 
-				(SELECT * FROM 
-					(
-						SELECT
-							win
-						FROM
-							Ranking
-						WHERE
-							season	= #{season}	AND
-							round	= #{round}	AND
-							club	= #{name}
-					) AS win
-				)
-		</if>
-		<if test="draw != null">
-			draw	= ${draw} + 
-				(SELECT * FROM 
-					(
-						SELECT
-							draw
-						FROM
-							Ranking
-						WHERE
-							season	= #{season}	AND
-							round	= #{round}	AND
-							club	= #{name}
-					) AS draw
-				)
-		</if>
-		<if test="lose != null">
-			lose	= ${lose} + 
-				(SELECT * FROM 
-					(
-						SELECT
-							lose
-						FROM
-							Ranking
-						WHERE
-							season	= #{season}	AND
-							round	= #{round}	AND
-							club	= #{name}
-					) AS lose
-				)
-		</if>
+			game	= 	#{round},
+			win 	= 	( SELECT * FROM (
+							SELECT
+								win
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS win )
+		<if test="win != null"> + #{win}</if>,
+			draw	=	( SELECT * FROM (
+							SELECT
+								draw
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS draw )
+		<if test="draw != null"> + #{draw}</if>,
+			lose	=	( SELECT * FROM (
+							SELECT
+								lose
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS lose )
+		<if test="lose != null"> + #{lose}</if>
 		WHERE
 			season	= #{season}	AND
 			round	= #{round}	AND
@@ -301,6 +313,72 @@
 	</select>
 	
 	
+<!--	Next Ranking		-->
+
+	<update id="next_ranking" parameterType="map">
+	
+		UPDATE
+			Ranking
+		SET
+			game	= 	#{round},
+			win 	= 	( SELECT * FROM (
+							SELECT
+								win
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS win ),
+			draw	=	( SELECT * FROM (
+							SELECT
+								draw
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS draw ),
+			lose	=	( SELECT * FROM (
+							SELECT
+								lose
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS lose )
+		WHERE
+			season	= #{season}	AND
+			round	= #{round} + 1	AND
+			club	= #{name};
+			
+		UPDATE
+			Ranking
+		SET
+			point = 
+				(SELECT wd.win * 3 + wd.draw FROM 
+					(
+						SELECT
+							win, draw
+						FROM
+							Ranking
+						WHERE
+							season	= #{season}	AND
+							round	= #{round}	AND
+							club	= #{name}
+					) AS wd
+				)
+		WHERE
+			season	= #{season}	AND
+			round	= #{round} + 1	AND
+			club	= #{name}
+	
+	</update>
+	
 <!--	Next Round		-->
 
 	<update id="next_round" parameterType="map">
@@ -308,11 +386,16 @@
 		UPDATE
 			League
 		SET
-			Round	= #{round+1}
+			round	= #{round} + 1
 		WHERE
 			season	= #{season};
-			
 		
+		UPDATE
+			Season
+		SET
+			round	= #{round} + 1
+		WHERE
+			season	= #{season}
 	
 	</update>
 	
