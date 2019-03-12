@@ -62,7 +62,7 @@
 								<td style="width:10%">${idx.count}</td>
 								<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${rank.club}"></td>
 								<td style="width:45%">${rank.club}</td>
-								<td style="width:10%">${rank.match}</td>
+								<td style="width:10%">${rank.game}</td>
 								<td style="width:5%">${rank.win}</td>
 								<td style="width:5%">${rank.draw}</td>
 								<td style="width:5%">${rank.lose}</td>
@@ -78,7 +78,7 @@
 				<div class="ui black fluid card segment">
 					<div class="ui header">
 						<div class="ui center aligned black segment"><h3 class="f k r">우승후보</h3></div>
-						<div><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&img=emblem&name=${league.information[0].name}"></div>
+						<div><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${league.information[0].name}"></div>
 						<div class="ui center aligned header f k r">${league.information[0].name}</div>
 						<div class="ui center aligned meta f k r">${league.information[0].stadium}</div>
 					</div>
@@ -87,14 +87,14 @@
 							<h5 class="ui center aligned f k r">Manager</h5>
 						</div>
 						<div class="eleven wide column">
-							<img class="ui avatar image" src="${path}/image.ll?role=Manager&img=profile&name=${league.information[0].manager}">
+							<img class="ui avatar image" src="${path}/image.ll?role=Manager&name=${league.information[0].manager}">
 							${league.information[0].manager}
 						</div>
 						<div class="five wide column">
 							<h5 class="ui center aligned f k r">Key Player</h5>
 						</div>
 						<div class="eleven wide column">
-							<img class="ui avatar image" src="${path}/image.ll?role=Player&img=profile&name=${league.information[0].keyplayer.name}">
+							<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${league.information[0].keyplayer.name}">
 							${league.information[0].keyplayer.name}
 						</div>
 					</div>
@@ -103,40 +103,50 @@
 		</c:if>
 		<c:if test="${!empty league.score}">
 			<div class="six wide column">
+			
+			<div class="ui divided items">
+				<div class="center aligned header f k r">최고 평점</div>
+				<div class="ui segment item">
+						<div class="image">
+							<img class="ui left floated image" src="${path}/image.ll?role=Player&name=${league.toprating[0].player}">
+						</div>
+						<div class="middle aligned content">
+							<div class="header">${league.toprating[0].player}</div>
+							<div class="meta">${league.toprating[0].club}</div>
+							<div class="description" style="display:inline-block;">
+								<c:if test="${league.toprating[0].toprating < 100}">${f:substring(league.toprating[0].toprating, 0, 1)}.${f:substring(league.toprating[0].toprating, 1, 2)} 점</c:if>
+								<c:if test="${league.toprating[0].toprating > 99}">${f:substring(league.toprating[0].toprating, 0, 2)}.${f:substring(league.toprating[0].toprating, 2, 3)} 점</c:if>
+							</div>
+					</div>
+				</div>
 				<div class="ui black fluid card row">
-					<div class="header">최고 평점</div>
+					<div class="center aligned header f k r">최다 득점</div>
 					<div class="ui grid content">
-						<img class="ui left floated image five wide column" src="#">
+						<div class="five wide column">
+							<img class="ui left floated avatar massive image" src="${path}/image.ll?role=Player&name=${league.goalscorer[0].player}">
+						</div>
 						<div class="eleven wide column">
-							<div class="header">Kaka</div>
-							<div class="meta"><img class="ui left floated image" src="#">Real Madrid</div>
-							<div class="description" style="display:inline-block;">9.5점</div>
+							<div class="header">${league.goalscorer[0].player}</div>
+							<div class="meta"><img class="ui left floated avatar image" src="${path}/image.ll?role=Club&name=${league.goalscorer[0].club}">${league.goalscorer[0].club}</div>
+							<div class="description" style="display:inline-block;">${league.goalscorer[0].goalscorer} 골</div>
 						</div>
 					</div>
 				</div>
 				<div class="ui black fluid card row">
-					<div class="header">최다 득점</div>
+					<div class="center aligned header f k r">최다 어시스트</div>
 					<div class="ui grid content">
-						<img class="ui left floated image five wide column" src="#">
-						<div class="eleven wide column">
-							<div class="header">Kaka</div>
-							<div class="meta"><img class="ui left floated image" src="#">Real Madrid</div>
-							<div class="description" style="display:inline-block;">25골</div>
+						<div class="five wide column">
+							<img class="ui left floated avatar massive image" src="${path}/image.ll?role=Player&name=${league.assistprovider[0].player}">
 						</div>
-					</div>
-				</div>
-				<div class="ui black fluid card row">
-					<div class="header">최다 어시스트</div>
-					<div class="ui grid content">
-						<img class="ui left floated image five wide column" src="#">
 						<div class="eleven wide column">
-							<div class="header">Kaka</div>
-							<div class="meta"><img class="ui left floated image" src="#">Real Madrid</div>
-							<div class="description" style="display:inline-block;">10어시</div>
+							<div class="header">${league.assistprovider[0].player}</div>
+							<div class="meta"><img class="ui left floated avatar image" src="${path}/image.ll?role=Club&name=${league.assistprovider[0].club}">${league.assistprovider[0].club}</div>
+							<div class="description" style="display:inline-block;">${league.assistprovider[0].assistprovider} 어시스트</div>
 						</div>
 					</div>
 				</div>
 			</div>
+  </div>
 		</c:if>
 	</div>
 	<c:if test="${empty league.round}">
@@ -171,7 +181,7 @@
 					</div>
 				</c:forEach>
 			<div class="ui center aligned container" style="margin-top:10px">
-				<input class="ui black button f k r" id="match" type="button" value="경기 시작">
+				<button class="ui black button f k r" id="match">경기 시작</button>
 				<input class="ui button f k r playing" type="button" value="취소">
 			</div>
 		</div>
@@ -182,21 +192,39 @@
 $(function(){
 	
 	$('.opening').click(function(){
-		$('#rank').transition({
-			animation  : 'fade up',
-			onComplete : function(){
-				$('#openingSection').transition('fade up')
-			}
-		})
+		if ($('#rank').hasClass('hidden')) {
+			$('#openingSection').transition({
+				animation  : 'fade up',
+				onComplete : function(){
+					$('#rank').transition('fade up')
+				}
+			})
+		} else{
+			$('#rank').transition({
+				animation  : 'fade up',
+				onComplete : function(){
+					$('#openingSection').transition('fade up')
+				}
+			})
+		}
 	})
 	
 	$('.playing').click(function(){
-		$('#rank').transition({
-			animation  : 'fade right',
-			onComplete : function(){
-				$('#matchSection').transition('fade left')
-			}
-		})
+		if ($('#rank').hasClass('hidden')) {
+			$('#matchSection').transition({
+				animation  : 'fade left',
+				onComplete : function(){
+					$('#rank').transition('fade right')
+				}
+			})
+		} else {
+			$('#rank').transition({
+				animation  : 'fade right',
+				onComplete : function(){
+					$('#matchSection').transition('fade left')
+				}
+			})
+		}
 	})
 	
 	$('#start').click(function(){
@@ -205,6 +233,7 @@ $(function(){
 	})
 	
 	$('#match').click(function(){
+		$(this).addClass('loading')
 		$.post('matching', {season : '${league.season}', round : '${league.round}'}, function(data){
 			$('.versus').transition({
 				animation  : 'horizontal flip',
@@ -215,6 +244,7 @@ $(function(){
 				}
 			})
 			$('.versus').transition('horizontal flip')
+			$('#match').removeClass('loading')
 		}, 'json')
 	})
 	
