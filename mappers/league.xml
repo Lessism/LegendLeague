@@ -306,11 +306,23 @@
 	<select id="check_round" parameterType="map" resultType="int">
 	
 		SELECT
-			MAX(round) = ${round}
+			SUM(game = ( SELECT * FROM (
+							SELECT
+								MAX(round)
+							FROM
+								Round
+							WHERE
+								season = #{season}
+						) AS round )
+			)
 		FROM
-			Round
+			Ranking
 		WHERE
-			season = #{season}
+			season	= #{season} AND
+		    round	= #{round}
+		<if test="name != null"> AND
+			club = #{name}
+		</if>
 	
 	</select>
 	
@@ -416,5 +428,13 @@
 	
 	</select>
 	
+	
+<!--	 Result Season	-->
+	
+	<select id="result_season">
+	
+		SELECT player, avg(rating),sum(goal),sum(assist), max(rating)+sum(goal)+sum(assist) FROM less.Score group by player
+	
+	</select>
 	
 </mapper>
