@@ -102,51 +102,99 @@
 			</div>
 		</c:if>
 		<c:if test="${!empty league.score}">
-			<div class="six wide column">
-			
-			<div class="ui divided items">
-				<div class="center aligned header f k r">최고 평점</div>
-				<div class="ui segment item">
-						<div class="image">
-							<img class="ui left floated image" src="${path}/image.ll?role=Player&name=${league.toprating[0].player}">
-						</div>
-						<div class="middle aligned content">
-							<div class="header">${league.toprating[0].player}</div>
-							<div class="meta">${league.toprating[0].club}</div>
-							<div class="description" style="display:inline-block;">
-								<c:if test="${league.toprating[0].toprating < 100}">${f:substring(league.toprating[0].toprating, 0, 1)}.${f:substring(league.toprating[0].toprating, 1, 2)} 점</c:if>
-								<c:if test="${league.toprating[0].toprating > 99}">${f:substring(league.toprating[0].toprating, 0, 2)}.${f:substring(league.toprating[0].toprating, 2, 3)} 점</c:if>
+			<div class="ui six wide column">
+				<div class="ui center aligned dividing header f k r">최고 평점</div>
+					<div class="ui black segment items">
+						<div class="item">
+							<div class="image">
+								<img src="${path}/image.ll?role=Player&name=${league.toprating[0].player}" style="max-height:100px">
 							</div>
-					</div>
-				</div>
-				<div class="ui black fluid card row">
-					<div class="center aligned header f k r">최다 득점</div>
-					<div class="ui grid content">
-						<div class="five wide column">
-							<img class="ui left floated avatar massive image" src="${path}/image.ll?role=Player&name=${league.goalscorer[0].player}">
-						</div>
-						<div class="eleven wide column">
-							<div class="header">${league.goalscorer[0].player}</div>
-							<div class="meta"><img class="ui left floated avatar image" src="${path}/image.ll?role=Club&name=${league.goalscorer[0].club}">${league.goalscorer[0].club}</div>
-							<div class="description" style="display:inline-block;">${league.goalscorer[0].goalscorer} 골</div>
+							<div class="middle aligned content">
+								<div class="header">${league.toprating[0].player}</div>
+								<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.toprating[0].club}"> ${league.toprating[0].club}</div>
+								<div class="description" style="text-align:right;"><h3>
+									<c:if test="${league.toprating[0].toprating < 100}">${f:substring(league.toprating[0].toprating, 0, 1)}.${f:substring(league.toprating[0].toprating, 1, 2)} 점</c:if>
+									<c:if test="${league.toprating[0].toprating > 99}">10.0 점</c:if></h3>
+								</div>
+							</div>
 						</div>
 					</div>
+				<div class="ui middle aligned divided list">
+					<c:forEach var="rating" items="${league.toprating}" begin="1">
+						<div class="item">
+							<div class="right floated content">
+								<c:if test="${rating.toprating < 100}">${f:substring(rating.toprating, 0, 1)}.${f:substring(rating.toprating, 1, 2)} 점</c:if>
+								<c:if test="${rating.toprating > 99}">10.0 점</c:if>
+							</div>
+							<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${rating.player}">
+							<div class="content">
+								<div class="header">${rating.player}</div>
+								<div class="description">
+									<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${rating.club}">${rating.club}
+								</div>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
-				<div class="ui black fluid card row">
-					<div class="center aligned header f k r">최다 어시스트</div>
-					<div class="ui grid content">
-						<div class="five wide column">
-							<img class="ui left floated avatar massive image" src="${path}/image.ll?role=Player&name=${league.assistprovider[0].player}">
+				<c:if test="${!empty league.goalscorer}">
+					<div class="ui center aligned dividing header f k r">최다 득점</div>
+						<div class="ui black segment items">
+							<div class="item">
+								<div class="image">
+									<img src="${path}/image.ll?role=Player&name=${league.goalscorer[0].player}" style="max-height:100px">
+								</div>
+								<div class="middle aligned content">
+									<div class="header">${league.goalscorer[0].player}</div>
+									<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.goalscorer[0].club}"> ${league.goalscorer[0].club}</div>
+									<div class="description" style="text-align:right;"><h3>${league.goalscorer[0].goalscorer} 골</h3></div>
+								</div>
+							</div>
 						</div>
-						<div class="eleven wide column">
-							<div class="header">${league.assistprovider[0].player}</div>
-							<div class="meta"><img class="ui left floated avatar image" src="${path}/image.ll?role=Club&name=${league.assistprovider[0].club}">${league.assistprovider[0].club}</div>
-							<div class="description" style="display:inline-block;">${league.assistprovider[0].assistprovider} 어시스트</div>
-						</div>
+					<div class="ui middle aligned divided list">
+						<c:forEach var="goal" items="${league.goalscorer}" begin="1">
+							<div class="item">
+								<div class="right floated content">${goal.goalscorer} 골</div>
+								<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${goal.player}">
+								<div class="content">
+									<div class="header">${goal.player}</div>
+									<div class="description">
+										<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${goal.club}">${goal.club}
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
-				</div>
-			</div>
-  </div>
+				</c:if>
+				<c:if test="${!empty league.assistprovider}">
+					<div class="ui center aligned dividing header f k r">최다 어시스트</div>
+						<div class="ui black segment items">
+							<div class="item">
+								<div class="image">
+									<img src="${path}/image.ll?role=Player&name=${league.assistprovider[0].player}" style="max-height:100px;">
+								</div>
+								<div class="middle aligned content">
+									<div class="header">${league.assistprovider[0].player}</div>
+									<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.assistprovider[0].club}"> ${league.assistprovider[0].club}</div>
+									<div class="description" style="text-align:right;"><h3>${league.assistprovider[0].assistprovider} 어시스트</h3></div>
+								</div>
+							</div>
+						</div>
+					<div class="ui middle aligned divided list">
+						<c:forEach var="assist" items="${league.assistprovider}" begin="1">
+							<div class="item">
+								<div class="right floated content">${assist.assistprovider} 어시스트</div>
+								<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${assist.player}">
+								<div class="content">
+									<div class="header">${assist.player}</div>
+									<div class="description">
+										<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${assist.club}">${assist.club}
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</c:if>
+ 			</div>
 		</c:if>
 	</div>
 	<c:if test="${empty league.round}">
