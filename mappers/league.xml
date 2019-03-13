@@ -315,6 +315,17 @@
 								season = #{season}
 						) AS round )
 			)
+		<if test="name == null">
+		=	( SELECT * FROM (
+				SELECT
+					COUNT(round)
+				FROM
+					Ranking
+				WHERE
+					season	= #{season}	AND
+					round	= #{round}
+			) AS round )
+		</if>
 		FROM
 			Ranking
 		WHERE
