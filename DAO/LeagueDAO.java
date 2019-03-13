@@ -38,6 +38,10 @@ public class LeagueDAO {
 				league.put("toprating", db.selectList("League.score_ranking", league));
 			}
 			
+			if (checkRound(league) > 3) {
+				league.put("end", 1);
+			}
+			
 			return league;
 		}
 		
