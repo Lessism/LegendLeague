@@ -83,6 +83,8 @@
 			Score
 		WHERE
 			season = #{season}
+			<if test="score == 'goal'">AND NOT goal = 0 </if>
+			<if test="score == 'assist'">AND NOT assist = 0 </if>
 		group by
 			player
 		ORDER BY
