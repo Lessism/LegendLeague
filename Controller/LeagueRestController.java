@@ -202,14 +202,14 @@ public class LeagueRestController {
 				lDAO.updateRanking(home);
 				lDAO.updateRanking(away);
 
-				if (lDAO.checkRound(map) < 1) {
+				if (lDAO.checkRound(home) < 1) {
 					lDAO.nextRanking(home);
 					lDAO.nextRanking(away);
 				}
 				
 			}
 			
-			if (lDAO.checkRound(map) < 1) {
+			if (lDAO.checkRound(map) < 4) {
 				lDAO.nextRound(map);
 			}
 			
