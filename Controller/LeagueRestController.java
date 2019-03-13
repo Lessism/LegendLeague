@@ -209,7 +209,7 @@ public class LeagueRestController {
 				
 			}
 			
-			if (lDAO.checkRound(map) < 4) {
+			if (lDAO.checkRound(map) < 1) {
 				lDAO.nextRound(map);
 			}
 			
