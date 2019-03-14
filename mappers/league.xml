@@ -85,14 +85,14 @@
 			season = #{season}
 			<if test="score == 'goal'">AND NOT goal = 0 </if>
 			<if test="score == 'assist'">AND NOT assist = 0 </if>
-		group by
+		GROUP BY
 			player
 		ORDER BY
 			<if test="score == 'goal'"> goalscorer DESC, assist DESC, rating DESC </if>
 			<if test="score == 'assist'"> assistprovider DESC, goal DESC, rating DESC </if>
 			<if test="score == 'rating'"> toprating DESC, goal DESC, assist DESC </if>
 		LIMIT
-			3
+			10
 	
 	</select>
 	
@@ -440,12 +440,98 @@
 	</select>
 	
 	
-<!--	 Result Season	-->
+<!--	Champion		-->
 	
-	<select id="result_season">
+	<select id="champion" resultType="map">
 	
-		SELECT player, avg(rating),sum(goal),sum(assist), max(rating)+sum(goal)+sum(assist) FROM less.Score group by player
+		SELECT
+			*
+		FROM
+			Club
+		WHERE
+			name =	(SELECT * FROM
+						(
+							SELECT
+								club
+							FROM
+								Ranking
+							ORDER BY
+								point DESC
+							LIMIT
+								1
+						) AS club
+					)
 	
 	</select>
+	
+	
+<!--	Goal Scorer		-->
+	
+	<select id="goalscorer">
+	
+		SELECT
+			 player, SUM(goal) goalscorer
+		FROM
+			Score
+		WHERE
+			season	= #{season}	AND
+			NOT goal = 0
+		GROUP BY
+			player
+		ORDER BY
+			goalscorer DESC, assist DESC, rating DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	Assist Provider		-->
+	
+	<select id="assistprovider">
+	
+		SELECT
+			 player, SUM(assist) assistprovider
+		FROM
+			Score
+		WHERE
+			season	= #{season}	AND
+			NOT assist = 0
+		GROUP BY
+			player
+		ORDER BY
+			assistprovider DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	 Result Season	-->
+	
+	<update id="result_season" parameterType="map">
+	
+		UPDATE
+			Season
+		SET
+			champion		= #{champion},
+			ballondor		= #{ballondor},
+			goalscorer		= #{goalscorer},
+			assistprovider	= #{assistprovider}
+		WHERE
+			season	= #{season};
+	
+	</update>
+	
+	<update id="record_history" parameterType="map">
+	
+	
+	</update>
+	
+	
+	
+	
+	
+	
 	
 </mapper>

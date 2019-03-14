@@ -28,6 +28,9 @@
 							<when test="role == 'Club'">
 								emblem
 							</when>
+							<when test="role == 'Stadium'">
+								std_img
+							</when>
 							<otherwise>
 								profile
 							</otherwise>
@@ -35,7 +38,15 @@
 					FROM
 						${role}
 					WHERE
-						name = #{name}
+						<choose>
+							<when test="role == 'Stadium'">
+								std_name
+							</when>
+							<otherwise>
+								name
+							</otherwise>
+						</choose>
+						= #{name}
 				)
 				
 			</if>
@@ -236,35 +247,9 @@
 	</select>
 	
 	
-<!-- 	리그 로스터	 -->
+<!-- 	Info Club	 -->
 
-	<select id="infoleague" resultType="map">
-	
-		SELECT
-			*
-		FROM
-			League
-	
-	</select>
-	
-	
-<!-- 	로스터 등록	 -->
-
-	<update id="updateroster" parameterType="String">
-	
-		UPDATE
-			League
-		SET
-			roster = #{rosterlist}
-		WHERE
-			name = 'Legend League'
-		
-	</update>
-	
-	
-<!-- 	클럽 정보	 -->
-
-	<select id="infoclub" parameterType="map" resultType="map">
+	<select id="info_club" parameterType="String" resultType="map">
 	
 		SELECT
 			*
@@ -276,18 +261,12 @@
 	</select>
 	
 	
-<!-- 	감독 정보	 -->
+<!-- 	Info Manager	 -->
 
-	<select id="infomanager" parameterType="map" resultType="map">
+	<select id="info_manager" parameterType="String" resultType="map">
 	
 		SELECT
-			name,
-			country,
-			birth,
-			height,
-			weight,
-			ovr,
-			tactic
+			*
 		FROM
 			Manager
 		WHERE
@@ -296,9 +275,9 @@
 	</select>
 	
 	
-<!-- 	선수 정보	 -->
+<!-- 	Info Player	 -->
 
-	<select id="infoplayer" parameterType="map" resultType="map">
+	<select id="info_player" parameterType="String" resultType="map">
 	
 		SELECT
 			*
