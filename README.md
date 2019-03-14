@@ -1,2 +1,2 @@
 # LegendLeague
-Playing.round
+Ending.update
