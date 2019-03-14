@@ -20,15 +20,16 @@ public class LeagueDAO {
 		public Map<String, Object> league() {
 			
 			Map<String, Object> league = db.selectOne("League.season_round");
-			
-			List<Map<String, Object>> information = db.selectList("League.information", league);
-			for (Map<String, Object> map : information) {
-				map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
-			}
-
-			league.put("information", information);
 			league.put("match", match(league));
 			league.put("ranking", db.selectList("League.ranking", league));
+			if (checkRound(league) > 0) {
+				league.put("end", 1);
+				Map<String, Object> champion = db.selectOne("League.champion");
+				champion.replace("manager", db.selectOne("FIFA.info_manager", champion.get("manager")));
+				champion.put("role", "Player");
+				champion.put("lineup", db.selectList("League.lineup", champion));
+				league.put("champion", champion);
+			}
 			if (league.get("round") != null && (int)league.get("round") > 1) {
 				league.put("score", "goal");
 				league.put("goalscorer", db.selectList("League.score_ranking", league));
@@ -36,10 +37,12 @@ public class LeagueDAO {
 				league.put("assistprovider", db.selectList("League.score_ranking", league));
 				league.replace("score", "rating");
 				league.put("toprating", db.selectList("League.score_ranking", league));
-			}
-			
-			if (checkRound(league) > 0) {
-				league.put("end", 1);
+			} else {
+				List<Map<String, Object>> information = db.selectList("League.information", league);
+				for (Map<String, Object> map : information) {
+					map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
+				}
+				league.put("information", information);
 			}
 			
 			return league;
