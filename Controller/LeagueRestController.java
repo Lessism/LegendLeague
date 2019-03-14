@@ -216,4 +216,41 @@ public class LeagueRestController {
 			return lDAO.resultGame(map);
 			
 		}
+		
+		
+//		Ending
+
+			@RequestMapping(value="ending", produces="application/json")
+			public Map<String, Object> ending(@RequestParam Map<String, Object> map) {
+				System.out.println(map);
+				return map;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 }
