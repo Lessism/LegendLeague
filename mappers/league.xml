@@ -63,7 +63,8 @@
 		FROM
 			Ranking
 		WHERE
-			round = #{round}
+			season	= #{season} AND
+			round	= #{round}
 		ORDER BY
 			point DESC
 	
@@ -440,6 +441,22 @@
 	</select>
 	
 	
+<!--	Result Score		-->
+	
+	<select id="result_score" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Score
+		WHERE
+			season	= #{season}	AND
+			round	= #{round}	AND
+			NOT goal = 0
+	
+	</select>
+	
+	
 <!--	Champion		-->
 	
 	<select id="champion" resultType="map">
@@ -455,6 +472,8 @@
 								club
 							FROM
 								Ranking
+							WHERE
+								season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
 							ORDER BY
 								point DESC
 							LIMIT
@@ -465,73 +484,235 @@
 	</select>
 	
 	
-<!--	Goal Scorer		-->
-	
-	<select id="goalscorer">
-	
-		SELECT
-			 player, SUM(goal) goalscorer
-		FROM
-			Score
-		WHERE
-			season	= #{season}	AND
-			NOT goal = 0
-		GROUP BY
-			player
-		ORDER BY
-			goalscorer DESC, assist DESC, rating DESC
-		LIMIT
-			1
-	
-	</select>
-	
-	
-<!--	Assist Provider		-->
-	
-	<select id="assistprovider">
-	
-		SELECT
-			 player, SUM(assist) assistprovider
-		FROM
-			Score
-		WHERE
-			season	= #{season}	AND
-			NOT assist = 0
-		GROUP BY
-			player
-		ORDER BY
-			assistprovider DESC
-		LIMIT
-			1
-	
-	</select>
-	
-	
-<!--	 Result Season	-->
-	
-	<update id="result_season" parameterType="map">
+<!--	Ending		-->
+
+	<update id="ending" parameterType="map">
 	
 		UPDATE
 			Season
 		SET
-			champion		= #{champion},
-			ballondor		= #{ballondor},
-			goalscorer		= #{goalscorer},
-			assistprovider	= #{assistprovider}
+			champion		=	(SELECT * FROM (
+									SELECT
+										club
+									FROM
+										Ranking
+									WHERE
+										season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+									ORDER BY
+										point DESC
+									LIMIT
+										1
+								) AS champion ),
+			ballondor		=	(SELECT * FROM (
+									SELECT
+										player
+									FROM
+										Score
+									WHERE
+										season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+									GROUP BY
+										player
+									ORDER BY
+										AVG(rating) DESC, goal DESC, assist DESC
+									LIMIT
+										1
+								) AS ballondor),
+			goalscorer		=	(SELECT * FROM (
+									SELECT
+										player
+									FROM
+										Score
+									WHERE
+										season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+										NOT goal = 0
+									GROUP BY
+										player
+									ORDER BY
+										SUM(goal) DESC, assist DESC, rating DESC
+									LIMIT
+										1
+								) AS goalscorer),
+			assistprovider		=	(SELECT * FROM (
+									SELECT
+										player
+									FROM
+										Score
+									WHERE
+										season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+										NOT assist = 0
+									GROUP BY
+										player
+									ORDER BY
+										SUM(assist) DESC, goal DESC, rating DESC
+									LIMIT
+										1
+								) AS assistprovider)
 		WHERE
-			season	= #{season};
+			season	= (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
 	
+		UPDATE
+			Club
+		SET
+			history	= CONCAT_WS(',', (SELECT * FROM (SELECT history FROM Club WHERE name = #{name}) AS history), #{history} ' Legend League Champion')
+		WHERE
+			name	= #{name};
+		
+		UPDATE
+			Manager
+		SET
+			history	= CONCAT_WS(',', (SELECT * FROM (SELECT history FROM Manager WHERE name = #{manager}) AS history), #{history} ' Legend League Champion')
+		WHERE
+			name	= #{manager};
+		
+		<foreach collection="lineup" item="player" index="idx" separator=";" close=";">
+		
+			UPDATE
+				Player
+			SET
+				history	= CONCAT_WS(',', (SELECT * FROM (SELECT history FROM Player WHERE name = #{player${idx}}) AS history), #{history} ' Legend League Champion')
+			WHERE
+				name	= #{player${idx}}
+				
+		</foreach>
+		
+		UPDATE
+			Player
+		SET
+			history = CONCAT_WS(',', (SELECT * FROM
+										(SELECT history FROM Player WHERE name = 
+											(SELECT * FROM (
+												SELECT
+													player
+												FROM
+													Score
+												WHERE
+													season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+												GROUP BY
+													player
+												ORDER BY
+													AVG(rating) DESC, goal DESC, assist DESC
+												LIMIT
+													1
+											) AS ballondor)
+										) AS history)
+									, #{history} ' Ballon Dor')
+		WHERE
+			name = (SELECT * FROM (
+						SELECT
+							player
+						FROM
+							Score
+						WHERE
+							season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+						GROUP BY
+							player
+						ORDER BY
+							AVG(rating) DESC, goal DESC, assist DESC
+						LIMIT
+							1
+					) AS ballondor);
+		
+		UPDATE
+			Player
+		SET
+			history = CONCAT_WS(',', (SELECT * FROM
+										(SELECT history FROM Player WHERE name = 
+											(SELECT * FROM (
+												SELECT
+													player
+												FROM
+													Score
+												WHERE
+													season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+													NOT goal = 0
+												GROUP BY
+													player
+												ORDER BY
+													SUM(goal) DESC, assist DESC, rating DESC
+												LIMIT
+													1
+											) AS goalscorer)
+										) AS history)
+									, #{history} ' 득점왕')
+		WHERE
+			name = (SELECT * FROM (
+						SELECT
+							player
+						FROM
+							Score
+						WHERE
+							season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+							NOT goal = 0
+						GROUP BY
+							player
+						ORDER BY
+							SUM(goal) DESC, assist DESC, rating DESC
+						LIMIT
+							1
+					) AS goalscorer);
+					
+					
+		UPDATE
+			Player
+		SET
+			history = CONCAT_WS(',', (SELECT * FROM
+										(SELECT history FROM Player WHERE name = 
+											(SELECT * FROM (
+												SELECT
+													player
+												FROM
+													Score
+												WHERE
+													season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+													NOT assist = 0
+												GROUP BY
+													player
+												ORDER BY
+													SUM(assist) DESC, goal DESC, rating DESC
+												LIMIT
+													1
+											) AS assistprovider)
+										) AS history)
+									, #{history} ' 도움왕')
+		WHERE
+			name = (SELECT * FROM (
+						SELECT
+							player
+						FROM
+							Score
+						WHERE
+							season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)	AND
+							NOT assist = 0
+						GROUP BY
+							player
+						ORDER BY
+							SUM(assist) DESC, goal DESC, rating DESC
+						LIMIT
+							1
+					) AS assistprovider);
+		
+		INSERT
+			INTO Season (
+				season,
+				roster
+			)
+			VALUES (
+				(SELECT * FROM (SELECT MAX(season) FROM Season) AS season)+1,
+				(SELECT * FROM (SELECT roster FROM Season WHERE season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)) AS roster)
+			);
+			
+		UPDATE
+			League
+		SET
+			season	= (SELECT * FROM (SELECT MAX(season) FROM Season) AS season),
+			round	= null
+		WHERE
+			name	= 'Legend League'
+					
 	</update>
 	
-	<update id="record_history" parameterType="map">
 	
-	
-	</update>
-	
-	
-	
-	
-	
+
 	
 	
 </mapper>
