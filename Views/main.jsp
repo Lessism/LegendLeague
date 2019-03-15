@@ -231,7 +231,16 @@
 					<div class="ui middle aligned centered grid segment">
 						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[0]}"></div>
 						<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[0]}</span></div>
-						<div class="center aligned four wide column" ><span class="versus f k r ${f:replace(match.versus, ' ', '_')}">VS</span></div>
+						<div class="ui center aligned four wide column">
+							<span class="versus f k r ${f:replace(match.versus, ' ', '_')}">VS</span>
+							<div class="ui middle aligned centered three grid">
+								<div class="row">
+								<div class="right floated column ${f:replace(match.versus, ' ', '_')}">VS</div>
+								<div class="column ${f:replace(match.versus, ' ', '_')}">VS</div>
+								<div class="left floated column ${f:replace(match.versus, ' ', '_')}">VS</div>
+								</div>
+							</div>
+						</div>
 						<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
 						<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[1]}"></div>
 					</div>
@@ -270,7 +279,7 @@
 								<div class="bar" style="width:${league.ranking[0].lose / league.ranking[0].game * 100}%; background-color:#ff695e;">
 									<div class="progress">${league.ranking[0].lose} 패</div>
 								</div>
-								<div class="label f k r">승률 ${league.ranking[0].win / league.ranking[0].game * 100}%</div>
+								<div class="label f k r">승률 <fmt:formatNumber value="${league.ranking[0].win / league.ranking[0].game}" type="percent"/></div>
 							</div>
 						</div>
 					</div>
@@ -304,18 +313,18 @@
 									</td>
 								</tr>
 								<c:forEach var="player" items="${league.champion.lineup}" varStatus="idx">
-								<tr class="ui center aligned">
-									<c:if test="${idx.index < 1}"><td rowspan="11" style="width:15%; border-right:1px solid rgba(34,36,38,.1)">Player</td></c:if>
-									<td style="width:10%"><img class="ui avatar image" src="${path}/image.ll?role=Player&name=${player.name}"></td>
-									<td style="width:50%">${player.name}</td>
-									<td style="width:25%; border-left:1px solid rgba(34,36,38,.1)">
-										<div class="ui active inverted black progress" style="margin-bottom:0;">
-											<div class="bar" style="width:${player.ovr}%;">
-												<div class="progress">${player.ovr}</div>
+									<tr class="ui center aligned">
+										<c:if test="${idx.index < 1}"><td rowspan="11" style="width:15%; border-right:1px solid rgba(34,36,38,.1)">Player</td></c:if>
+										<td style="width:10%"><img class="ui avatar image" src="${path}/image.ll?role=Player&name=${player.name}"></td>
+										<td style="width:50%">${player.name}</td>
+										<td style="width:25%; border-left:1px solid rgba(34,36,38,.1)">
+											<div class="ui active inverted black progress" style="margin-bottom:0;">
+												<div class="bar" style="width:${player.ovr}%;">
+													<div class="progress">${player.ovr}</div>
+												</div>
 											</div>
-										</div>
-									</td>
-								</tr>
+										</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -323,7 +332,7 @@
 				</div>
 				<div class="ui horizontal segments">
 					<div class="ui black segment items">
-						<div class="ui center aligned dividing header f k r">Ballon d'or</div>
+						<div class="ui center aligned dividing header f k r">Ballon Dor</div>
 						<div class="item">
 							<div class="image" style="max-width:125px; max-height:100px;">
 								<img src="${path}/image.ll?role=Player&name=${league.toprating[0].player}" style="height:100px;">
@@ -480,35 +489,39 @@ $(function(){
 	})
 	
 	$('#opening').click(function(){
-		$.post('opening', {season : '${league.season}', roster : '${league.roster}'}, function(data){},'json')
-		window.location.reload()
+		$.post('opening', {season : '${league.season}', roster : '${league.roster}'}, function(data){
+			window.location.reload()
+		},'json')
 	})
 	
 	$('#match').click(function(){
-		$(this).addClass('loading')
-		$.post('matching', {season : '${league.season}', round : '${league.round}'}, function(data){
-			$('.versus').transition({
-				animation  : 'horizontal flip',
-				onComplete : function(){
-					for (var i = 0; i < data.result.length; i++){
-						$('.'+data.result[i].versus.replace(/ /gi, '_')).text(data.result[i].score)
+		if ($('#match').text() == '확인'){
+			window.location.reload()
+		} else {
+			$(this).addClass('loading')
+			$.post('matching', {season : '${league.season}', round : '${league.round}'}, function(data){
+				$('.versus').transition({
+					animation  : 'horizontal flip',
+					onComplete : function(){
+						console.log(data)
+						for (var i = 0; i < data.result.length; i++){
+							$('.'+data.result[i].versus.replace(/ /gi, '_')).text(data.result[i].score)
+						}
+						for (var i = 0; i < data.score.length; i++){
+							
+						}
 					}
-				}
-			})
-			$('.versus').transition('horizontal flip')
-			$('#match').removeClass('loading')
-		}, 'json')
+				})
+				$('.versus').transition('horizontal flip')
+				$('#match').removeClass('loading').text('확인')
+			}, 'json')
+		}
 	})
 	
 	$('#ending').click(function(){
-		$.post('ending', {
-			season			: '${league.season}',
-			champion		: '${league.champion}',
-			ballondor		: '${league.toprating[0].player}',
-			goalscorer		: '${league.goalscorer[0].player}',
-			assistprovider	: '${league.assistprovider[0].player}'
-		}, function(data){},'json')
-		window.location.reload()
+		$.post('ending', {history : '${league.season}/${f:substring(league.season+1, 2, 4)}'}, function(data){
+			window.location.reload()
+		},'json')
 	})
 	
 })
