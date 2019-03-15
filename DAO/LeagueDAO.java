@@ -22,9 +22,9 @@ public class LeagueDAO {
 			Map<String, Object> league = db.selectOne("League.season_round");
 			league.put("match", match(league));
 			league.put("ranking", db.selectList("League.ranking", league));
-			if (checkRound(league) > 0) {
+			if (league.containsKey("round") && checkRound(league) > 0) {
 				league.put("end", 1);
-				Map<String, Object> champion = db.selectOne("League.champion");
+				Map<String, Object> champion = champion();
 				champion.replace("manager", db.selectOne("FIFA.info_manager", champion.get("manager")));
 				champion.put("role", "Player");
 				champion.put("lineup", db.selectList("League.lineup", champion));
@@ -137,9 +137,21 @@ public class LeagueDAO {
 		
 		public Map<String, Object> resultGame(Map<String, Object> map) {
 			map.put("result", db.selectList("League.result_game", map));
+			map.put("score", db.selectList("League.result_score", map));
 			return map;
 		}
 		
 		
+//	Champion
 		
+		public Map<String, Object> champion() {
+			return db.selectOne("League.champion");
+		}
+		
+		
+//	Ending
+		
+		public int ending(Map<String, Object> map) {
+			return db.update("League.ending", map);
+		}
 }
