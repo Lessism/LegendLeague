@@ -221,36 +221,16 @@ public class LeagueRestController {
 //		Ending
 
 			@RequestMapping(value="ending", produces="application/json")
-			public Map<String, Object> ending(@RequestParam Map<String, Object> map) {
-				System.out.println(map);
-				return map;
+			public int ending(@RequestParam Map<String, Object> map) {
+				
+				Map<String, Object> champion = lDAO.champion();
+				String lineup = champion.get("player0").toString();
+				for (int i = 1; i < 11; i++) {
+					lineup += "," + champion.get("player"+i).toString();
+				}
+				champion.put("lineup", lineup.split(","));
+				champion.put("history", map.get("history").toString());
+				
+				return lDAO.ending(champion);
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 }
