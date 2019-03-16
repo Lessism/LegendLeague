@@ -20,6 +20,20 @@
 	</select>
 	
 	
+<!--	League Title		-->
+	
+	<select id="title" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Season
+		ORDER BY
+			season DESC
+	
+	</select>
+	
+	
 <!--	League information		-->
 
 	<select id="information" parameterType="map" resultType="map">
@@ -66,7 +80,7 @@
 			season	= #{season} AND
 			round	= #{round}
 		ORDER BY
-			point DESC
+			point DESC, goalfor - goalagainst DESC
 	
 	</select>
 	
@@ -271,7 +285,29 @@
 								round	= #{round}	AND
 								club	= #{name}
 						) AS lose )
-		<if test="lose != null"> + #{lose}</if>
+		<if test="lose != null"> + #{lose}</if>,
+			goalfor	=	( SELECT * FROM (
+							SELECT
+								goalfor
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS goalfor )
+		<if test="goalfor != null"> + #{goalfor}</if>,
+			goalagainst	=	( SELECT * FROM (
+							SELECT
+								goalagainst
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS goalagainst )
+		<if test="goalagainst != null"> + #{goalagainst}</if>
 		WHERE
 			season	= #{season}	AND
 			round	= #{round}	AND
@@ -346,8 +382,8 @@
 		UPDATE
 			Ranking
 		SET
-			game	= 	#{round},
-			win 	= 	( SELECT * FROM (
+			game		= 	#{round},
+			win 		= 	( SELECT * FROM (
 							SELECT
 								win
 							FROM
@@ -357,7 +393,7 @@
 								round	= #{round}	AND
 								club	= #{name}
 						) AS win ),
-			draw	=	( SELECT * FROM (
+			draw		=	( SELECT * FROM (
 							SELECT
 								draw
 							FROM
@@ -367,7 +403,7 @@
 								round	= #{round}	AND
 								club	= #{name}
 						) AS draw ),
-			lose	=	( SELECT * FROM (
+			lose		=	( SELECT * FROM (
 							SELECT
 								lose
 							FROM
@@ -376,7 +412,27 @@
 								season	= #{season}	AND
 								round	= #{round}	AND
 								club	= #{name}
-						) AS lose )
+						) AS lose ),
+			goalfor		=	( SELECT * FROM (
+							SELECT
+								goalfor
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS goalfor ),
+			goalagainst	=	( SELECT * FROM (
+							SELECT
+								goalagainst
+							FROM
+								Ranking
+							WHERE
+								season	= #{season}	AND
+								round	= #{round}	AND
+								club	= #{name}
+						) AS goalagainst )
 		WHERE
 			season	= #{season}	AND
 			round	= #{round} + 1	AND
@@ -475,7 +531,7 @@
 							WHERE
 								season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
 							ORDER BY
-								point DESC
+								point DESC, goalfor - goalagainst DESC
 							LIMIT
 								1
 						) AS club
