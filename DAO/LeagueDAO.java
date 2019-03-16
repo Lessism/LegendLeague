@@ -20,6 +20,7 @@ public class LeagueDAO {
 		public Map<String, Object> league() {
 			
 			Map<String, Object> league = db.selectOne("League.season_round");
+			league.put("title", db.selectList("League.title"));
 			league.put("match", match(league));
 			league.put("ranking", db.selectList("League.ranking", league));
 			if (league.containsKey("round") && checkRound(league) > 0) {
