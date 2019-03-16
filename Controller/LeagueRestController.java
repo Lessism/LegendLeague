@@ -186,6 +186,11 @@ public class LeagueRestController {
 				match.put("score", homescore + " : " + awayscore);
 				lDAO.updateRound(match);
 				
+				home.put("goalfor", homescore);
+				home.put("goalagainst", awayscore);
+				away.put("goalfor", awayscore);
+				away.put("goalagainst", homescore);
+				
 				if (homescore > awayscore) {
 					home.put("win", 1);
 					away.put("lose", 1);
