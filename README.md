@@ -1,2 +1,1 @@
-# LegendLeague
-Ending.update
+# LegendLeague Ver 0.1
