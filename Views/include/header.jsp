@@ -27,11 +27,11 @@
 		</div>
 		<div class="ui inverted secondary pointing right menu">
 			<s:authorize access="isAnonymous()">
-				<a class="nav item" href="${path}/fifa/login.ll">Login</a>
-				<a class="nav item" href="${path}/fifa/join.ll">Join</a>
+				<a class="nav item" href="${path}/account/login.ll">Login</a>
+				<a class="nav item" href="${path}/account/join.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
-				<form id="logout_form" method="post" action="${path}/fifa/logout.ll">
+				<form id="logout_form" method="post" action="${path}/account/logout.ll">
 					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
@@ -41,8 +41,8 @@
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
 		<a class="item" id="menu">Menu</a>
-		<a class="nav item" href="${path}/">League</a>
-		<a class="nav item" id="popup_fifa" href="${path}/fifa/list.ll">FIFA</a>
+		<a class="nav item" href="${path}/league.ll">League</a>
+		<a class="nav item" id="popup_fifa" href="${path}/fifa.ll">FIFA</a>
 		<div class="ui inverted flowing popup bottom left transition hidden">
 			<a class="item" href="${path}/fifa/list.ll?role=Club">Club</a>
 			<a class="item" href="${path}/fifa/list.ll?role=Manager">Manager</a>

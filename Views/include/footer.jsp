@@ -6,6 +6,7 @@ $(function(){
 		xhr.setRequestHeader($("meta[name='csrf_header']").attr("content"), $("meta[name='csrf_token']").attr("content"))
 	})
 	
+	$('#rail').sticky()
 	$('.dropdown').dropdown()
 	$('.tabular.item').tab()
 	
@@ -22,11 +23,10 @@ $(function(){
 	})
 	
 	for (i = 0; i < $('.nav.item').length; i++){
-		if ($('.nav.item').eq(i).attr('href') == window.location.pathname){
+		if ($('.nav.item').eq(i).attr('href') == window.location.pathname || $('.nav.item').eq(i).attr('href') == '/'+window.location.pathname.split('/')[1]+'/'+window.location.pathname.split('/')[2]+'.ll'){
 			$('.nav.item').eq(i).addClass('active')
 		}
 	}
-	
 	
 })
 </script>
