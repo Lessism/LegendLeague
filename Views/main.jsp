@@ -2,6 +2,7 @@
 <%@ include file="include/header.jsp" %>
 <c:set var="seasonround" value="Season ${league.round} Round"/>
 <section class="ui black segment container">
+<%@ include file="include/rail.jsp" %>
 	<div class="ui grid">
 		<div class="twelve wide column">
 			<h1 class="f k r" style="display:inline-block;">Legend League</h1>
@@ -17,18 +18,6 @@
 		</div>
 	</div>
 	<hr>
-	<div class="ui left attached rail">
-		<div class="ui black segment">
-			<div class="header"><h3 class="f k r">League</h3></div>
-			<div class="ui divider"></div>
-			<div class="ui secondary vertical pointing menu">
-				<a class="active item f k r" href="${path}/league/season_preview.ll">Season Preview</a>
-				<a class="item f k r" href="${path}/">Ranking</a>
-				<div class="item">3</div>
-				<div class="item">4</div>
-			</div>
-		</div>
-	</div>
 	<div class="ui grid" id="rank">
 		<c:if test="${empty league.round}">
 			<div class="ten wide column">
@@ -94,7 +83,7 @@
 		</c:if>
 		<div class="six wide column">
 			<c:if test="${!empty league.title}">
-				<div class="ui center aligned segment">
+				<div class="ui center aligned black segment">
 					<div><h3 class="f k r">Title</h3></div>
 					<div class="ui divider"></div>
 					<table class="ui center aligned table">
@@ -118,7 +107,7 @@
 				</div>
 			</c:if>
 			<c:if test="${empty league.round}">
-				<div class="ui black fluid card segment">
+				<div class="ui black fluid card black segment">
 					<div class="ui header">
 						<div class="ui center aligned black segment"><h3 class="f k r">우승후보</h3></div>
 						<div><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${league.information[0].name}"></div>
@@ -144,7 +133,7 @@
 				</div>
 			</c:if>
 			<c:if test="${!empty league.round}">
-				<div class="ui center aligned segment">
+				<div class="ui center aligned black segment">
 					<div><h3 class="f k r">경기 일정</h3></div>
 					<div class="ui divider"></div>
 					<c:if test="${!empty league.end}">
@@ -166,7 +155,7 @@
 		</div>
 		<div class="sixteen wide column">
 			<c:if test="${!empty league.score}">
-				<div class="ui horizontal segments">
+				<div class="ui horizontal black segments">
 					<c:if test="${!empty league.toprating}">
 						<div class="ui black segment items">
 							<div class="ui center aligned dividing header f k r">최고 평점</div>
