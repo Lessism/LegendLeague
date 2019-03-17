@@ -22,7 +22,7 @@ public class LeagueDAO {
 			Map<String, Object> league = db.selectOne("League.season_round");
 			league.put("title", db.selectList("League.title"));
 			league.put("match", match(league));
-			league.put("ranking", db.selectList("League.ranking", league));
+			league.put("ranking", db.selectList("League.club_ranking"));
 			if (league.containsKey("round") && checkRound(league) > 0) {
 				league.put("end", 1);
 				Map<String, Object> champion = champion();
@@ -33,13 +33,13 @@ public class LeagueDAO {
 			}
 			if (league.get("round") != null && (int)league.get("round") > 1) {
 				league.put("score", "goal");
-				league.put("goalscorer", db.selectList("League.score_ranking", league));
+				league.put("goalscorer", db.selectList("League.player_ranking", league));
 				league.replace("score", "assist");
-				league.put("assistprovider", db.selectList("League.score_ranking", league));
+				league.put("assistprovider", db.selectList("League.player_ranking", league));
 				league.replace("score", "rating");
-				league.put("toprating", db.selectList("League.score_ranking", league));
+				league.put("toprating", db.selectList("League.player_ranking", league));
 			} else {
-				List<Map<String, Object>> information = db.selectList("League.information", league);
+				List<Map<String, Object>> information = db.selectList("League.information");
 				for (Map<String, Object> map : information) {
 					map.put("keyplayer", db.selectOne("League.keyplayer", map.get("name")));
 				}
@@ -47,6 +47,34 @@ public class LeagueDAO {
 			}
 			
 			return league;
+		}
+		
+		
+//	Season Preview
+		
+		public Map<String, Object> seasonPreview(Map<String, Object> map) {
+			
+			map.put("club", db.selectList("League.information"));
+			map.put("manager", db.selectOne("League.notable_manager"));
+			map.put("player", db.selectList("League.notable_player"));
+			
+			return map;
+		}
+		
+		
+//	Season Preview
+	
+		public Map<String, Object> seasonRanking(Map<String, Object> map) {
+			
+			map.put("club", db.selectList("League.club_ranking"));
+			map.put("score", "goal");
+			map.put("goalscorer", db.selectList("League.player_ranking", map));
+			map.replace("score", "assist");
+			map.put("assistprovider", db.selectList("League.player_ranking", map));
+			map.replace("score", "rating");
+			map.put("toprating", db.selectList("League.player_ranking", map));
+			
+			return map;
 		}
 		
 		

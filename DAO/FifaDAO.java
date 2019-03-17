@@ -40,7 +40,7 @@ public class FifaDAO {
 	
 	public Map<String, Object> infoClub(Map<String, Object> map) {
 		
-		return db.selectOne("FIFA.info_club", map);
+		return db.selectOne("FIFA.infoclub", map);
 	}
 	
 	
@@ -48,14 +48,14 @@ public class FifaDAO {
 	
 	public Map<String, Object> infoManager(Map<String, Object> map) {
 		
-		return db.selectOne("FIFA.info_manager", map);
+		return db.selectOne("FIFA.infomanager", map);
 	}
 	
 	
 //	선수 정보
 	
 	public Map<String, Object> infoPlayer(Map<String, Object> map) throws UnsupportedEncodingException {
-		return  db.selectOne("FIFA.info_player", map);
+		return  db.selectOne("FIFA.infoplayer", map);
 	}
 	
 	
