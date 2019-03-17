@@ -13,24 +13,24 @@
 	<security:access-denied-handler error-page="/error_403.ll"/>
 	<security:intercept-url pattern="/**" access="permitAll"/>
 	<security:form-login
-		login-processing-url="/fifa/login_process"
+		login-processing-url="/account/login_process"
 		username-parameter="id"
 		password-parameter="pw"
 		default-target-url="/"
-		authentication-failure-url="/fifa/login.ll?error"/>
+		authentication-failure-url="/account/login.ll?error"/>
 	<security:logout
-		logout-url="/fifa/logout.ll"
+		logout-url="/account/logout.ll"
 		logout-success-url="/"
 		invalidate-session="true"/>
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="userService">
-			<security:password-encoder ref="BCryptPasswordEncoder"/>
+			<security:password-encoder ref="BCrypt"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
-	<bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="BCrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="userService" class="com.lessism.legendleague.dao.SecurityDAO">
 		<constructor-arg name="db" ref="sqlSession"/>
 	</bean>
