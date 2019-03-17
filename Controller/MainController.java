@@ -25,16 +25,40 @@ public class MainController {
 	private LeagueDAO lDAO;
 	
 	
-//	Main System
+//	Main
 	
 		@RequestMapping(value = "/", method = RequestMethod.GET)
+		public String home() {
+			return "redirect:league.ll";
+		}
+		
+		
+//	Account
+	
+		@RequestMapping(value = "account.ll", method = RequestMethod.GET)
+		public String account() {
+			return "redirect:/account/login.ll";
+		}
+		
+		
+//	League
+	
+		@RequestMapping(value = "league.ll", method = RequestMethod.GET)
 		public ModelAndView main() {
-			return new ModelAndView("main", "league", lDAO.league());
+			return new ModelAndView("league/league", "league", lDAO.league());
+		}
+		
+		
+//	FIFA
+	
+		@RequestMapping(value = "fifa.ll", method = RequestMethod.GET)
+		public String fifa() {
+			return "redirect:/fifa/list.ll";
 		}
 		
 		
 //	Image Convert
-		
+	
 		@RequestMapping(value = "image.ll", method = RequestMethod.GET)
 		public ResponseEntity<byte[]> imageConvert(@RequestParam Map<String, Object> map) {
 			
