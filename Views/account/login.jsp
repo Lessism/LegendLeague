@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../include/header.jsp" %>
 <section class="ui black segment text container">
-	<form class="ui form" action="${path}/fifa/login_process" method="post">
+	<form class="ui form" action="${path}/account/login_process" method="post">
 		<h1 class="ui center aligned header f k r">로그인</h1>
 		<hr>
 		<div class="ui field">
