@@ -34,9 +34,9 @@
 	</select>
 	
 	
-<!--	League information		-->
+<!--	League Information		-->
 
-	<select id="information" parameterType="map" resultType="map">
+	<select id="information" resultType="map">
 	
 		SELECT
 			*
@@ -68,26 +68,70 @@
 	</select>
 	
 	
-<!--	Ranking		-->
+<!--	Notable Manager		-->
+	
+	<select id="notable_manager" resultType="map">
+	
+		SELECT
+			m.*
+		FROM
+			Manager m
+		LEFT JOIN
+			Club c
+		ON
+			m.club = c.name
+		WHERE
+			c.roster = 1
+		ORDER BY
+			m.ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	Notable Player		-->
+	
+	<select id="notable_player" resultType="map">
+	
+		SELECT
+			p.*,po.*
+		FROM
+			Player p
+		LEFT JOIN Position po
+			ON p.position = po.position
+		LEFT JOIN Club c
+			ON p.club = c.name
+		WHERE
+			c.roster = 1
+		ORDER BY
+			p.ovr DESC
+		LIMIT
+			6
+	
+	</select>
+	
+	
+<!--	Club Ranking		-->
 
-	<select id="ranking" parameterType="map" resultType="map">
+	<select id="club_ranking" parameterType="map" resultType="map">
 	
 		SELECT
 			*
 		FROM
 			Ranking
 		WHERE
-			season	= #{season} AND
-			round	= #{round}
+			season	= (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
+			round	= (SELECT * FROM (SELECT round FROM Season WHERE season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)) AS round)
 		ORDER BY
 			point DESC, goalfor - goalagainst DESC
 	
 	</select>
 	
 	
-<!--	Score ranking		-->
+<!--	Player Ranking		-->
 	
-	<select id="score_ranking" resultType="map">
+	<select id="player_ranking" parameterType="map" resultType="map">
 	
 		SELECT
 			*,
@@ -97,7 +141,7 @@
 		FROM
 			Score
 		WHERE
-			season = #{season}
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
 			<if test="score == 'goal'">AND NOT goal = 0 </if>
 			<if test="score == 'assist'">AND NOT assist = 0 </if>
 		GROUP BY
