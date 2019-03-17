@@ -5,7 +5,7 @@
 		<div class="ui three column grid">
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?role=Club">
+					<a href="${path}/account/join.ll?role=Club">
 					<span><img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?no=1"></span>
 					<span class="ui header segment f k r" style="text-align:center; display:block;">구단 생성</span>
 					</a>
@@ -13,7 +13,7 @@
 			</div>
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?role=Manager">
+					<a href="${path}/account/join.ll?role=Manager">
 						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?no=2">
 						<span class="ui header segment f k r" style="text-align:center; display:block;">감독 생성</span>
 					</a>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="column">
 				<div class="ui segment">
-					<a href="${path}/fifa/join.ll?role=Player">
+					<a href="${path}/account/join.ll?role=Player">
 						<img class="ui medium circular rounded fluid image" id="img_view" src="${path}/image.ll?no=3">
 						<span class="ui header segment f k r" style="text-align:center; display:block;">선수 생성</span>
 					</a>
@@ -32,7 +32,7 @@
 </c:if>
 <c:if test="${!empty param.role}">
 	<section class="ui black segment container">
-		<form class="ui form" method="post" action="${path}/fifa/join.ll?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+		<form class="ui form" method="post" action="${path}/account/join.ll?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 			<div>
 				<h1 class="ui center aligned header f k r">
 					<c:if test="${param.role eq 'Club'}">구단 생성</c:if>
@@ -61,7 +61,7 @@
 			<h3 class="ui header f k r">세부정보</h3>
 			<div class="ui grid">
 				<div class="ui six wide column">
-					<div class="ui top attached tabular menu">
+					<div class="ui top attached tabular two item menu">
 						<a class="tabular item active" data-tab="club">Club</a>
 						<a class="tabular item" data-tab="stadium">Stadium</a>
 					</div>
@@ -324,7 +324,7 @@
 			<div class="ui center aligned container">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<input class="ui black button f k r" type="submit" value="가입">
-				<a class="ui button f k r" href="${path}/fifa/join.ll">취소</a>
+				<a class="ui button f k r" href="${path}/account/join.ll">취소</a>
 			</div>
 		</form>
 	</section>
