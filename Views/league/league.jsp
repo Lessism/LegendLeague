@@ -288,7 +288,7 @@
 							<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
 							<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[1]}"></div>
 						</div>
-						<div class="ui grid " style="display:none;">
+						<div class="ui grid" style="display:none;">
 							<div class="sixteen wide column" style="padding:5px"><div class="ui fitted divider"></div></div>
 							<div class="right aligned seven wide column ${f:replace(f:split(match.versus,'_')[0], ' ', '_')}"></div>
 							<div class="center aligned two wide column goal"></div>
@@ -572,7 +572,7 @@ $(function(){
 					).parent().css('display', '')
 					if ($('.'+data.score[i].club.replace(/ /gi, '_')).children().length > $('.'+data.score[i].club.replace(/ /gi, '_')).siblings('.goal').children().length){
 						$('.'+data.score[i].club.replace(/ /gi, '_')).siblings('.goal').append(
-							'<div><i class="futbol icon"></i><div>'
+							'<div><i class="futbol icon"></i></div>'
 						)
 					}
 				}
