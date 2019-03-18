@@ -1,9 +1,12 @@
 package com.lessism.legendleague.restcontroller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,8 @@ public class LeagueRestController {
 	
 	@Autowired
 	private LeagueDAO lDAO;
+	@Autowired
+	private SqlSession db;
 	
 	
 //	Opening
@@ -223,19 +228,44 @@ public class LeagueRestController {
 		}
 		
 		
-//		Ending
+//	Ending
 
-			@RequestMapping(value="ending", produces="application/json")
-			public int ending(@RequestParam Map<String, Object> map) {
-				
-				Map<String, Object> champion = lDAO.champion();
-				String lineup = champion.get("player0").toString();
-				for (int i = 1; i < 11; i++) {
-					lineup += "," + champion.get("player"+i).toString();
-				}
-				champion.put("lineup", lineup.split(","));
-				champion.put("history", map.get("history").toString());
-				
-				return lDAO.ending(champion);
+		@RequestMapping(value="ending", produces="application/json")
+		public int ending(@RequestParam Map<String, Object> map) {
+			
+			Map<String, Object> champion = lDAO.champion();
+			String lineup = champion.get("player0").toString();
+			for (int i = 1; i < 11; i++) {
+				lineup += "," + champion.get("player"+i).toString();
 			}
+			champion.put("lineup", lineup.split(","));
+			champion.put("history", map.get("history").toString());
+			
+			return lDAO.ending(champion);
+		}
+			
+			
+//	Chart Rank
+		@RequestMapping(value="rank", produces="application/json")
+		public Map<String,Object> rank(@RequestParam Map<String, Object> map) {
+			
+			int round = db.selectOne("League.recency_round");
+			List<String> labels = db.selectList("League.labels");
+			List<Map<String,Object>> datas = new ArrayList<>();
+			
+			for (int i = 1; i <= round; i++) {
+				Map<String,Object> data = new HashMap<>();
+				data.put("round", i);
+				for (int ii = 0; ii < labels.size(); ii++) {
+					data.put("name", labels.get(ii));
+					data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+				}
+				datas.add(data);
+			}
+			
+			map.put("data", datas);
+			map.put("labels", labels);
+			
+			return map;
+		}
 }
