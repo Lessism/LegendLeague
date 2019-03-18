@@ -3,36 +3,35 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-<div id="rankchart" style="max-width:500px;"></div>
+	<h1 class="f k r">Season Match</h1>
+	<div class="ui divider"></div>
+	<div class="ui black segment">
+		<div class="ui center aligned container"><h3 class="f k r">경기 일정</h3></div>
+		<div class="ui divider"></div>
+		<c:if test="${empty ranking.club}">
+			<div class="ui center aligned container f k r">지금은 Free Season 입니다.</div>
+		</c:if>
+		<c:if test="${!empty ranking.club}">
+			<div class="ui center aligned black segment" id="matchSection">
+			<h3 class="f k r">${league.round} Round</h3>
+				<c:forEach var="match" items="${league.match}">
+					<div class="ui segment">
+						<div class="ui middle aligned grid">
+							<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[0]}"></div>
+							<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[0]}</span></div>
+							<div class="ui center aligned four wide column"><span class="versus f k r ${f:replace(match.versus, ' ', '_')}">VS</span></div>
+							<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
+							<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus,'_')[1]}"></div>
+						</div>
+						<div class="ui grid " style="display:none;">
+							<div class="sixteen wide column" style="padding:5px"><div class="ui fitted divider"></div></div>
+							<div class="right aligned seven wide column ${f:replace(f:split(match.versus,'_')[0], ' ', '_')}"></div>
+							<div class="center aligned two wide column goal"></div>
+							<div class="left aligned seven wide column ${f:replace(f:split(match.versus,'_')[1], ' ', '_')}"></div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
 </section>
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/jquery.canvasjs.min.js"></script>
-<script>
-window.onload = function () {
-	var chart = new CanvasJS.Chart("rankchart", {
-		title	:{text: "2019/20 Season"},
-		data	: [{
-			type: "line",
-			dataPoints: [
-				{ x: new Date(2012, 00, 1), y: 450 },
-				{ x: new Date(2012, 01, 1), y: 414 },
-				{ x: new Date(2012, 02, 1), y: 520 },
-				{ x: new Date(2012, 03, 1), y: 460 },
-				{ x: new Date(2012, 04, 1), y: 450 },
-				{ x: new Date(2012, 05, 1), y: 500 },
-				{ x: new Date(2012, 06, 1), y: 480 },
-				{ x: new Date(2012, 07, 1), y: 480 },
-				{ x: new Date(2012, 08, 1), y: 410 },
-				{ x: new Date(2012, 09, 1), y: 500 },
-				{ x: new Date(2012, 10, 1), y: 480 },
-				{ x: new Date(2012, 11, 1), y: 510 }
-		  ]
-		}]
-	})
-	
-	chart.render();
-}
-</script>
 <jsp:include page="../include/footer.jsp"/>

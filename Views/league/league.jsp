@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<hr>
-	<div class="ui grid" id="rank">
+	<div class="ui grid" id="league">
 		<c:if test="${empty league.round}">
 			<div class="ten wide column">
 				<table class="ui striped center aligned table">
@@ -492,15 +492,15 @@
 $(function(){
 	
 	$('.opening').click(function(){
-		if ($('#rank').hasClass('hidden')) {
+		if ($('#league').hasClass('hidden')) {
 			$('#openingSection').transition({
 				animation  : 'fade up',
 				onComplete : function(){
-					$('#rank').transition('fade up')
+					$('#league').transition('fade up')
 				}
 			})
 		} else{
-			$('#rank').transition({
+			$('#league').transition({
 				animation  : 'fade up',
 				onComplete : function(){
 					$('#openingSection').transition('fade up')
@@ -510,15 +510,15 @@ $(function(){
 	})
 	
 	$('.playing').click(function(){
-		if ($('#rank').hasClass('hidden')) {
+		if ($('#league').hasClass('hidden')) {
 			$('#matchSection').transition({
 				animation  : 'fade left',
 				onComplete : function(){
-					$('#rank').transition('fade right')
+					$('#league').transition('fade right')
 				}
 			})
 		} else {
-			$('#rank').transition({
+			$('#league').transition({
 				animation  : 'fade right',
 				onComplete : function(){
 					$('#matchSection').transition('fade left')
@@ -528,15 +528,15 @@ $(function(){
 	})
 	
 	$('.ending').click(function(){
-		if ($('#rank').hasClass('hidden')) {
+		if ($('#league').hasClass('hidden')) {
 			$('#endingSection').transition({
 				animation  : 'fade up',
 				onComplete : function(){
-					$('#rank').transition('fade up')
+					$('#league').transition('fade up')
 				}
 			})
 		} else {
-			$('#rank').transition({
+			$('#league').transition({
 				animation  : 'fade up',
 				onComplete : function(){
 					$('#endingSection').transition('fade up')
