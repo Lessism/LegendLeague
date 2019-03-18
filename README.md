@@ -1,2 +1,2 @@
 # LegendLeague Ver 0.1
-Rail League
+League Rail.Season Match
