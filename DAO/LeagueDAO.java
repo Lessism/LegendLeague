@@ -1,5 +1,6 @@
 package com.lessism.legendleague.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,29 @@ public class LeagueDAO {
 			map.put("assistprovider", db.selectList("League.player_ranking", map));
 			map.replace("score", "rating");
 			map.put("toprating", db.selectList("League.player_ranking", map));
+			
+			return map;
+		}
+		
+		
+//	Season Match
+	
+		public Map<String, Object> seasonMatch(Map<String, Object> map) {
+			
+			int maxRound = db.selectOne("League.recency_max_round");
+			int nowRound = db.selectOne("League.recency_now_round");
+			List<List<Map<String, Object>>> round = new ArrayList<>();
+			for (int i = 1; i <= maxRound; i++) {
+				map.put("round", i);
+				List<Map<String, Object>> match = (db.selectList("League.recency_season_round", map));
+				for (int ii = 0; ii < match.size(); ii++) {
+					match.get(ii).put("goal", db.selectList("League.recency_season_round_score", map));
+				}
+				round.add(match);
+			}
+			map.put("round", round);
+			map.put("maxRound", maxRound);
+			map.put("nowRound", nowRound+1);
 			
 			return map;
 		}
