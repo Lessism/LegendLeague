@@ -19,7 +19,7 @@ public class LeagueDAO {
 	
 		public Map<String, Object> league() {
 			
-			Map<String, Object> league = db.selectOne("League.season_round");
+			Map<String, Object> league = db.selectOne("League.season");
 			league.put("title", db.selectList("League.title"));
 			league.put("match", match(league));
 			league.put("ranking", db.selectList("League.club_ranking"));
@@ -62,7 +62,7 @@ public class LeagueDAO {
 		}
 		
 		
-//	Season Preview
+//	Season Ranking
 	
 		public Map<String, Object> seasonRanking(Map<String, Object> map) {
 			
