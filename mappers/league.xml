@@ -30,13 +30,32 @@
 			Round
 		WHERE
 			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+		<if test="round != null"> AND
+			round = #{round}
+		</if>
 		
 	</select>
 	
 	
-<!--	Recency Round		-->
+<!--	Recency Season Round Score		-->
 
-	<select id="recency_round" resultType="int">
+	<select id="recency_season_round_score" resultType="map">
+		
+		SELECT
+			*
+		FROM
+			Score
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
+			round = #{round} AND
+			NOT goal = 0
+		
+	</select>
+	
+	
+<!--	Recency NOW Round		-->
+
+	<select id="recency_now_round" resultType="int">
 		
 		SELECT 
 			MAX(round)
@@ -45,6 +64,20 @@
 		WHERE
 			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
 			score IS NOT NULL
+	
+	</select>
+	
+	
+<!--	Recency MAX Round		-->
+
+	<select id="recency_max_round" resultType="int">
+		
+		SELECT 
+			MAX(round)
+		FROM 
+			Round
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
 	
 	</select>
 	
