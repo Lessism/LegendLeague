@@ -4,9 +4,9 @@
 <mapper namespace="League">
 
 
-<!--	League Season Round		-->
+<!--	League Season		-->
 
-	<select id="season_round" resultType="map">
+	<select id="season" resultType="map">
 		
 		SELECT
 			*
@@ -16,6 +16,52 @@
 			season DESC
 		LIMIT
 			1
+		
+	</select>
+	
+	
+<!--	Recency Season Round		-->
+
+	<select id="recency_season_round" resultType="map">
+		
+		SELECT
+			*
+		FROM
+			Round
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+		
+	</select>
+	
+	
+<!--	Recency Round		-->
+
+	<select id="recency_round" resultType="int">
+		
+		SELECT 
+			MAX(round)
+		FROM 
+			Round
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
+			score IS NOT NULL
+	
+	</select>
+	
+	
+<!--	Point		-->
+
+	<select id="point" resultType="int">
+		
+		SELECT
+			point
+		FROM
+			Ranking
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
+			round = #{round} AND
+			club = #{name} AND
+			NOT game = 0
 		
 	</select>
 	
@@ -65,6 +111,30 @@
 		LIMIT
 			1
 			
+	</select>
+	
+	
+<!--	Ranking Labels		-->
+
+	<select id="labels" resultType="String">
+	
+		SELECT
+			name
+		FROM
+			Club c
+		LEFT
+			JOIN Ranking r
+			ON c.name = r.club
+		WHERE
+			c.roster = 1 AND
+		    r.season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
+			NOT r.game = 0
+		GROUP BY
+			c.name
+		ORDER BY
+			r.round DESC,
+			r.point DESC
+	
 	</select>
 	
 	
