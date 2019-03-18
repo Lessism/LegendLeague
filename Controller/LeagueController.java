@@ -39,7 +39,8 @@ public class LeagueController {
 	
 		@RequestMapping(value="season_match.ll", method=RequestMethod.GET)
 		public ModelAndView seasonMatch(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("league/season_match", "ranking", lDAO.seasonRanking(map));
+			System.out.println(lDAO.seasonMatch(map));
+			return new ModelAndView("league/season_match", "season", lDAO.seasonMatch(map));
 		}
 		
 		

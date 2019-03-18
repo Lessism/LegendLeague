@@ -249,11 +249,11 @@ public class LeagueRestController {
 		@RequestMapping(value="rank", produces="application/json")
 		public Map<String,Object> rank(@RequestParam Map<String, Object> map) {
 			
-			int round = db.selectOne("League.recency_round");
+			int nowRound = db.selectOne("League.recency_now_round");
 			List<String> labels = db.selectList("League.labels");
 			List<Map<String,Object>> datas = new ArrayList<>();
 			
-			for (int i = 1; i <= round; i++) {
+			for (int i = 1; i <= nowRound; i++) {
 				Map<String,Object> data = new HashMap<>();
 				data.put("round", i);
 				for (int ii = 0; ii < labels.size(); ii++) {
