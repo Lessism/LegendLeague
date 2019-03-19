@@ -8,13 +8,14 @@
 			<div class="ui divider"></div>
 			<div class="ui secondary vertical menu">
 				<div class="item">
-					<h4 class="season f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season</h4>
+					<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/league/preview.ll">Preview</a>
 						<a class="rail item f k r" href="${path}/league/ranking.ll">Ranking</a>
 						<a class="rail item f k r" href="${path}/league/match.ll">Match</a>
 					</div>
 				</div>
+				<div class="ui divider"></div>
 				<div class="item">
 					<h4 class="f k r">Before Season</h4>
 					<div class="ui secondary vertical pointing menu">
@@ -23,7 +24,26 @@
 						</c:forEach>
 					</div>
 				</div>
-				<a class="rail item f k r" href="${path}/league/award.ll">Award</a>
+				<div class="ui fluid selection dropdown">
+					<div class="default text">Season</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<c:forEach begin="0" end="${league.season-2023}" step="1" varStatus="idx">
+							<a class="rail item f k r" href="${path}/league/review.ll?season=${league.season-3-idx.count}">${league.season-3-idx.count}/${f:substring(league.season-2-idx.count, 2, 4)}</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="item">
+					<h4 class="f k r">Award</h4>
+					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/league/award.ll?award=manager">FIFA World Manager</a>
+						<a class="rail item f k r" href="${path}/league/award.ll?award=ballondor">Ballon Dor</a>
+						<a class="rail item f k r" href="${path}/league/award.ll?award=goalscorer">득점왕</a>
+						<a class="rail item f k r" href="${path}/league/award.ll?award=assistprovider">도움왕</a>
+					</div>
+				</div>
+				<div class="ui divider"></div>
 				<a class="rail item f k r" href="${path}/league/history.ll">History</a>
 			</div>
 		</div>
