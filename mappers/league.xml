@@ -112,20 +112,48 @@
 	</select>
 	
 	
-<!--	Point		-->
+<!--	Before Season		-->
 
-	<select id="point" resultType="int">
+	<select id="before_season" parameterType="map" resultType="map">
 		
 		SELECT
-			point
+			*
+		FROM
+			Season
+		WHERE
+			season	= #{season}
+		
+	</select>
+	
+	
+<!--	Before Ranking		-->
+
+	<select id="before_ranking" parameterType="map" resultType="map">
+		
+		SELECT
+			*
 		FROM
 			Ranking
 		WHERE
-			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) AND
-			round = #{round} AND
-			club = #{name} AND
-			NOT game = 0
+			season	= #{season}	AND
+			round	= #{round}
+		ORDER BY
+			point DESC, goalfor - goalagainst DESC
 		
+	</select>
+	
+	
+<!--	Before Roster		-->
+	
+	<select id="before_roster" resultType="String">
+	
+		SELECT
+			roster
+		FROM
+			Season
+		WHERE
+			season = #{season}
+	
 	</select>
 	
 	
@@ -174,6 +202,24 @@
 		LIMIT
 			1
 			
+	</select>
+	
+	
+<!--	Point		-->
+
+	<select id="point" resultType="int">
+		
+		SELECT
+			point
+		FROM
+			Ranking
+		WHERE
+			season	= 	<if test="season == null"> (SELECT * FROM (SELECT MAX(season) FROM Season) AS season) </if>
+						<if test="season != null"> #{season}</if> AND
+			round	= #{round} AND
+			club	= #{name} AND
+			NOT	game = 0
+		
 	</select>
 	
 	
@@ -736,6 +782,25 @@
 									LIMIT
 										1
 								) AS champion ),
+			manager			=	(SELECT * FROM (
+									SELECT
+										manager
+									FROM
+										Club
+									WHERE
+										name = (SELECT * FROM (
+													SELECT
+														club
+													FROM
+														Ranking
+													WHERE
+														season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+													ORDER BY
+														point DESC
+													LIMIT
+														1
+												) AS champion )
+								) AS manager ),
 			ballondor		=	(SELECT * FROM (
 									SELECT
 										player

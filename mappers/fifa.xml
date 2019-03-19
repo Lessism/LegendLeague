@@ -280,12 +280,14 @@
 	<select id="info_player" parameterType="String" resultType="map">
 	
 		SELECT
-			*
+			p.*,po.*
 		FROM
-			Player
+			Player p
+		LEFT JOIN Position po
+			ON p.position = po.position
 		WHERE
-			name = #{name}
-			
+			p.name = #{name}
+	
 	</select>
 	
 	
