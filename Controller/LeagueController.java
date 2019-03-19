@@ -51,7 +51,12 @@ public class LeagueController {
 		}
 		
 		
-		
+//	Award
+	
+		@RequestMapping(value="award.ll", method=RequestMethod.GET)
+		public ModelAndView award(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/award", "league", lDAO.award(map));
+		}
 		
 		
 		
