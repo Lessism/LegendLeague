@@ -246,26 +246,34 @@ public class LeagueRestController {
 			
 			
 //	Chart Rank
+		
 		@RequestMapping(value="rank", produces="application/json")
 		public Map<String,Object> rank(@RequestParam Map<String, Object> map) {
 			
-			int nowRound = db.selectOne("League.recency_now_round");
+			String nowRound = db.selectOne("League.recency_result_round");
 			List<String> labels = db.selectList("League.labels");
 			List<Map<String,Object>> datas = new ArrayList<>();
 			
-			for (int i = 1; i <= nowRound; i++) {
-				Map<String,Object> data = new HashMap<>();
-				data.put("round", i);
-				for (int ii = 0; ii < labels.size(); ii++) {
-					data.put("name", labels.get(ii));
-					data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+			if (nowRound != null) {
+				for (int i = 1; i <= Integer.parseInt(nowRound); i++) {
+					Map<String,Object> data = new HashMap<>();
+					data.put("round", i);
+					for (int ii = 0; ii < labels.size(); ii++) {
+						data.put("name", labels.get(ii));
+						data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+					}
+					datas.add(data);
 				}
-				datas.add(data);
+			} else {
+				return map;
 			}
+			
 			
 			map.put("data", datas);
 			map.put("labels", labels);
 			
 			return map;
 		}
+		
+		
 }
