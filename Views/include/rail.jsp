@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:if test="${rail == 'league'}">
 	<div class="ui left very close rail">
 		<div class="ui black sticky segment" id="rail">
@@ -7,11 +8,19 @@
 			<div class="ui divider"></div>
 			<div class="ui secondary vertical menu">
 				<div class="item">
-					<h4 class="f k r">Season</h4>
+					<h4 class="season f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season</h4>
 					<div class="ui secondary vertical pointing menu">
-						<a class="rail item f k r" href="${path}/league/season_preview.ll">Preview</a>
-						<a class="rail item f k r" href="${path}/league/season_ranking.ll">Ranking</a>
-						<a class="rail item f k r" href="${path}/league/season_match.ll">Match</a>
+						<a class="rail item f k r" href="${path}/league/preview.ll">Preview</a>
+						<a class="rail item f k r" href="${path}/league/ranking.ll">Ranking</a>
+						<a class="rail item f k r" href="${path}/league/match.ll">Match</a>
+					</div>
+				</div>
+				<div class="item">
+					<h4 class="f k r">Before Season</h4>
+					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/league/season_preview.ll">${league.season-1}/${f:substring(league.season, 2, 4)}</a>
+						<a class="rail item f k r" href="${path}/league/season_ranking.ll">${league.season-2}/${f:substring(league.season-1, 2, 4)}</a>
+						<a class="rail item f k r" href="${path}/league/season_match.ll">${league.season-3}/${f:substring(league.season-2, 2, 4)}</a>
 					</div>
 				</div>
 				<a class="rail item f k r" href="${path}/league/award.ll">Award</a>
