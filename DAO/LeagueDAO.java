@@ -119,17 +119,47 @@ public class LeagueDAO {
 		public Map<String, Object> review(Map<String, Object> map) {
 			
 			Map<String, Object> review = new HashMap<>();
+			
 			Map<String, Object> season = db.selectOne("League.before_season", map);
 			season.replace("champion", db.selectOne("FIFA.info_club", season.get("champion")));
 			season.replace("manager", db.selectOne("FIFA.info_manager", season.get("manager")));
 			season.replace("ballondor", db.selectOne("FIFA.info_player", season.get("ballondor")));
 			season.replace("goalscorer", db.selectOne("FIFA.info_player", season.get("goalscorer")));
 			season.replace("assistprovider", db.selectOne("FIFA.info_player", season.get("assistprovider")));
+			
+			List<List<Map<String, Object>>> round = new ArrayList<>();
+			if (season.get("round") != null) {
+				for (int i = 1; i <= (int)season.get("round"); i++) {
+					map.put("round", i);
+					List<Map<String, Object>> match = (db.selectList("League.before_season_round", map));
+					for (int ii = 0; ii < match.size(); ii++) {
+						match.get(ii).put("goal", db.selectList("League.before_season_round_score", map));
+					}
+					round.add(match);
+				}
+			}
+			
 			review.put("season", season);
+			review.put("round", round);
 			review.put("ranking", db.selectList("League.before_ranking", review.get("season")));
 			
 			map.put("season", db.selectOne("League.recency_season"));
 			map.put("review", review);
+			
+			return map;
+		}
+		
+		
+//	Award
+	
+		public Map<String, Object> award(Map<String, Object> map) {
+			
+			Map<String, Object> award = new HashMap<>();
+			award.put("award", db.selectList("League.award", map));
+			award.put("count", db.selectList("League.award_count", map));
+
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("award", award);
 			
 			return map;
 		}
