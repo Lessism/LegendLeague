@@ -1,2 +1,2 @@
 # LegendLeague Ver 0.1
-Rail League Season
+Rail League Before Season
