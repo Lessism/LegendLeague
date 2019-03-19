@@ -51,13 +51,23 @@ public class LeagueDAO {
 		}
 		
 		
+//	Rail League
+		
+		public Map<String, Object> railLeague() {
+			return db.selectOne("League.season");
+		}
+		
+		
 //	Season Preview
 		
 		public Map<String, Object> seasonPreview(Map<String, Object> map) {
 			
-			map.put("club", db.selectList("League.information"));
-			map.put("manager", db.selectOne("League.notable_manager"));
-			map.put("player", db.selectList("League.notable_player"));
+			Map<String, Object> preview = new HashMap<>();
+			preview.put("club", db.selectList("League.information"));
+			preview.put("manager", db.selectOne("League.notable_manager"));
+			preview.put("player", db.selectList("League.notable_player"));
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("preview", preview);
 			
 			return map;
 		}
@@ -67,13 +77,16 @@ public class LeagueDAO {
 	
 		public Map<String, Object> seasonRanking(Map<String, Object> map) {
 			
-			map.put("club", db.selectList("League.club_ranking"));
-			map.put("score", "goal");
-			map.put("goalscorer", db.selectList("League.player_ranking", map));
-			map.replace("score", "assist");
-			map.put("assistprovider", db.selectList("League.player_ranking", map));
-			map.replace("score", "rating");
-			map.put("toprating", db.selectList("League.player_ranking", map));
+			Map<String, Object> ranking = new HashMap<>();
+			ranking.put("club", db.selectList("League.club_ranking"));
+			ranking.put("score", "goal");
+			ranking.put("goalscorer", db.selectList("League.player_ranking", ranking));
+			ranking.replace("score", "assist");
+			ranking.put("assistprovider", db.selectList("League.player_ranking", ranking));
+			ranking.replace("score", "rating");
+			ranking.put("toprating", db.selectList("League.player_ranking", ranking));
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("ranking", ranking);
 			
 			return map;
 		}
@@ -83,20 +96,28 @@ public class LeagueDAO {
 	
 		public Map<String, Object> seasonMatch(Map<String, Object> map) {
 			
-			int maxRound = db.selectOne("League.recency_max_round");
-			int nowRound = db.selectOne("League.recency_now_round");
+			Map<String, Object> roundmatch = new HashMap<>();
 			List<List<Map<String, Object>>> round = new ArrayList<>();
-			for (int i = 1; i <= maxRound; i++) {
-				map.put("round", i);
-				List<Map<String, Object>> match = (db.selectList("League.recency_season_round", map));
-				for (int ii = 0; ii < match.size(); ii++) {
-					match.get(ii).put("goal", db.selectList("League.recency_season_round_score", map));
+			String maxRound = db.selectOne("League.recency_max_round");
+			String nowRound = db.selectOne("League.recency_now_round");
+			if (maxRound != null) {
+				for (int i = 1; i <= Integer.parseInt(maxRound); i++) {
+					roundmatch.put("round", i);
+					List<Map<String, Object>> match = (db.selectList("League.recency_season_round", roundmatch));
+					for (int ii = 0; ii < match.size(); ii++) {
+						match.get(ii).put("goal", db.selectList("League.recency_season_round_score", roundmatch));
+					}
+					round.add(match);
 				}
-				round.add(match);
 			}
-			map.put("round", round);
-			map.put("maxRound", maxRound);
-			map.put("nowRound", nowRound+1);
+			
+			roundmatch.put("round", round);
+			roundmatch.put("maxRound", maxRound);
+			roundmatch.put("nowRound", nowRound);
+			System.out.println(nowRound);
+			System.out.println(maxRound);
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("roundmatch", roundmatch);
 			
 			return map;
 		}
