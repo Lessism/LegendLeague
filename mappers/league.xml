@@ -20,6 +20,22 @@
 	</select>
 	
 	
+<!--	Recency Season		-->
+
+	<select id="recency_season" resultType="int">
+		
+		SELECT
+			season
+		FROM
+			Season
+		ORDER BY
+			season DESC
+		LIMIT
+			1
+		
+	</select>
+	
+	
 <!--	Recency Season Round		-->
 
 	<select id="recency_season_round" resultType="map">
@@ -53,9 +69,9 @@
 	</select>
 	
 	
-<!--	Recency NOW Round		-->
+<!--	Recency Result Round		-->
 
-	<select id="recency_now_round" resultType="int">
+	<select id="recency_result_round" resultType="String">
 		
 		SELECT 
 			MAX(round)
@@ -68,9 +84,23 @@
 	</select>
 	
 	
+<!--	Recency NOW Round		-->
+
+	<select id="recency_now_round" resultType="String">
+		
+		SELECT 
+			round
+		FROM 
+			Season
+		WHERE
+			season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+	
+	</select>
+	
+	
 <!--	Recency MAX Round		-->
 
-	<select id="recency_max_round" resultType="int">
+	<select id="recency_max_round" resultType="String">
 		
 		SELECT 
 			MAX(round)
