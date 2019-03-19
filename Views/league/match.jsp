@@ -15,9 +15,9 @@
 			<c:forEach begin="0" end="${league.roundmatch.maxRound}" varStatus="idx" step="10">
 				<div class="ui tabular ten item menu">
 					<c:forEach begin="0" end="9" varStatus="indx">
-					<c:if test="${league.roundmatch.maxRound >= idx.index+indx.count}">
-						<a class="tabular item f k r ${league.roundmatch.nowRound == idx.index+indx.count ? 'active' : ''}" data-tab="round${idx.index+indx.count}">${idx.index+indx.count} Round</a>
-					</c:if>
+						<c:if test="${league.roundmatch.maxRound >= idx.index+indx.count}">
+							<a class="tabular item f k r ${league.roundmatch.nowRound == idx.index+indx.count ? 'active' : ''}" data-tab="round${idx.index+indx.count}">${idx.index+indx.count} Round</a>
+						</c:if>
 					</c:forEach>
 				</div>
 			</c:forEach>
