@@ -157,6 +157,85 @@
 	</select>
 	
 	
+<!--	Before Season Round		-->
+
+	<select id="before_season_round" resultType="map">
+		
+		SELECT
+			*
+		FROM
+			Round
+		WHERE
+			season	= #{season} AND
+			round	= #{round}
+		
+	</select>
+	
+	
+<!--	Before Season Round Score		-->
+
+	<select id="before_season_round_score" resultType="map">
+		
+		SELECT
+			*
+		FROM
+			Score
+		WHERE
+			season	= #{season} AND
+			round	= #{round} AND
+			NOT goal = 0
+		
+	</select>
+	
+	
+<!--	Award		-->
+
+	<select id="award" parameterType="map" resultType="map">
+		
+		SELECT
+			f.club, s.season, s.${award}
+		FROM
+			Season s
+		LEFT
+			JOIN
+		<choose>
+			<when test="award == 'manager'">Manager</when>
+			<otherwise>Player</otherwise>
+		</choose> f
+			ON s.${award} = f.name
+		WHERE
+			NOT s.season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+		ORDER BY
+			season DESC
+		
+	</select>
+	
+	
+<!--	Award Count		-->
+
+	<select id="award_count" parameterType="map" resultType="map">
+		
+		SELECT
+			f.club, s.${award}, COUNT(s.${award}) count
+		FROM
+			Season s
+		LEFT
+			JOIN
+		<choose>
+			<when test="award == 'manager'">Manager</when>
+			<otherwise>Player</otherwise>
+		</choose> f
+			ON s.${award} = f.name
+		WHERE
+			NOT s.season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
+		GROUP BY
+			s.${award}
+		ORDER BY
+			count DESC
+		
+	</select>
+	
+	
 <!--	League Title		-->
 	
 	<select id="title" resultType="map">
