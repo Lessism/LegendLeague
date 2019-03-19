@@ -250,27 +250,62 @@ public class LeagueRestController {
 		@RequestMapping(value="rank", produces="application/json")
 		public Map<String,Object> rank(@RequestParam Map<String, Object> map) {
 			
-			String nowRound = db.selectOne("League.recency_result_round");
-			List<String> labels = db.selectList("League.labels");
-			List<Map<String,Object>> datas = new ArrayList<>();
-			
-			if (nowRound != null) {
-				for (int i = 1; i <= Integer.parseInt(nowRound); i++) {
-					Map<String,Object> data = new HashMap<>();
-					data.put("round", i);
-					for (int ii = 0; ii < labels.size(); ii++) {
-						data.put("name", labels.get(ii));
-						data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+			if (map.isEmpty()) {
+				
+				String nowRound = db.selectOne("League.recency_result_round");
+				List<String> labels = db.selectList("League.labels");
+				List<Map<String,Object>> datas = new ArrayList<>();
+				
+				if (nowRound != null) {
+					for (int i = 1; i <= Integer.parseInt(nowRound); i++) {
+						Map<String,Object> data = new HashMap<>();
+						data.put("round", i);
+						for (int ii = 0; ii < labels.size(); ii++) {
+							data.put("name", labels.get(ii));
+							data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+						}
+						datas.add(data);
 					}
-					datas.add(data);
+				} else {
+					return map;
 				}
+				
+				map.put("data", datas);
+				map.put("labels", labels);
+				
 			} else {
-				return map;
+				
+				Map<String, Object> season = db.selectOne("League.before_season", map);
+				
+				if (season != null) {
+					
+					String label = season.get("roster").toString();
+					List<String> labels = new ArrayList<>();
+					List<Map<String,Object>> datas = new ArrayList<>();
+					
+					for (int i = 0; i <label.split(",").length; i++) {
+						labels.add(i, label.split(",")[i]);
+					}
+					
+					for (int i = 1; i <= (int)season.get("round"); i++) {
+						Map<String,Object> data = new HashMap<>();
+						data.put("season", season.get("season"));
+						data.put("round", i);
+						for (int ii = 0; ii < labels.size(); ii++) {
+							data.put("name", labels.get(ii));
+							data.put(labels.get(ii), (int)db.selectOne("League.point", data));
+						}
+						data.remove("season");
+						datas.add(data);
+					}
+				
+					map.put("data", datas);
+					map.put("labels", labels);
+					
+				} else {
+					return map;
+				}
 			}
-			
-			
-			map.put("data", datas);
-			map.put("labels", labels);
 			
 			return map;
 		}

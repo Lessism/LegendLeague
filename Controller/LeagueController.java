@@ -19,29 +19,48 @@ public class LeagueController {
 	private LeagueDAO lDAO;
 	
 	
-//	Season Preview
+//	Preview
 	
 		@RequestMapping(value="preview.ll", method=RequestMethod.GET)
-		public ModelAndView seasonPreview(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("league/preview", "league", lDAO.seasonPreview(map));
+		public ModelAndView preview(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/preview", "league", lDAO.preview(map));
 		}
 		
 		
-//	Season Ranking
+//	Ranking
 	
 		@RequestMapping(value="ranking.ll", method=RequestMethod.GET)
-		public ModelAndView seasonRanking(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("league/ranking", "league", lDAO.seasonRanking(map));
+		public ModelAndView ranking(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/ranking", "league", lDAO.ranking(map));
 		}
 		
 		
-//	Season Match
+//	Round Match
 	
 		@RequestMapping(value="match.ll", method=RequestMethod.GET)
-		public ModelAndView seasonMatch(@RequestParam Map<String, Object> map) {
-			System.out.println(lDAO.seasonMatch(map));
-			return new ModelAndView("league/match", "league", lDAO.seasonMatch(map));
+		public ModelAndView match(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/match", "league", lDAO.roundMatch(map));
 		}
+		
+		
+//	Review
+		
+		@RequestMapping(value="review.ll", method=RequestMethod.GET)
+		public ModelAndView review(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/review", "league", lDAO.review(map));
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 }
