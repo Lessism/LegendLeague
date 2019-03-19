@@ -51,16 +51,9 @@ public class LeagueDAO {
 		}
 		
 		
-//	Rail League
+//	Preview
 		
-		public Map<String, Object> railLeague() {
-			return db.selectOne("League.season");
-		}
-		
-		
-//	Season Preview
-		
-		public Map<String, Object> seasonPreview(Map<String, Object> map) {
+		public Map<String, Object> preview(Map<String, Object> map) {
 			
 			Map<String, Object> preview = new HashMap<>();
 			preview.put("club", db.selectList("League.information"));
@@ -73,9 +66,9 @@ public class LeagueDAO {
 		}
 		
 		
-//	Season Ranking
+//	Ranking
 	
-		public Map<String, Object> seasonRanking(Map<String, Object> map) {
+		public Map<String, Object> ranking(Map<String, Object> map) {
 			
 			Map<String, Object> ranking = new HashMap<>();
 			ranking.put("club", db.selectList("League.club_ranking"));
@@ -92,9 +85,9 @@ public class LeagueDAO {
 		}
 		
 		
-//	Season Match
+//	Round Match
 	
-		public Map<String, Object> seasonMatch(Map<String, Object> map) {
+		public Map<String, Object> roundMatch(Map<String, Object> map) {
 			
 			Map<String, Object> roundmatch = new HashMap<>();
 			List<List<Map<String, Object>>> round = new ArrayList<>();
@@ -114,10 +107,29 @@ public class LeagueDAO {
 			roundmatch.put("round", round);
 			roundmatch.put("maxRound", maxRound);
 			roundmatch.put("nowRound", nowRound);
-			System.out.println(nowRound);
-			System.out.println(maxRound);
 			map.put("season", db.selectOne("League.recency_season"));
 			map.put("roundmatch", roundmatch);
+			
+			return map;
+		}
+		
+		
+//	Review
+		
+		public Map<String, Object> review(Map<String, Object> map) {
+			
+			Map<String, Object> review = new HashMap<>();
+			Map<String, Object> season = db.selectOne("League.before_season", map);
+			season.replace("champion", db.selectOne("FIFA.info_club", season.get("champion")));
+			season.replace("manager", db.selectOne("FIFA.info_manager", season.get("manager")));
+			season.replace("ballondor", db.selectOne("FIFA.info_player", season.get("ballondor")));
+			season.replace("goalscorer", db.selectOne("FIFA.info_player", season.get("goalscorer")));
+			season.replace("assistprovider", db.selectOne("FIFA.info_player", season.get("assistprovider")));
+			review.put("season", season);
+			review.put("ranking", db.selectList("League.before_ranking", review.get("season")));
+			
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("review", review);
 			
 			return map;
 		}
