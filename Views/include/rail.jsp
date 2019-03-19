@@ -18,9 +18,9 @@
 				<div class="item">
 					<h4 class="f k r">Before Season</h4>
 					<div class="ui secondary vertical pointing menu">
-						<a class="rail item f k r" href="${path}/league/season_preview.ll">${league.season-1}/${f:substring(league.season, 2, 4)}</a>
-						<a class="rail item f k r" href="${path}/league/season_ranking.ll">${league.season-2}/${f:substring(league.season-1, 2, 4)}</a>
-						<a class="rail item f k r" href="${path}/league/season_match.ll">${league.season-3}/${f:substring(league.season-2, 2, 4)}</a>
+						<c:forEach begin="0" end="2" varStatus="idx">
+							<a class="rail item f k r" href="${path}/league/review.ll?season=${league.season-idx.count}">${league.season-idx.count}/${f:substring(league.season-idx.count+1, 2, 4)}</a>
+						</c:forEach>
 					</div>
 				</div>
 				<a class="rail item f k r" href="${path}/league/award.ll">Award</a>
@@ -32,7 +32,7 @@
 <script>
 $(function(){
 	for (i = 0; i < $('.rail.item').length; i++){
-		if ($('.rail.item').eq(i).attr('href') == window.location.pathname){
+		if ($('.rail.item').eq(i).attr('href') == window.location.pathname || $('.rail.item').eq(i).attr('href') == window.location.pathname + window.location.search){
 			$('.rail.item').eq(i).addClass('active')
 		}
 	}
