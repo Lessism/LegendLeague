@@ -174,6 +174,21 @@ public class LeagueDAO {
 		}
 		
 		
+//	Award
+	
+		public Map<String, Object> history(Map<String, Object> map) {
+			
+			Map<String, Object> history = new HashMap<>();
+			
+			
+			
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("history", history);
+			
+			return map;
+		}
+		
+		
 //	Match schedule
 		
 		public int matchSchedule(Map<String, Object> map) {
