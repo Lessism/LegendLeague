@@ -59,6 +59,14 @@ public class LeagueController {
 		}
 		
 		
+//	Award
+	
+		@RequestMapping(value="history.ll", method=RequestMethod.GET)
+		public ModelAndView history(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("league/history", "league", lDAO.history(map));
+		}
+		
+		
 		
 		
 		
