@@ -193,12 +193,17 @@
 	<select id="award" parameterType="map" resultType="map">
 		
 		SELECT
-			f.club, s.season, s.${award}
+			s.season, s.${award} name, f.country,
+		<choose>
+			<when test="award == 'champion'">f.stadium</when>
+			<otherwise>f.club</otherwise>
+		</choose>
 		FROM
 			Season s
 		LEFT
 			JOIN
 		<choose>
+			<when test="award == 'champion'">Club</when>
 			<when test="award == 'manager'">Manager</when>
 			<otherwise>Player</otherwise>
 		</choose> f
@@ -216,12 +221,15 @@
 	<select id="award_count" parameterType="map" resultType="map">
 		
 		SELECT
-			f.club, s.${award}, COUNT(s.${award}) count
+			f.country, s.${award} name, COUNT(s.${award}) count,
+			<if test="award == 'champion'">f.stadium</if>
+			<if test="award != 'champion'">f.club</if>
 		FROM
 			Season s
 		LEFT
 			JOIN
 		<choose>
+			<when test="award == 'champion'">Club</when>
 			<when test="award == 'manager'">Manager</when>
 			<otherwise>Player</otherwise>
 		</choose> f
