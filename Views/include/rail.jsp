@@ -45,7 +45,13 @@
 					</div>
 				</div>
 				<div class="ui divider"></div>
-				<a class="rail item f k r" href="${path}/league/history.ll">History</a>
+				<div class="item">
+					<h4 class="f k r">History</h4>
+					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/league/history.ll?history=League">League</a>
+						<a class="rail item f k r" href="${path}/league/history.ll?history=Season">Season</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
