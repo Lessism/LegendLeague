@@ -37,10 +37,11 @@
 				<div class="item">
 					<h4 class="f k r">Award</h4>
 					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/league/award.ll?award=champion">Champion</a>
 						<a class="rail item f k r" href="${path}/league/award.ll?award=manager">FIFA World Manager</a>
 						<a class="rail item f k r" href="${path}/league/award.ll?award=ballondor">Ballon Dor</a>
-						<a class="rail item f k r" href="${path}/league/award.ll?award=goalscorer">득점왕</a>
-						<a class="rail item f k r" href="${path}/league/award.ll?award=assistprovider">도움왕</a>
+						<a class="rail item f k r" href="${path}/league/award.ll?award=goalscorer">Goal Scorer</a>
+						<a class="rail item f k r" href="${path}/league/award.ll?award=assistprovider">Assist Provider</a>
 					</div>
 				</div>
 				<div class="ui divider"></div>
