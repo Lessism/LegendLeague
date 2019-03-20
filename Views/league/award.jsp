@@ -3,8 +3,8 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r">Legend League</h1>
-	<h3 class="f k r">
+	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+	<h4 class="f k r">
 		<c:choose>
 			<c:when test="${league.award.award eq 'champion'}">Champion</c:when>
 			<c:when test="${league.award.award eq 'manager'}">FIFA World Manager</c:when>
@@ -12,7 +12,7 @@
 			<c:when test="${league.award.award eq 'goalscorer'}">Goal Scorer</c:when>
 			<c:when test="${league.award.award eq 'assistprovider'}">Assist Provider</c:when>
 		</c:choose>	Award
-	</h3>
+	</h4>
 	<div class="ui divider"></div>
 	<div class="ui grid">
 		<div class="eleven wide column">

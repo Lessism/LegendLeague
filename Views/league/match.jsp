@@ -3,7 +3,8 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season Match</h1>
+	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+	<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season Match</h4>
 	<div class="ui divider"></div>
 	<div class="ui black segment">
 		<div class="ui center aligned container"><h3 class="f k r">경기 일정</h3></div>

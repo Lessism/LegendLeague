@@ -6,8 +6,8 @@
 <%@ include file="../include/rail.jsp" %>
 	<div class="ui grid">
 		<div class="twelve wide column">
-			<h1 class="f k r" style="display:inline-block;">Legend League</h1>
-			<h3 style="display:block;">${league.season}/${f:substring(league.season+1, 2, 4)} ${!empty league.round ? seasonround : 'Free Season'}</h3>
+			<h1 class="f k r" style="color:black; margin-top:24px"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+			<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} ${!empty league.round ? seasonround : 'Free Season'}</h4>
 		</div>
 		<div class="four wide column" style="display:flex; align-items:center;">
 			<c:if test="${empty league.end}">
@@ -18,7 +18,7 @@
 			</c:if>
 		</div>
 	</div>
-	<hr>
+	<div class="ui divider"></div>
 	<div class="ui grid" id="league">
 		<c:if test="${empty league.round}">
 			<div class="ten wide column">
@@ -319,7 +319,7 @@
 						<div><img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${league.champion.stadium}">${league.champion.stadium}</div>
 						<div class="ui divider"></div>
 						<div class="ui segment">
-								<div class="label f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season ${league.ranking[0].game} Round</div>
+							<div class="label f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season ${league.ranking[0].game} Round</div>
 							<div class="ui active progress" data-percent="100" style="display:flex;">
 								<div class="bar" style="width:${league.ranking[0].win / league.ranking[0].game * 100}%; background-color:#2ecc40;">
 									<div class="progress">${league.ranking[0].win} 승</div>
