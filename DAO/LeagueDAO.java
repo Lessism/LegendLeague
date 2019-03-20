@@ -155,9 +155,18 @@ public class LeagueDAO {
 		public Map<String, Object> award(Map<String, Object> map) {
 			
 			Map<String, Object> award = new HashMap<>();
-			award.put("award", db.selectList("League.award", map));
+			if(map.get("award").equals("manager")) {
+				award.put("role", "Manager");
+			} else {
+				award.put("role", "Player");
+			}
+			if(map.get("award").equals("champion")) {
+				award.put("role", "Club");
+			}
+			award.put("award", map.get("award"));
+			award.put("list", db.selectList("League.award", map));
 			award.put("count", db.selectList("League.award_count", map));
-
+			
 			map.put("season", db.selectOne("League.recency_season"));
 			map.put("award", award);
 			
