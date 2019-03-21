@@ -193,6 +193,9 @@ public class LeagueDAO {
 				history.put("mostWin",				db.selectOne("League.history_most_win"));
 				history.put("mostDraw",				db.selectOne("League.history_most_draw"));
 				history.put("mostLose",				db.selectOne("League.history_most_lose"));
+				history.put("mostGoaldifference",	db.selectOne("League.history_most_goaldifference"));
+				history.put("mostGoalfor",			db.selectOne("League.history_most_goalfor"));
+				history.put("mostGoalagainst",		db.selectOne("League.history_most_goalagainst"));
 				history.put("mostPoint",			db.selectOne("League.history_most_point"));
 				history.put("mostOdds",				db.selectOne("League.history_most_odds"));
 				history.put("mostPlayerRating",		db.selectOne("League.history_most_player_rating"));
