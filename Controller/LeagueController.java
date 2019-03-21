@@ -59,10 +59,15 @@ public class LeagueController {
 		}
 		
 		
-//	Award
+//	History
 	
 		@RequestMapping(value="history.ll", method=RequestMethod.GET)
 		public ModelAndView history(@RequestParam Map<String, Object> map) {
+			
+			if (!map.get("history").equals("League") && !map.get("history").equals("Season")) {
+				map.put("history", "League");
+			}
+			
 			return new ModelAndView("league/history", "league", lDAO.history(map));
 		}
 		
