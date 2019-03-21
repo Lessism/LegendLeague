@@ -244,6 +244,708 @@
 	</select>
 	
 	
+<!--	History Title		-->
+	
+	<select id="history_title" resultType="map">
+	
+		SELECT
+			champion, country, emblem
+		FROM
+			Season
+		LEFT
+			JOIN Club
+		    ON Season.champion = Club.name
+		WHERE
+		    season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)-1
+	
+	</select>
+	
+	
+<!--	History Most Title Club		-->
+	
+	<select id="history_most_title_club" resultType="map">
+	
+		SELECT
+			COUNT(champion) count, champion, country, emblem
+		FROM
+			Season
+		LEFT
+			JOIN Club
+		    ON champion = name
+		WHERE
+			champion IS NOT NULL
+		GROUP BY
+			champion
+		ORDER BY
+			count DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Title Manager		-->
+	
+	<select id="history_most_title_manager" resultType="map">
+	
+		SELECT
+			COUNT(manager) count, manager, country, profile
+		FROM
+			Season
+		LEFT
+			JOIN Manager
+		    ON manager = name
+		WHERE
+			manager IS NOT NULL
+		GROUP BY
+			manager
+		ORDER BY
+			count DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Title Player		-->
+	
+	<select id="history_most_title_player" resultType="map">
+	
+		SELECT
+			name name, country, profile, (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') count
+		FROM
+			Player
+		WHERE
+			history IS NOT NULL AND
+			history like '%Champion%'
+		ORDER BY
+			count DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Ballon Dor		-->
+	
+	<select id="history_most_ballondor" resultType="map">
+	
+		SELECT
+			*, COUNT(ballondor) count
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON ballondor = name
+		WHERE
+			ballondor IS NOT NULL
+		GROUP BY
+			ballondor
+		ORDER BY
+			count DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Goal Scorer		-->
+	
+	<select id="history_most_goalscorer" resultType="map">
+	
+		SELECT
+			*, COUNT(goalscorer) count
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON goalscorer = name
+		WHERE
+			goalscorer IS NOT NULL
+		GROUP BY
+			goalscorer
+		ORDER BY
+			count DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Assist Provider		-->
+	
+	<select id="history_most_assistprovider" resultType="map">
+	
+		SELECT
+			*, COUNT(assistprovider) count
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON assistprovider = name
+		WHERE
+			assistprovider IS NOT NULL
+		GROUP BY
+			assistprovider
+		ORDER BY
+			count DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Game		-->
+	
+	<select id="history_most_game" resultType="map">
+	
+		SELECT
+			*, COUNT(game) sumgame
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		WHERE
+			NOT game = 0
+		GROUP BY
+			club
+		ORDER BY
+			sumgame DESC, SUM(point) DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Win		-->
+	
+	<select id="history_most_win" resultType="map">
+	
+		SELECT
+			*, SUM(w) sumwin
+		FROM
+			(
+				SELECT
+					*, MAX(win) w
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				WHERE
+					NOT game = 0
+				GROUP BY
+					season, club
+			) AS club
+		GROUP BY
+			club
+		ORDER BY
+			sumwin DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Draw		-->
+	
+	<select id="history_most_draw" resultType="map">
+	
+		SELECT
+			*, SUM(d) sumdraw
+		FROM
+			(
+				SELECT
+					*, MAX(draw) d
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				WHERE
+					NOT game = 0
+				GROUP BY
+					season, club
+			) AS club
+		GROUP BY
+			club
+		ORDER BY
+			draw DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Lose		-->
+	
+	<select id="history_most_lose" resultType="map">
+	
+		SELECT
+			*, SUM(l) sumlose
+		FROM
+			(
+				SELECT
+					*, MAX(lose) l
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				WHERE
+					NOT game = 0
+				GROUP BY
+					season, club
+			) AS club
+		GROUP BY
+			club
+		ORDER BY
+			lose DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Point		-->
+	
+	<select id="history_most_point" resultType="map">
+	
+		SELECT
+			*, SUM(p) sumpoint
+		FROM
+			(
+				SELECT
+					*, MAX(point) p
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				WHERE
+					NOT game = 0
+				GROUP BY
+					season, club
+			) AS club
+		GROUP BY
+			club
+		ORDER BY
+			sumpoint DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Odds		-->
+	
+	<select id="history_most_odds" resultType="map">
+	
+		SELECT
+			*, SUM(w) sumwin, SUM(d) sumdraw, SUM(l) sumlose,
+			SUM(w) / SUM(g) as winodds, SUM(d) / SUM(g) as drawodds, SUM(l) / SUM(g) as loseodds
+		FROM
+			(
+				SELECT
+					*, MAX(game) g, MAX(win) w, MAX(draw) d, MAX(lose) l, MAX(point) p
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				WHERE
+					NOT game = 0
+				GROUP BY
+					season, club
+			) AS club
+		GROUP BY
+			club
+		ORDER BY
+			winodds DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Player Game		-->
+
+	<select id="history_most_player_game" resultType="map">
+	
+		SELECT
+			*, COUNT(player) sumgame
+		FROM
+			Score
+		LEFT
+			JOIN Player
+		    ON player = name
+		GROUP BY
+			player
+		ORDER BY
+			sumgame DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Player Rating		-->
+	
+	<select id="history_most_player_rating" resultType="map">
+	
+		SELECT
+			*, AVG(rating) avgrating
+		FROM
+			Score
+		LEFT
+			JOIN Player
+		    ON player = name
+		GROUP BY
+			player
+		ORDER BY
+			avgrating DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Player Goal		-->
+	
+	<select id="history_most_player_goal" resultType="map">
+	
+		SELECT
+			*, SUM(goal) sumgoal
+		FROM
+			Score
+		LEFT
+			JOIN Player
+		    ON player = name
+		GROUP BY
+			player
+		ORDER BY
+			sumgoal DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Player Rating		-->
+	
+	<select id="history_most_player_assist" resultType="map">
+	
+		SELECT
+			*, SUM(assist) sumassist
+		FROM
+			Score
+		LEFT
+			JOIN Player
+		    ON player = name
+		GROUP BY
+			player
+		ORDER BY
+			sumassist DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Odds		-->
+	
+	<select id="history_season_club_most_odds" resultType="map">
+	
+		SELECT
+			*, MAX(game) maxgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
+			MAX(win) / MAX(game) winodds, MAX(draw) / MAX(game) drawodds, MAX(lose) / MAX(game) loseodds
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		WHERE
+			NOT game = 0
+		GROUP BY
+			season, club
+		ORDER BY
+			winodds DESC, maxgame DESC, maxwin DESC, maxdraw DESC, ovr DESC, season DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Point		-->
+	
+	<select id="history_season_club_most_point" resultType="map">
+	
+		SELECT
+			*, MAX(point) maxpoint
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxpoint DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Score		-->
+	
+	<select id="history_season_club_most_score" resultType="map">
+	
+		SELECT
+			round.season season, round.round round, round.score score,
+			home.name homename, home.emblem homeemblem, home.country homecountry, home.stadium homestadium,
+		    away.name awayname, away.emblem awayemblem, away.country awaycountry, away.stadium awaystadium
+		FROM
+		    (
+				SELECT * FROM 
+					Round
+				ORDER BY
+					score DESC
+				LIMIT
+					1
+			) AS round
+		LEFT
+			JOIN	(
+						SELECT
+							*
+						FROM
+							Club
+						WHERE
+							name = (
+										SELECT
+											SUBSTRING_INDEX(versus, '_', 1)
+										FROM
+											Round
+										ORDER BY
+											score DESC
+										LIMIT
+											1
+									)
+					) AS home
+			ON home.name = SUBSTRING_INDEX(versus, '_', 1)
+		LEFT
+			JOIN	(
+						SELECT
+							*
+						FROM
+							Club
+						WHERE
+							name = (
+										SELECT
+											SUBSTRING_INDEX(versus, '_', -1)
+										FROM
+											Round
+										ORDER BY
+											score DESC
+										LIMIT
+											1
+									)
+					) AS away
+			ON away.name = SUBSTRING_INDEX(versus, '_', -1)
+	
+	</select>
+	
+	
+<!--	History Season Club Most Win		-->
+	
+	<select id="history_season_club_most_win" resultType="map">
+	
+		SELECT
+			*, MAX(win) maxwin
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxwin DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Draw		-->
+	
+	<select id="history_season_club_most_draw" resultType="map">
+	
+		SELECT
+			*, MAX(draw) maxdraw
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxdraw DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Lose		-->
+	
+	<select id="history_season_club_most_lose" resultType="map">
+	
+		SELECT
+			*, MAX(lose) maxlose
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxlose DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Goalfor		-->
+	
+	<select id="history_season_club_most_goalfor" resultType="map">
+	
+		SELECT
+			*, MAX(goalfor) maxgoalfor
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxgoalfor DESC, MAX(goalagainst) ASC, MAX(game) ASC, MAX(win) DESC, MAX(draw) DESC, ovr DESC, season DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Goalagainst		-->
+	
+	<select id="history_season_club_most_goalagainst" resultType="map">
+	
+		SELECT
+			*, MAX(goalagainst) maxgoalagainst
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxgoalagainst DESC, MAX(goalfor) ASC, MAX(game) DESC, MAX(win) ASC, MAX(draw) ASC, ovr DESC, season DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Club Most Goaldifference		-->
+	
+	<select id="history_season_club_most_goaldifference" resultType="map">
+	
+		SELECT
+			*, MAX(goalfor) - MAX(goalagainst) maxgoaldifference
+		FROM
+			Ranking
+		LEFT
+			JOIN Club
+			ON club = name
+		GROUP BY
+			season, club
+		ORDER BY
+			maxgoaldifference DESC, MAX(goalfor) DESC, MAX(goalagainst) ASC, MAX(game) DESC, MAX(win) DESC, MAX(draw) DESC, ovr DESC, season DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Player Most Rating		-->
+	
+	<select id="history_season_player_most_rating" resultType="map">
+	
+		SELECT
+			*, AVG(rating) avgrating
+		FROM
+			Score
+		LEFT
+			JOIN Player
+			ON	player = name
+		GROUP BY
+			season, player
+		ORDER BY
+			avgrating DESC, SUM(goal) DESC, SUM(assist) DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Player Most Goal		-->
+	
+	<select id="history_season_player_most_goal" resultType="map">
+	
+		SELECT
+			*, SUM(goal) sumgoal
+		FROM
+			Score
+		LEFT
+			JOIN Player
+			ON	player = name
+		GROUP BY
+			season, player
+		ORDER BY
+			sumgoal DESC, SUM(assist) DESC, AVG(rating) DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Season Player Most Assist		-->
+	
+	<select id="history_season_player_most_assist" resultType="map">
+	
+		SELECT
+			*, SUM(assist) sumassist
+		FROM
+			Score
+		LEFT
+			JOIN Player
+			ON	player = name
+		GROUP BY
+			season, player
+		ORDER BY
+			sumassist DESC, SUM(goal) DESC, AVG(rating) DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
 <!--	League Title		-->
 	
 	<select id="title" resultType="map">
