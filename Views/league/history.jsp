@@ -118,8 +118,8 @@
 					<td style="border-left:none;"><h5 class="f k r">${league.history.mostAssistprovider.count} 회</h5></td>
 				</tr>
 				<tr>
-					<th rowspan="8" style="border-top:1px solid rgba(34,36,38,.1);">누적 전적</th>
-					<th rowspan="6" style="border-top:1px solid rgba(34,36,38,.1);">구단</th>
+					<th rowspan="10" style="border-top:1px solid rgba(34,36,38,.1);">누적 전적</th>
+					<th rowspan="8" style="border-top:1px solid rgba(34,36,38,.1);">구단</th>
 					<th colspan="3" style="border-top:1px solid rgba(34,36,38,.1);">경기</th>
 					<th colspan="3" style="border-top:1px solid rgba(34,36,38,.1);">승점</th>
 				</tr>
@@ -221,6 +221,49 @@
 							<div class="label f k r">승률 <fmt:formatNumber value="${league.history.mostOdds.winodds}" type="percent"/></div>
 						</div>
 					</td>
+				</tr>
+				<tr>
+					<th colspan="2" style="border-top:1px solid rgba(34,36,38,.1); border-left:1px solid rgba(34,36,38,.1);">득실차</th>
+					<th colspan="2" style="border-top:1px solid rgba(34,36,38,.1);">득점</th>
+					<th colspan="2" style="border-top:1px solid rgba(34,36,38,.1);">실점</th>
+				</tr>
+				<tr>
+					<td style="border-left:1px solid rgba(34,36,38,.1);">
+						<div class="ui image header f k r">
+							<img class="ui rounded image" src="${path}/image.ll?no=${league.history.mostGoaldifference.emblem}" style="height:50px">
+							<div class="content">
+								${league.history.mostGoaldifference.club}
+								<div class="sub header">
+									<i class="${f:toLowerCase(league.history.mostGoaldifference.country)} flag"></i>${league.history.mostGoaldifference.country}
+								</div>
+							</div>
+						</div>
+					</td>
+					<td style="border-left:none;"><h5 class="f k r">${league.history.mostGoaldifference.summaxgoaldifference} 점</h5></td>
+					<td>
+						<div class="ui image header f k r">
+							<img class="ui rounded image" src="${path}/image.ll?no=${league.history.mostGoalfor.emblem}" style="height:50px">
+							<div class="content">
+								${league.history.mostGoalfor.club}
+								<div class="sub header">
+									<i class="${f:toLowerCase(league.history.mostGoalfor.country)} flag"></i>${league.history.mostGoalfor.country}
+								</div>
+							</div>
+						</div>
+					</td>
+					<td style="border-left:none;"><h5 class="f k r">${league.history.mostGoalfor.summaxgoalfor} 골</h5></td>
+					<td>
+						<div class="ui image header f k r">
+							<img class="ui rounded image" src="${path}/image.ll?no=${league.history.mostGoalagainst.emblem}" style="height:50px">
+							<div class="content">
+								${league.history.mostGoalagainst.club}
+								<div class="sub header">
+									<i class="${f:toLowerCase(league.history.mostGoalagainst.country)} flag"></i>${league.history.mostGoalagainst.country}
+								</div>
+							</div>
+						</div>
+					</td>
+					<td style="border-left:none;"><h5 class="f k r">${league.history.mostGoalagainst.summaxgoalagainst} 골</h5></td>
 				</tr>
 				<tr>
 					<th rowspan="2" style="border-top:1px solid rgba(34,36,38,.1); border-left:1px solid rgba(34,36,38,.1);">선수</th>
@@ -505,8 +548,3 @@
 	</c:if>
 </section>
 <jsp:include page="../include/footer.jsp"/>
-<!--
-	
-	클럽 최다 득점 실점 득실차
-	
--->
