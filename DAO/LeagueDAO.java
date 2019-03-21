@@ -174,13 +174,47 @@ public class LeagueDAO {
 		}
 		
 		
-//	Award
+//	History
 	
 		public Map<String, Object> history(Map<String, Object> map) {
 			
-			Map<String, Object> history = new HashMap<>();
+			Map<String, Object> history = new HashMap<>(map);
 			
-			
+			if(history.get("history").equals("League")) {
+
+				history.put("title",				db.selectOne("League.history_title"));
+				history.put("mostTitleClub",		db.selectOne("League.history_most_title_club"));
+				history.put("mostTitleManager",		db.selectOne("League.history_most_title_manager"));
+				history.put("mostTitlePlayer",		db.selectOne("League.history_most_title_player"));
+				history.put("mostBallondor",		db.selectOne("League.history_most_ballondor"));
+				history.put("mostGoalscorer",		db.selectOne("League.history_most_goalscorer"));
+				history.put("mostAssistprovider",	db.selectOne("League.history_most_assistprovider"));
+				history.put("mostGame",				db.selectOne("League.history_most_game"));
+				history.put("mostWin",				db.selectOne("League.history_most_win"));
+				history.put("mostDraw",				db.selectOne("League.history_most_draw"));
+				history.put("mostLose",				db.selectOne("League.history_most_lose"));
+				history.put("mostPoint",			db.selectOne("League.history_most_point"));
+				history.put("mostOdds",				db.selectOne("League.history_most_odds"));
+				history.put("mostPlayerRating",		db.selectOne("League.history_most_player_rating"));
+				history.put("mostPlayerGoal",		db.selectOne("League.history_most_player_goal"));
+				history.put("mostPlayerAssist",		db.selectOne("League.history_most_player_assist"));
+				
+			} else {
+				
+				history.put("clubMostWin",				db.selectOne("League.history_season_club_most_win"));
+				history.put("clubMostDraw",				db.selectOne("League.history_season_club_most_draw"));
+				history.put("clubMostLose",				db.selectOne("League.history_season_club_most_lose"));
+				history.put("clubMostOdds",				db.selectOne("League.history_season_club_most_odds"));
+				history.put("clubMostPoint",			db.selectOne("League.history_season_club_most_point"));
+				history.put("clubMostScore",			db.selectOne("League.history_season_club_most_score"));
+				history.put("clubMostGoaldifference",	db.selectOne("League.history_season_club_most_goaldifference"));
+				history.put("clubMostGoalfor",			db.selectOne("League.history_season_club_most_goalfor"));
+				history.put("clubMostGoalagainst",		db.selectOne("League.history_season_club_most_goalagainst"));
+				history.put("playerMostRating",			db.selectOne("League.history_season_player_most_rating"));
+				history.put("playerMostGoal",			db.selectOne("League.history_season_player_most_goal"));
+				history.put("playerMostAssist",			db.selectOne("League.history_season_player_most_assist"));
+				
+			}
 			
 			map.put("season", db.selectOne("League.recency_season"));
 			map.put("history", history);
