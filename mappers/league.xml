@@ -508,6 +508,90 @@
 	</select>
 	
 	
+<!--	History Most Goaldifference		-->
+	
+	<select id="history_most_goaldifference" resultType="map">
+	
+		SELECT
+			*, SUM(maxgoalfor) - SUM(maxgoalagainst) summaxgoaldifference
+		FROM
+			(
+				SELECT
+					*, MAX(goalfor) maxgoalfor, MAX(goalagainst) maxgoalagainst
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				GROUP BY
+					season, club
+			) AS maxgoaldifference
+		GROUP BY
+			club
+		ORDER BY
+			summaxgoaldifference DESC, SUM(maxgoalfor) DESC, SUM(maxgoalagainst) ASC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Goalfor		-->
+	
+	<select id="history_most_goalfor" resultType="map">
+	
+		SELECT
+			*, SUM(maxgoalfor) summaxgoalfor
+		FROM
+			(
+				SELECT
+					*, MAX(goalfor) maxgoalfor
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				GROUP BY
+					season, club
+			) AS maxgoalfor
+		GROUP BY
+			club
+		ORDER BY
+			summaxgoalfor DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	History Most Goalagainst		-->
+	
+	<select id="history_most_goalagainst" resultType="map">
+	
+		SELECT
+			*, SUM(maxgoalagainst) summaxgoalagainst
+		FROM
+			(
+				SELECT
+					*, MAX(goalagainst) maxgoalagainst
+				FROM
+					Ranking
+				LEFT
+					JOIN Club
+					ON club = name
+				GROUP BY
+					season, club
+			) AS maxgoalagainst
+		GROUP BY
+			club
+		ORDER BY
+			summaxgoalagainst DESC, ovr DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
 <!--	History Most Point		-->
 	
 	<select id="history_most_point" resultType="map">
