@@ -3,7 +3,7 @@
 <section class="ui black segment container">
 <div class="ui grid">
 	<div class="ui five wide column card">
-		<img class="ui rounded fluid image" src="${path}/image.ll?role=Player&name=${info.name}">
+		<img class="ui rounded fluid image" src="data:image/*; base64, ${info.profile}">
 		<div class="ui segment">
 			<div class="header">
 				${info.name}

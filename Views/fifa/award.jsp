@@ -141,15 +141,38 @@
 							<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.ballonDor.club}">${fifa.award.ballonDor.club}</div>
 							<div class="ui divider"></div>
 							<div class="ui segment">
-								<div class="ui active inverted black progress">
+								<div class="ui active ${fifa.award.ballonDor.icon} progress">
 									<div class="bar" style="width:${fifa.award.ballonDor.ovr}%;">
-										<div class="progress">${fifa.award.ballonDor.ovr}</div>
+										<div class="progress"><div class="ui meta f k r">${fifa.award.ballonDor.type} ${fifa.award.ballonDor.ovr}</div></div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>
 								</div>
 								<div class="ui divider"></div>
 								<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
-								<h5 class="f k r">${fifa.award.ballonDor.score}</h5>
+								<div class="ui four statistics">
+									<div class="statistic">
+										<div class="value"><h2 class="f k r">${fifa.award.ballonDor.score.countround}</h2></div>
+										<div class="label"><h5 class="f k r">경기</h5></div>
+									</div>
+									<div class="statistic">
+										<div class="value">
+											<h2 class="f k r">
+												<c:if test="${fifa.award.ballonDor.score.avgrating < 100}">${f:substring(fifa.award.ballonDor.score.avgrating, 0, 1)}.${f:substring(fifa.award.ballonDor.score.avgrating, 1, 2)}</c:if>
+												<c:if test="${fifa.award.ballonDor.score.avgrating > 99}">10.0</c:if>
+											</h2>
+										</div>
+										<div class="label"><h5 class="f k r">평점</h5></div>
+									</div>
+									<div class="statistic">
+										<div class="value"><h2 class="f k r">${fifa.award.ballonDor.score.sumgoal}</h2></div>
+										<div class="label"><h5 class="f k r">골</h5></div>
+									</div>
+									<div class="statistic">
+										<div class="value"><h2 class="f k r">${fifa.award.ballonDor.score.sumassist}</h2></div>
+										<div class="label"><h5 class="f k r">어시스트</h5></div>
+									</div>
+								</div>
+								<div class="ui divider"></div>
 								<div class="ui active progress" data-percent="100" style="display:flex;">
 									<div class="bar" style="width:<fmt:formatNumber value="${fifa.award.ballonDor.odds.winodds}" type="percent"/>; background-color:#2ecc40;">
 										<div class="progress">${fifa.award.ballonDor.odds.win} 승</div>
@@ -176,21 +199,43 @@
 									</tr>
 									<tr>
 										<th>Position</th>
-										<td>${fifa.award.ballonDor.position}</td>
+										<td><i class="dot circle outline ${fifa.award.ballonDor.icon} icon"></i>${fifa.award.ballonDor.position}</td>
 									</tr>
 								</table>
 							</div>
 							<c:if test="${fifa.award.ballonDor.history ne null}">
 								<div class="ui segment f k r">
 									<div class="ui header f k r">History</div>
+									<div class="ui four statistics">
+										<div class="statistic">
+											<div class="value"><h2 class="f k r">${fifa.award.ballonDor.countchampion}</h2></div>
+											<div class="label"><h5 class="f k r">Champion</h5></div>
+										</div>
+										<div class="statistic">
+											<div class="value"><h2 class="f k r">${fifa.award.ballonDor.countballondor}</h2></div>
+											<div class="label"><h5 class="f k r">Ballon Dor</h5></div>
+										</div>
+										<div class="statistic">
+											<div class="value"><h2 class="f k r">${fifa.award.ballonDor.countgoalscorer}</h2></div>
+											<div class="label"><h5 class="f k r">Goal Scorer</h5></div>
+										</div>
+										<div class="statistic">
+											<div class="value"><h2 class="f k r">${fifa.award.ballonDor.countassistprovider}</h2></div>
+											<div class="label"><h5 class="f k r">Assist Provider</h5></div>
+										</div>
+									</div>
 								<div class="ui segment f k r">
 									<div class="ui middle aligned relaxed divided list">
-										<c:forEach var="history" items="${fifa.award.ballonDor.history.split(',')}">
-											<div class="item">
-												<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
-												<div>${f:substring(history, 7, f:length(history))}</div>
-												<div>FIFA World Manager</div>
-											</div>
+										<c:forEach var="history" items="${fifa.award.ballonDor.history.split(',')}" varStatus="idx">
+											<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
+												<div class="item">
+													<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
+											</c:if>
+													<div>${f:substring(history, 7, f:length(history))}</div>
+											<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
+												</div>
+											</c:if>
+											<c:set var="historySeason" value="${f:substring(history, 0, 7)}"/>
 										</c:forEach>
 									</div>
 									</div>
