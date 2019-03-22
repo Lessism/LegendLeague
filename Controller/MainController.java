@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +26,7 @@ public class MainController {
 	
 //	Main
 	
-		@RequestMapping(value = "/", method = RequestMethod.GET)
+		@RequestMapping("/")
 		public String home() {
 			return "redirect:league.ll";
 		}
@@ -35,7 +34,7 @@ public class MainController {
 		
 //	Account
 	
-		@RequestMapping(value = "account.ll", method = RequestMethod.GET)
+		@RequestMapping("account.ll")
 		public String account() {
 			return "redirect:/account/login.ll";
 		}
@@ -43,7 +42,7 @@ public class MainController {
 		
 //	League
 	
-		@RequestMapping(value = "league.ll", method = RequestMethod.GET)
+		@RequestMapping("league.ll")
 		public ModelAndView main() {
 			return new ModelAndView("league/league", "league", lDAO.league());
 		}
@@ -51,15 +50,15 @@ public class MainController {
 		
 //	FIFA
 	
-		@RequestMapping(value = "fifa.ll", method = RequestMethod.GET)
-		public String fifa() {
-			return "redirect:/fifa/list.ll";
+		@RequestMapping("fifa.ll")
+		public ModelAndView fifa() {
+			return new ModelAndView("fifa/fifa", "fifa", lDAO.league());
 		}
 		
 		
 //	Image Convert
 	
-		@RequestMapping(value = "image.ll", method = RequestMethod.GET)
+		@RequestMapping("image.ll")
 		public ResponseEntity<byte[]> imageConvert(@RequestParam Map<String, Object> map) {
 			
 			HttpHeaders header = new HttpHeaders();
@@ -71,7 +70,7 @@ public class MainController {
 		
 //	에러페이지
 		
-		@RequestMapping(value="/error_403.ll")
+		@RequestMapping("/error_403.ll")
 		public String errorpage() {
 			
 			return "error_403";

@@ -21,7 +21,15 @@ public class FifaController {
 	@Autowired
 	private FifaDAO fDAO;
 	
+
+//	Award
 	
+		@RequestMapping("award.ll")
+		public ModelAndView award(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/award", "fifa", fDAO.award(map));
+		}
+		
+		
 //	FIFA List
 		
 		@RequestMapping(value="list.ll")

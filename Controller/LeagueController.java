@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +20,7 @@ public class LeagueController {
 	
 //	Preview
 	
-		@RequestMapping(value="preview.ll", method=RequestMethod.GET)
+		@RequestMapping("preview.ll")
 		public ModelAndView preview(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("league/preview", "league", lDAO.preview(map));
 		}
@@ -29,7 +28,7 @@ public class LeagueController {
 		
 //	Ranking
 	
-		@RequestMapping(value="ranking.ll", method=RequestMethod.GET)
+		@RequestMapping("ranking.ll")
 		public ModelAndView ranking(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("league/ranking", "league", lDAO.ranking(map));
 		}
@@ -37,7 +36,7 @@ public class LeagueController {
 		
 //	Round Match
 	
-		@RequestMapping(value="match.ll", method=RequestMethod.GET)
+		@RequestMapping("match.ll")
 		public ModelAndView match(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("league/match", "league", lDAO.roundMatch(map));
 		}
@@ -45,7 +44,7 @@ public class LeagueController {
 		
 //	Review
 		
-		@RequestMapping(value="review.ll", method=RequestMethod.GET)
+		@RequestMapping("review.ll")
 		public ModelAndView review(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("league/review", "league", lDAO.review(map));
 		}
@@ -53,7 +52,7 @@ public class LeagueController {
 		
 //	Award
 	
-		@RequestMapping(value="award.ll", method=RequestMethod.GET)
+		@RequestMapping("award.ll")
 		public ModelAndView award(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("league/award", "league", lDAO.award(map));
 		}
@@ -61,7 +60,7 @@ public class LeagueController {
 		
 //	History
 	
-		@RequestMapping(value="history.ll", method=RequestMethod.GET)
+		@RequestMapping("history.ll")
 		public ModelAndView history(@RequestParam Map<String, Object> map) {
 			
 			if (!map.get("history").equals("League") && !map.get("history").equals("Season")) {
@@ -70,15 +69,4 @@ public class LeagueController {
 			
 			return new ModelAndView("league/history", "league", lDAO.history(map));
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 }
