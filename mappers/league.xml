@@ -716,7 +716,7 @@
 	</select>
 	
 	
-<!--	History Most Player Rating		-->
+<!--	History Most Player Assist		-->
 	
 	<select id="history_most_player_assist" resultType="map">
 	

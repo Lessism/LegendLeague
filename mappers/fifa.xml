@@ -199,6 +199,126 @@
 	</insert>
 	
 	
+<!--	 FIFA Award		-->
+	
+	<select id="award" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Season
+		LEFT
+			JOIN ${role}
+			ON ${award} = name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award Ballon Dor		-->
+	
+	<select id="award_ballondor" parameterType="map" resultType="map">
+	
+		SELECT
+			*, 'Player' role, 'ballondor' award
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON ballondor = name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award Goal Scorer		-->
+	
+	<select id="award_goalScorer" parameterType="map" resultType="map">
+	
+		SELECT
+			*, 'Player' role, 'goalScorer' award
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON goalScorer = name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award Assist Provider		-->
+	
+	<select id="award_assistProvider" parameterType="map" resultType="map">
+	
+		SELECT
+			*, 'Player' role, 'assistProvider' award
+		FROM
+			Season
+		LEFT
+			JOIN Player
+			ON assistProvider = name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award List		-->
+	
+	<select id="award_list" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Season
+		LEFT
+			JOIN ${role}
+			ON ${award} = name
+		ORDER BY
+			season DESC
+			
+	</select>
+	
+	
+<!--	 FIFA Award Odds		-->
+	
+	<select id="award_odds" parameterType="map" resultType="map">
+	
+		SELECT
+			MAX(win) win, MAX(draw) draw, MAX(lose) lose,
+			MAX(win) / MAX(game) winodds, MAX(draw) / MAX(game) drawodds, MAX(lose) / MAX(game) loseodds
+		FROM
+			Ranking
+		WHERE
+			season	= #{season} AND
+		    club	= #{club}
+		GROUP BY
+			season, club
+			
+	</select>
+	
+	
+<!--	 FIFA Award Score		-->
+	
+	<select id="award_score" parameterType="map" resultType="map">
+	
+		SELECT
+			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+		FROM
+			Score
+		WHERE
+			season	= #{season}	AND
+		    player	= #{name}
+		GROUP BY
+			season, player
+			
+	</select>
+	
+	
 <!--	 FIFA List		-->
 	
 	<select id="list" parameterType="map" resultType="map">
