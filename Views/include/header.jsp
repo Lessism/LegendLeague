@@ -27,30 +27,25 @@
 		</div>
 		<div class="ui inverted secondary pointing right menu">
 			<s:authorize access="isAnonymous()">
-				<a class="nav item" href="${path}/account/login.ll">Login</a>
-				<a class="nav item" href="${path}/account/join.ll">Join</a>
+				<a class="nav item f k r" href="${path}/account/login.ll">Login</a>
+				<a class="nav item f k r" href="${path}/account/join.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
 				<form id="logout_form" method="post" action="${path}/account/logout.ll">
-					<a class="item" id="logout">Logout</a>
+					<a class="item f k r" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
+				<a class="nav item f k r" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
 			</s:authorize>
 		</div>
 	</div>
 	<nav class="ui inverted secondary pointing menu container">
-		<a class="item" id="menu">Menu</a>
-		<a class="nav item" href="${path}/league.ll">League</a>
-		<a class="nav item" id="popup_fifa" href="${path}/fifa.ll">FIFA</a>
-		<div class="ui inverted flowing popup bottom left transition hidden">
-			<a class="item" href="${path}/fifa/list.ll?role=Club">Club</a>
-			<a class="item" href="${path}/fifa/list.ll?role=Manager">Manager</a>
-			<a class="item" href="${path}/fifa/list.ll?role=Player">Player</a>
-		</div>
+		<a class="item f k r" id="menu">Menu</a>
+		<a class="nav item f k r" href="${path}/league.ll">League</a>
+		<a class="nav item f k r" href="${path}/fifa.ll">FIFA</a>
 	</nav>
 </header>
 <div class="ui vertical inverted menu sidebar">
-	<a class="item" href="${path}/edit/roster.ll">리그 편집</a>
-	<a class="item" href="${path}/edit/club.ll">구단 편집</a>
+	<a class="item f k r" href="${path}/edit/roster.ll">리그 편집</a>
+	<a class="item f k r" href="${path}/edit/club.ll">구단 편집</a>
 </div>

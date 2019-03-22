@@ -7,15 +7,13 @@ $(function(){
 	})
 	
 	$('#rail').sticky()
+	
 	$('.dropdown').dropdown()
+	
 	$('.tabular.item').tab()
 	
 	$('#menu').click(function(){
 		$('.sidebar').sidebar('toggle')
-	})
-	
-	$('#popup_fifa').popup({
-		hoverable : true
 	})
 	
 	$('#logout').click(function(){
@@ -28,6 +26,20 @@ $(function(){
 		}
 	}
 	
+/*
+	popup sample
+	
+		<div class="ui inverted flowing popup bottom left transition hidden">
+			<a class="item" href="${path}/fifa/list.ll?role=Club">Club</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Manager">Manager</a>
+			<a class="item" href="${path}/fifa/list.ll?role=Player">Player</a>
+		</div>
+
+		$('#popup_fifa').popup({
+		hoverable : true
+		
+		})
+*/
 })
 </script>
 </body>
