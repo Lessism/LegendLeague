@@ -221,12 +221,19 @@
 	<select id="award_ballondor" parameterType="map" resultType="map">
 	
 		SELECT
-			*, 'Player' role, 'ballondor' award
+			*, 'Player' role, 'ballondor' award,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
 		FROM
 			Season
 		LEFT
-			JOIN Player
+			JOIN Player p
 			ON ballondor = name
+		LEFT
+			JOIN Position po
+            ON p.position = po.position
 		WHERE
 			season = #{season}
 			
@@ -238,12 +245,19 @@
 	<select id="award_goalScorer" parameterType="map" resultType="map">
 	
 		SELECT
-			*, 'Player' role, 'goalScorer' award
+			*, 'Player' role, 'goalScorer' award,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
 		FROM
 			Season
 		LEFT
-			JOIN Player
+			JOIN Player p
 			ON goalScorer = name
+		LEFT
+			JOIN Position po
+            ON p.position = po.position
 		WHERE
 			season = #{season}
 			
@@ -255,12 +269,19 @@
 	<select id="award_assistProvider" parameterType="map" resultType="map">
 	
 		SELECT
-			*, 'Player' role, 'assistProvider' award
+			*, 'Player' role, 'assistProvider' award,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
+            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
 		FROM
 			Season
 		LEFT
-			JOIN Player
+			JOIN Player p
 			ON assistProvider = name
+		LEFT
+			JOIN Position po
+            ON p.position = po.position
 		WHERE
 			season = #{season}
 			
