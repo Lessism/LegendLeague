@@ -3,6 +3,10 @@
 .f.k.r {
 	font-family:'Noto Serif KR', serif;
 }
+strong {
+	font-family:'Noto Serif KR', serif;
+	font-size: 1.5rem;
+}
 a.link {
 	color:black;
 }
