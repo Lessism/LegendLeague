@@ -6,7 +6,7 @@
 	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
 	<h4 class="f k r">
 		<c:choose>
-			<c:when test="${league.award.award eq 'champion'}">Legend League Champion</c:when>
+			<c:when test="${league.award.award eq 'champion'}">Champion</c:when>
 			<c:when test="${league.award.award eq 'manager'}">FIFA World Manager</c:when>
 			<c:when test="${league.award.award eq 'ballondor'}">Ballon Dor</c:when>
 			<c:when test="${league.award.award eq 'goalscorer'}">Goal Scorer</c:when>
