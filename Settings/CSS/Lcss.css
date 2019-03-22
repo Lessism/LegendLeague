@@ -10,9 +10,6 @@ strong {
 a.link {
 	color:black;
 }
-a.link:hover {
-	border-bottom:1px solid black;
-}
 .absolute.left {
 	position:absolute;
 	left:10px;
