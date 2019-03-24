@@ -65,7 +65,7 @@
 				<div class="item">
 					<h4 class="f k r">Club</h4>
 					<div class="ui secondary vertical pointing menu">
-						<a class="rail item f k r award club" href="${path}/fifa/award.ll?role=Club&&award=championseason=${fifa.season-1}">Legend League Champion</a>
+						<a class="rail item f k r award club" href="${path}/fifa/award.ll?role=Club&award=champion&season=${fifa.season-1}">Legend League Champion</a>
 						<a class="rail item f k r" href="${path}/league/preview.ll">Index</a>
 						<a class="rail item f k r" href="${path}/league/ranking.ll">List</a>
 					</div>
@@ -73,7 +73,7 @@
 				<div class="ui icon input">
 					<input type="text" placeholder="Search Club">
 					<i class="search icon"></i>
-				 </div>
+				</div>
 				<div class="ui divider"></div>
 				<div class="item">
 					<h4 class="f k r">Manager</h4>
@@ -86,7 +86,7 @@
 				<div class="ui icon input">
 					<input type="text" placeholder="Search Manager">
 					<i class="search icon"></i>
-				 </div>
+				</div>
 				<div class="ui divider"></div>
 				<div class="item">
 					<h4 class="f k r">Player</h4>
@@ -102,13 +102,13 @@
 				<div class="ui icon input">
 					<input type="text" placeholder="Search Player">
 					<i class="search icon"></i>
-				 </div>
+				</div>
 				<div class="ui divider"></div>
 				<div class="ui fluid selection dropdown">
 					<div class="default text">Country</div>
 					<i class="dropdown icon"></i>
 					<div class="menu">
-						<%-- <c:forEach begin="0" end="${league.season-2023}" step="1" varStatus="idx"> --%>
+						<%-- <c:forEach begin="0" end="${lEeague.season-2023}" step="1" varStatus="idx"> --%>
 							<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
 							<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
 							<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
