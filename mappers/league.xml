@@ -1720,7 +1720,123 @@
 								) AS assistprovider)
 		WHERE
 			season	= (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
-	
+		
+		INSERT
+			INTO awardclub (
+				season,
+				name,
+		        stadium,
+		        manager,
+		        player0,
+		        player1,
+		        player2,
+		        player3,
+		        player4,
+		        player5,
+		        player6,
+		        player7,
+		        player8,
+		        player9,
+		        player10,
+				ovr
+			)
+			SELECT 
+				season,
+				name,
+		        stadium,
+		        c.manager,
+		        player0,
+		        player1,
+		        player2,
+		        player3,
+		        player4,
+		        player5,
+		        player6,
+		        player7,
+		        player8,
+		        player9,
+		        player10,
+				ovr
+			FROM
+				Season
+			LEFT
+				JOIN Club c
+		        ON champion = name
+			WHERE
+				season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
+		
+		INSERT
+			INTO ballondor (
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			)
+			SELECT 
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			FROM
+				Season
+			LEFT
+				JOIN Player
+		        ON ballondor = name
+			WHERE
+				season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
+			
+		INSERT
+			INTO goalscorer (
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			)
+			SELECT 
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			FROM
+				Season
+			LEFT
+				JOIN Player
+		        ON goalscorer = name
+			WHERE
+				season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
+			
+		INSERT
+			INTO assistprovider (
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			)
+			SELECT 
+				season,
+				name,
+				club,
+				country,
+				ovr,
+				position
+			FROM
+				Season
+			LEFT
+				JOIN Player
+		        ON assistprovider = name
+			WHERE
+				season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season);
+		
 		UPDATE
 			Club
 		SET
@@ -1804,7 +1920,7 @@
 													1
 											) AS goalscorer)
 										) AS history)
-									, #{history} ' 득점왕')
+									, #{history} ' Goal Scorer')
 		WHERE
 			name = (SELECT * FROM (
 						SELECT
@@ -1844,7 +1960,7 @@
 													1
 											) AS assistprovider)
 										) AS history)
-									, #{history} ' 도움왕')
+									, #{history} ' Assist Provider')
 		WHERE
 			name = (SELECT * FROM (
 						SELECT

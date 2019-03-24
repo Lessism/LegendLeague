@@ -199,6 +199,35 @@
 	</insert>
 	
 	
+<!--	 FIFA Club Lineup		-->
+	
+	<select id="club_lineup" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Player p
+		LEFT
+			JOIN Position po
+		    ON p.position = po.position
+		WHERE
+			name = #{player0} OR
+			name = #{player1} OR
+			name = #{player2} OR
+			name = #{player3} OR
+			name = #{player4} OR
+			name = #{player5} OR
+			name = #{player6} OR
+			name = #{player7} OR
+			name = #{player8} OR
+			name = #{player9} OR
+			name = #{player10}
+		ORDER BY
+			po.no ASC, ovr DESC
+	
+	</select>
+	
+	
 <!--	 FIFA Award		-->
 	
 	<select id="award" parameterType="map" resultType="map">
@@ -216,21 +245,133 @@
 	</select>
 	
 	
+<!--	 FIFA Award Lineup		-->
+	
+	<select id="award_lineup" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Player p
+		LEFT
+			JOIN Position po
+			ON p.position = po.position
+		LEFT
+			JOIN (
+				SELECT
+					*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+				FROM
+					Score
+				WHERE
+					season	= #{season}	AND
+					player	= #{player0} OR
+					season	= #{season}	AND
+					player	= #{player1} OR
+					season	= #{season}	AND
+					player	= #{player2} OR
+					season	= #{season}	AND
+					player	= #{player3} OR
+					season	= #{season}	AND
+					player	= #{player4} OR
+					season	= #{season}	AND
+					player	= #{player5} OR
+					season	= #{season}	AND
+					player	= #{player6} OR
+					season	= #{season}	AND
+					player	= #{player7} OR
+					season	= #{season}	AND
+					player	= #{player8} OR
+					season	= #{season}	AND
+					player	= #{player9} OR
+					season	= #{season}	AND
+					player	= #{player10}
+				GROUP BY
+					season, player
+			) AS score
+	        ON player = name
+		WHERE
+			name = #{player0} OR
+			name = #{player1} OR
+			name = #{player2} OR
+			name = #{player3} OR
+			name = #{player4} OR
+			name = #{player5} OR
+			name = #{player6} OR
+			name = #{player7} OR
+			name = #{player8} OR
+			name = #{player9} OR
+			name = #{player10}
+		ORDER BY
+			po.no ASC, ovr DESC
+			
+	</select>
+	
+	
+<!--	 FIFA Award Club		-->
+	
+	<select id="award_club" parameterType="map" resultType="map">
+	
+		SELECT
+			*, 'Club' role, 'champion' award,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion
+		FROM
+			awardclub ac
+		LEFT
+			JOIN Club c
+			ON ac.name = c.name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award Manager		-->
+	
+	<select id="award_manager" parameterType="map" resultType="map">
+	
+		SELECT
+			*, 'Manager' role, 'manager' award,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion
+		FROM
+			awardmanager am
+		LEFT
+			JOIN Manager m
+			ON am.name = m.name
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
+<!--	 FIFA Award Player		-->
+	
+	<select id="award_player" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Season
+		WHERE
+			season = #{season}
+			
+	</select>
+	
+	
 <!--	 FIFA Award Ballon Dor		-->
 	
 	<select id="award_ballondor" parameterType="map" resultType="map">
 	
 		SELECT
 			*, 'Player' role, 'ballondor' award,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
 		FROM
-			Season
+			ballondor b
 		LEFT
 			JOIN Player p
-			ON ballondor = name
+			ON b.name = p.name
 		LEFT
 			JOIN Position po
             ON p.position = po.position
@@ -246,15 +387,15 @@
 	
 		SELECT
 			*, 'Player' role, 'goalScorer' award,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
 		FROM
-			Season
+			goalscorer g
 		LEFT
 			JOIN Player p
-			ON goalScorer = name
+			ON g.name = p.name
 		LEFT
 			JOIN Position po
             ON p.position = po.position
@@ -270,15 +411,15 @@
 	
 		SELECT
 			*, 'Player' role, 'assistProvider' award,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'득점왕',''))) DIV CHAR_LENGTH('득점왕') countgoalscorer,
-            (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'도움왕',''))) DIV CHAR_LENGTH('도움왕') countassistprovider
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
 		FROM
-			Season
+			assistprovider a
 		LEFT
 			JOIN Player p
-			ON assistProvider = name
+			ON a.name = p.name
 		LEFT
 			JOIN Position po
             ON p.position = po.position
@@ -310,13 +451,19 @@
 	<select id="award_odds" parameterType="map" resultType="map">
 	
 		SELECT
-			MAX(win) win, MAX(draw) draw, MAX(lose) lose,
-			MAX(win) / MAX(game) winodds, MAX(draw) / MAX(game) drawodds, MAX(lose) / MAX(game) loseodds
+			MAX(win) win, MAX(draw) draw, MAX(lose) lose, MAX(game) game,
+			MAX(win) / MAX(game) winodds, MAX(draw) / MAX(game) drawodds, MAX(lose) / MAX(game) loseodds,
+			MAX(point) maxpoint, MAX(goalfor) maxgoalfor, MAX(goalagainst) maxgoalagainst
 		FROM
 			Ranking
 		WHERE
 			season	= #{season} AND
-		    club	= #{club}
+		<if test="role != 'Club'">
+			club	= #{club}
+		</if>
+		<if test="role == 'Club'">
+			club	= #{name}
+		</if>
 		GROUP BY
 			season, club
 			
@@ -326,6 +473,23 @@
 <!--	 FIFA Award Score		-->
 	
 	<select id="award_score" parameterType="map" resultType="map">
+	
+		SELECT
+			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+		FROM
+			Score
+		WHERE
+			season	= #{season}	AND
+		    player	= #{name}
+		GROUP BY
+			season, player
+			
+	</select>
+	
+	
+<!--	 FIFA Award Score Player		-->
+	
+	<select id="award_score_player" parameterType="map" resultType="map">
 	
 		SELECT
 			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
