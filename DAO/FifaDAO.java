@@ -38,17 +38,22 @@ public class FifaDAO {
 			
 			if (award.get("role").equals("Club")) {
 
-				Map<String, Object> champion = db.selectOne("FIFA.award", award);
+				Map<String, Object> champion = db.selectOne("FIFA.award_club", award);;
+				
+				champion.put("score", db.selectOne("FIFA.award_score", champion));
+				champion.put("odds", db.selectOne("FIFA.award_odds", champion));
+				champion.put("list", db.selectList("FIFA.award_list", champion));
 				champion.replace("manager", db.selectOne("FIFA.info_manager", champion.get("manager")));
-				champion.put("role", "Player");
-				champion.put("lineup", db.selectList("League.lineup", champion));
+				champion.replace("roster", db.selectList("FIFA.award_lineup", champion));
 				
 				award.put("champion", champion);
 				award.put("list", db.selectList("League.award", award));
 				
 			} else if (award.get("role").equals("Manager")) {
 				
-				Map<String, Object> manager = db.selectOne("FIFA.award", award);
+				Map<String, Object> manager = db.selectOne("FIFA.award_manager", award);
+				
+				manager.put("score", db.selectOne("FIFA.award_score", manager));
 				manager.put("odds", db.selectOne("FIFA.award_odds", manager));
 				
 				award.put("manager", manager);
@@ -57,25 +62,31 @@ public class FifaDAO {
 				
 			} else if (award.get("role").equals("Player")) {
 				
-				Map<String, Object> ballonDor = db.selectOne("FIFA.award_ballondor", award);
-				ballonDor.put("score", db.selectOne("FIFA.award_score", ballonDor));
-				ballonDor.put("odds", db.selectOne("FIFA.award_odds", ballonDor));
-				ballonDor.put("list", db.selectList("FIFA.award_list", ballonDor));
+				Map<String, Object> season = db.selectOne("FIFA.award_player", award);
 				
-				Map<String, Object> goalScorer = db.selectOne("FIFA.award_goalScorer", award);
-				goalScorer.put("score", db.selectOne("FIFA.award_score", goalScorer));
-				goalScorer.put("odds", db.selectOne("FIFA.award_odds", goalScorer));
-				goalScorer.put("list", db.selectList("FIFA.award_list", goalScorer));
+				if (season.get("ballondor") != null) {
+					Map<String, Object> ballondor = db.selectOne("FIFA.award_ballondor", award);
+					ballondor.put("score", db.selectOne("FIFA.award_score_player", ballondor));
+					ballondor.put("odds", db.selectOne("FIFA.award_odds", ballondor));
+					ballondor.put("list", db.selectList("FIFA.award_list", ballondor));
+					award.put("ballondor", ballondor);
+				}
 				
-				Map<String, Object> assistProvider = db.selectOne("FIFA.award_assistProvider", award);
-				assistProvider.put("score", db.selectOne("FIFA.award_score", assistProvider));
-				assistProvider.put("odds", db.selectOne("FIFA.award_odds", assistProvider));
-				assistProvider.put("list", db.selectList("FIFA.award_list", assistProvider));
-
-				award.put("ballonDor", ballonDor);
-				award.put("goalScorer", goalScorer);
-				award.put("assistProvider", assistProvider);
+				if (season.get("goalscorer") != null) {
+					Map<String, Object> goalscorer = db.selectOne("FIFA.award_goalScorer", award);
+					goalscorer.put("score", db.selectOne("FIFA.award_score_player", goalscorer));
+					goalscorer.put("odds", db.selectOne("FIFA.award_odds", goalscorer));
+					goalscorer.put("list", db.selectList("FIFA.award_list", goalscorer));
+					award.put("goalscorer", goalscorer);
+				}
 				
+				if (season.get("assistprovider") != null) {
+					Map<String, Object> assistprovider = db.selectOne("FIFA.award_assistProvider", award);
+					assistprovider.put("score", db.selectOne("FIFA.award_score_player", assistprovider));
+					assistprovider.put("odds", db.selectOne("FIFA.award_odds", assistprovider));
+					assistprovider.put("list", db.selectList("FIFA.award_list", assistprovider));
+					award.put("assistprovider", assistprovider);
+				}
 			}
 
 			map.put("season", db.selectOne("League.recency_season"));
