@@ -199,6 +199,248 @@
 	</insert>
 	
 	
+<!--	 FIFA player round ranking score		-->
+	
+	<select id="playerroundrankscore" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM 
+			Round r
+		INNER
+			JOIN Ranking rank
+			ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
+				r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
+		INNER
+			JOIN (
+				SELECT 
+					*
+				FROM
+					Score
+				WHERE
+					player = #{name}
+			) AS s
+			ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
+				r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
+		WHERE
+			rank.club = s.club
+	
+	</select>
+	
+	
+<!--	 FIFA Personal		-->
+	
+	<select id="personal" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Player p
+		LEFT
+			JOIN Position po
+		    ON p.position = po.position
+		WHERE
+			name = #{name}
+		ORDER BY
+			po.no ASC, ovr DESC
+	
+	</select>
+	
+	
+<!--	 FIFA Personal Award		-->
+	
+	<select id="personal_award" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+		(
+		SELECT
+			*
+		FROM
+			ballondor b
+		WHERE
+			name = #{name}
+		UNION
+			SELECT
+				*
+			FROM
+				goalscorer
+			WHERE
+				name = #{name}
+		UNION
+			SELECT
+				*
+			FROM
+				assistprovider
+			WHERE
+				name = #{name}
+		) AS award
+		INNER
+			JOIN (
+				SELECT
+					season, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+				FROM
+					Score
+				WHERE
+					player = #{name}
+				GROUP BY
+					season
+		    ) AS score
+		    ON award.season = score.season
+		ORDER BY
+			award.season DESC
+	
+	</select>
+	
+	
+<!--	 FIFA Personal Award Count		-->
+	
+	<select id="personal_award_count" parameterType="map" resultType="map">
+	
+		SELECT
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
+			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
+		FROM
+			${role}
+		WHERE
+			name = #{name}
+			
+	</select>
+	
+	
+<!--	 FIFA Personal Record		-->
+	
+	<select id="personal_record" parameterType="map" resultType="map">
+	
+		SELECT
+			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+		FROM
+			Score
+		WHERE
+			player = #{name}
+		GROUP BY
+			season
+		ORDER BY
+			season DESC
+			
+	</select>
+	
+	
+<!--	 FIFA Personal Stat		-->
+	
+	<select id="personal_stat" parameterType="map" resultType="map">
+	
+		SELECT
+			player, SUM(countgame) sumcountgame, SUM(maxwin) summaxwin, SUM(maxdraw) summaxdraw, SUM(maxlose) summaxlose,
+			SUM(maxwin) / SUM(countgame) winodds, SUM(maxdraw) / SUM(countgame) drawodds, SUM(maxlose) / SUM(countgame) loseodds,
+			AVG(avgrating) avgrating, SUM(sumgoal) sumgoal, SUM(sumassist) sumassist
+		FROM
+			(
+				SELECT
+					player, COUNT(game) countgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
+         			AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+				FROM 
+					Round r
+				INNER
+					JOIN Ranking rank
+					ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
+						r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
+				INNER
+					JOIN (
+						SELECT 
+							*
+						FROM
+							Score
+						WHERE
+							player = #{name}
+					) AS s
+					ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
+						r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
+				WHERE
+					rank.club = s.club
+				GROUP BY
+					r.season
+			) AS stat
+		GROUP BY
+			player
+			
+	</select>
+	
+	
+<!--	 FIFA Personal Stat Season		-->
+	
+	<select id="personal_stat_season" parameterType="map" resultType="map">
+	
+		SELECT
+			r.season, s.player, s.club,
+			COUNT(game) countgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
+			AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+		FROM 
+			Round r
+		INNER
+			JOIN Ranking rank
+			ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
+				r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
+		INNER
+			JOIN (
+				SELECT 
+					*
+				FROM
+					Score
+				WHERE
+					player = #{name}
+			) AS s
+			ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
+				r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
+		WHERE
+			rank.club = s.club
+		GROUP BY
+			r.season
+		ORDER BY
+			r.season DESC
+			
+	</select>
+	
+	
+<!--	 FIFA Personal Title		-->
+	
+	<select id="personal_title" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			awardclub a
+		INNER
+			JOIN (
+				SELECT
+					season, club, MAX(game) maxgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose, MAX(point) maxpoint
+				FROM
+					Ranking
+				GROUP BY
+					season, club
+		    ) AS r
+		    ON a.season = r.season AND a.name = r.club
+		WHERE
+			player0 = #{name} OR
+			player1 = #{name} OR
+			player2 = #{name} OR
+			player3 = #{name} OR
+			player4 = #{name} OR
+			player5 = #{name} OR
+			player6 = #{name} OR
+			player7 = #{name} OR
+			player8 = #{name} OR
+			player9 = #{name} OR
+			player10 = #{name}
+		ORDER BY
+			a.season DESC
+			
+	</select>
+	
+	
 <!--	 FIFA Club Lineup		-->
 	
 	<select id="club_lineup" parameterType="map" resultType="map">

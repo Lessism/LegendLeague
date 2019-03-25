@@ -750,7 +750,7 @@
 			JOIN Club
 			ON club = name
 		WHERE
-			NOT game = 0
+			NOT season = (SELECT * FROM (SELECT MAX(season) FROM Season) AS season)
 		GROUP BY
 			season, club
 		ORDER BY
