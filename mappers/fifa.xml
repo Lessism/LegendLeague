@@ -235,14 +235,14 @@
 		SELECT
 			*
 		FROM
-			Player p
+			${role} r
+		<if test="role == 'Player'">
 		LEFT
-			JOIN Position po
-		    ON p.position = po.position
+			JOIN Position p
+		    ON r.position = p.position
+		</if>
 		WHERE
 			name = #{name}
-		ORDER BY
-			po.no ASC, ovr DESC
 	
 	</select>
 	
@@ -251,6 +251,8 @@
 	
 	<select id="personal_award" parameterType="map" resultType="map">
 	
+		<if test="role != 'Club'">
+		
 		SELECT
 			*
 		FROM
@@ -290,6 +292,51 @@
 		    ON award.season = score.season
 		ORDER BY
 			award.season DESC
+			
+		</if>
+		<if test="role == 'Club'">
+		
+		SELECT
+			*
+		FROM
+		(
+		SELECT
+			*
+		FROM
+			ballondor b
+		WHERE
+			club = #{name}
+		UNION
+			SELECT
+				*
+			FROM
+				goalscorer
+			WHERE
+			club = #{name}
+		UNION
+			SELECT
+				*
+			FROM
+				assistprovider
+			WHERE
+			club = #{name}
+		) AS award
+		INNER
+			JOIN (
+				SELECT
+					season, COUNT(round) countround, SUM(win) sumwin, SUM(draw) draw, SUM(lose) sumlose
+				FROM
+					Ranking
+				WHERE
+					club = #{name}
+				GROUP BY
+					season
+		    ) AS score
+		    ON award.season = score.season
+		ORDER BY
+			award.season DESC
+		
+		</if>
 	
 	</select>
 	
@@ -315,6 +362,7 @@
 	
 	<select id="personal_record" parameterType="map" resultType="map">
 	
+		<if test="role == 'Player'">
 		SELECT
 			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
 		FROM
@@ -325,6 +373,20 @@
 			season
 		ORDER BY
 			season DESC
+		</if>
+		<if test="role != 'Player'">
+		SELECT
+			*, COUNT(round) countround, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose
+		FROM
+			Ranking
+		WHERE
+			club =	<if test="role == 'Club'">#{name}</if>
+					<if test="role != 'Club'">#{club}</if>
+		GROUP BY
+			season, club
+		ORDER BY
+			season DESC
+		</if>
 			
 	</select>
 	
