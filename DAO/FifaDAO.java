@@ -28,11 +28,101 @@ public class FifaDAO {
 		public int join(Map<String, Object> map) {
 			return db.insert("FIFA.join", map);
 		}
+		
+		
+//	Personal Profile
 	
+		public Map<String, Object> profile(Map<String, Object> map) {
+			
+			Map<String, Object> profile = new HashMap<>(map);
+			profile.put("award", db.selectOne("FIFA.personal_award_count", profile));
+			profile.put("record", db.selectList("FIFA.personal_record", profile));
+			
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("profile", profile);
+			
+			return map;
+		}
+		
+		
+//	Personal Detail
 	
-//	Award
+		public Map<String, Object> detail(Map<String, Object> map) {
+			
+			Map<String, Object> detail = new HashMap<>(map);
+			detail.put("stat", db.selectOne("FIFA.personal_stat", detail));
+			detail.put("award", db.selectOne("FIFA.personal_award_count", detail));
+			detail.put("record", db.selectList("FIFA.personal_record", detail));
+
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("detail", detail);
+			
+			return map;
+		}
+		
+		
+//	Personal Title
+	
+		public Map<String, Object> title(Map<String, Object> map) {
+			
+			Map<String, Object> title = new HashMap<>(map);
+			title.put("award", db.selectOne("FIFA.personal_award_count", title));
+			title.put("title", db.selectList("FIFA.personal_title", title));
+
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("title", title);
+			
+			return map;
+		}
+		
+		
+//	Personal Award
 	
 		public Map<String, Object> award(Map<String, Object> map) {
+			
+			Map<String, Object> award = new HashMap<>(map);
+			award.put("awardcount", db.selectOne("FIFA.personal_award_count", award));
+			award.put("award", db.selectList("FIFA.personal_award", award));
+
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("award", award);
+			
+			return map;
+		}
+		
+		
+//	Personal Record
+	
+		public Map<String, Object> record(Map<String, Object> map) {
+			
+			Map<String, Object> record = new HashMap<>(map);
+			record.put("stat", db.selectOne("FIFA.personal_stat", record));
+			record.put("statseason", db.selectList("FIFA.personal_stat_season", record));
+			record.put("record", db.selectList("FIFA.personal_record", record));
+
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("record", record);
+			
+			return map;
+		}
+		
+		
+//	Information
+	
+		public Map<String, Object> information(Map<String, Object> map) {
+			
+			Map<String, Object> information = new HashMap<>(map);
+			
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("information", information);
+			
+			return map;
+		}
+	
+	
+//	Awards
+	
+		public Map<String, Object> awards(Map<String, Object> map) {
 
 			Map<String, Object> award = new HashMap<>(map);
 			
