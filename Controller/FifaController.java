@@ -22,11 +22,59 @@ public class FifaController {
 	private FifaDAO fDAO;
 	
 
-//	Award
+//	Personal Profile
+	
+		@RequestMapping("profile.ll")
+		public ModelAndView profile(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/profile", "fifa", fDAO.profile(map));
+		}
+	
+
+//	Personal Detail
+	
+		@RequestMapping("detail.ll")
+		public ModelAndView info(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/detail", "fifa", fDAO.detail(map));
+		}
+		
+
+//	Personal Title
+	
+		@RequestMapping("title.ll")
+		public ModelAndView title(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/title", "fifa", fDAO.title(map));
+		}
+		
+
+//	Personal Award
 	
 		@RequestMapping("award.ll")
 		public ModelAndView award(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("fifa/award", "fifa", fDAO.award(map));
+		}
+		
+
+//	Personal Record
+	
+		@RequestMapping("record.ll")
+		public ModelAndView record(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/record", "fifa", fDAO.record(map));
+		}
+	
+
+//	Information
+	
+		@RequestMapping("information.ll")
+		public ModelAndView information(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/information", "fifa", fDAO.information(map));
+		}
+	
+
+//	Awards
+	
+		@RequestMapping("awards.ll")
+		public ModelAndView awards(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/awards", "fifa", fDAO.awards(map));
 		}
 		
 		
