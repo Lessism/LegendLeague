@@ -1,2 +1,2 @@
-# LegendLeague Ver 0.1
-FIFA Award Player
+# LegendLeague Ver 0.2
+FIFA Personal
