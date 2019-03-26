@@ -94,7 +94,7 @@ public class FifaDAO {
 //	Personal Record
 	
 		public Map<String, Object> record(Map<String, Object> map) {
-			
+
 			Map<String, Object> record = new HashMap<>(map);
 			record.put("stat", db.selectOne("FIFA.personal_stat", record));
 			record.put("statseason", db.selectList("FIFA.personal_stat_season", record));
@@ -102,6 +102,17 @@ public class FifaDAO {
 
 			map.put("personal", db.selectOne("FIFA.personal", map));
 			map.put("record", record);
+			
+			return map;
+		}
+		
+		
+//	Personal Stadium
+	
+		public Map<String, Object> stadium(Map<String, Object> map) {
+
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("stadium", db.selectOne("FIFA.personal_stadium", map));
 			
 			return map;
 		}
@@ -184,6 +195,16 @@ public class FifaDAO {
 			
 			return map;
 		}
+		
+		
+//	Country
+		
+			public Map<String, Object> country(Map<String, Object> map) {
+				
+				
+				
+				return map;
+			}
 	
 	
 //	FIFA List
