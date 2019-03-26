@@ -85,7 +85,7 @@
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards player" href="${path}/fifa/awards.ll?role=Player&award=ballondor&season=${fifa.season-1}">FIFA World Player</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player">Information</a>
-						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Player&name=Cristiano Ronaldo">Info</a>
+						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Info</a>
 						<a class="rail item f k r" href="${path}/fifa/list.ll?history=Season">List</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=League"><i class="dot circle outline red icon"></i>Forward</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=Season"><i class="dot circle outline green icon"></i>Midfielder</a>
@@ -121,7 +121,8 @@
 					<h4 class="f k r">${fifa.name}</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}"><i class="${f:toLowerCase(fifa.personal.country)} flag"></i>${fifa.personal.country}</a>
-						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}" style="height:17.5px;width:17.5px">${fifa.personal.club}</a>
+						<c:if test="${fifa.role ne 'Club'}"><a class="rail item f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}" style="height:17.5px;width:17.5px">${fifa.personal.club}</a></c:if>
+						<c:if test="${fifa.role eq 'Club'}"><a class="rail item f k r" href="${path}/fifa/stadium.ll?role=Club&name=${fifa.name}"><img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${fifa.personal.stadium}" style="height:17.5px;width:17.5px">${fifa.personal.stadium}</a></c:if>
 					</div>
 					<div class="ui divider"></div>
 					<h4 class="f k r">Information</h4>
