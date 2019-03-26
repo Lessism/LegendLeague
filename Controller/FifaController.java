@@ -60,6 +60,22 @@ public class FifaController {
 		public ModelAndView record(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("fifa/record", "fifa", fDAO.record(map));
 		}
+		
+
+//	Personal Stadium
+	
+		@RequestMapping("stadium.ll")
+		public ModelAndView stadium(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/stadium", "fifa", fDAO.stadium(map));
+		}
+		
+
+//	Country
+		
+		@RequestMapping("country.ll")
+		public ModelAndView country(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/country", "fifa", fDAO.country(map));
+		}
 	
 
 //	Information

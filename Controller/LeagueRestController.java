@@ -175,6 +175,7 @@ public class LeagueRestController {
 					homePlayer.put("opponent", away.get("name"));
 					homePlayer.put("season", map.get("season"));
 					homePlayer.put("round", map.get("round"));
+					homePlayer.put("manager", homeManager.get("name"));
 					lDAO.insertScore(homePlayer);
 					
 					awayPlayer.put("rating", awayrating);
@@ -183,6 +184,7 @@ public class LeagueRestController {
 					awayPlayer.put("opponent", home.get("name"));
 					awayPlayer.put("season", map.get("season"));
 					awayPlayer.put("round", map.get("round"));
+					awayPlayer.put("manager", awayManager.get("name"));
 					lDAO.insertScore(awayPlayer);
 					
 				}
