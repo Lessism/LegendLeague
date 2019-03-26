@@ -4,11 +4,16 @@
 <c:set var="rail" value="personal"/>
 <%@ include file="../include/rail.jsp" %>
 	<div class="ui image header f k r">
-		<img class="ui rounded image" src="${path}/image.ll?role=${fifa.role}&name=${fifa.name}" style="height:50px">
+		<img class="ui rounded image" src="${path}/image.ll?role=${fifa.role}&name=${fifa.name}" style="height:50px;${fifa.role eq 'Club' ? 'width:50px;' : ''}">
 		<div class="content">
 			<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">${fifa.name}</a>
 			<div class="sub header">
-				<i class="dot circle outline ${fifa.personal.icon} icon" style="margin-right:0"></i> ${fifa.personal.position} / ${fifa.personal.fulltype}
+				<c:if test="${fifa.role eq 'Player'}">
+					<i class="dot circle outline ${fifa.personal.icon} icon" style="margin-right:0"></i> ${fifa.personal.position} / ${fifa.personal.fulltype}
+				</c:if>
+				<c:if test="${fifa.role ne 'Player'}">
+					<i class="dot circle outline black icon" style="margin-right:0"></i> ${fifa.role}
+				</c:if>
 			</div>
 			<div class="sub header">
 				<i class="futbol icon" style="margin-right:0"></i> ${fifa.personal.ovr}
