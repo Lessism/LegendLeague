@@ -251,32 +251,31 @@
 	
 	<select id="personal_award" parameterType="map" resultType="map">
 	
-		<if test="role != 'Club'">
+		<if test="role == 'Player'">
 		
 		SELECT
 			*
-		FROM
-		(
-		SELECT
-			*
-		FROM
-			ballondor b
-		WHERE
-			name = #{name}
-		UNION
+		FROM (
 			SELECT
 				*
 			FROM
-				goalscorer
+				ballondor
 			WHERE
 				name = #{name}
-		UNION
-			SELECT
-				*
-			FROM
-				assistprovider
-			WHERE
-				name = #{name}
+			UNION
+				SELECT
+					*
+				FROM
+					goalscorer
+				WHERE
+					name = #{name}
+			UNION
+				SELECT
+					*
+				FROM
+					assistprovider
+				WHERE
+					name = #{name}
 		) AS award
 		INNER
 			JOIN (
@@ -294,47 +293,66 @@
 			award.season DESC
 			
 		</if>
+		<if test="role == 'Manager'">
+		
+			SELECT
+				*
+			FROM
+				awardmanager award
+			INNER
+				JOIN (
+					SELECT
+						season, club, COUNT(round) countround, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose
+					FROM
+						Ranking
+					GROUP BY
+						season, club
+				) AS score
+				ON award.season = score.season AND award.club = score.club
+			WHERE
+				name = #{name}
+			ORDER BY
+				award.season DESC
+		
+		</if>
 		<if test="role == 'Club'">
 		
-		SELECT
-			*
-		FROM
-		(
-		SELECT
-			*
-		FROM
-			ballondor b
-		WHERE
-			club = #{name}
-		UNION
 			SELECT
 				*
-			FROM
-				goalscorer
-			WHERE
-			club = #{name}
-		UNION
-			SELECT
-				*
-			FROM
-				assistprovider
-			WHERE
-			club = #{name}
-		) AS award
-		INNER
-			JOIN (
+			FROM (
 				SELECT
-					season, COUNT(round) countround, SUM(win) sumwin, SUM(draw) draw, SUM(lose) sumlose
+					*
 				FROM
-					Ranking
+					ballondor
 				WHERE
 					club = #{name}
-				GROUP BY
-					season
-		    ) AS score
-		    ON award.season = score.season
-		ORDER BY
-			award.season DESC
+				UNION
+					SELECT
+						*
+					FROM
+						goalscorer
+					WHERE
+						club = #{name}
+				UNION
+					SELECT
+						*
+					FROM
+						assistprovider
+					WHERE
+						club = #{name}
+			) AS award
+			INNER
+				JOIN (
+					SELECT
+						season, player, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+					FROM
+						Score
+					GROUP BY
+						season, player
+				) AS score
+				ON award.season = score.season AND award.name = score.player
+			ORDER BY
+				award.season DESC
 		
 		</if>
 	
@@ -345,15 +363,61 @@
 	
 	<select id="personal_award_count" parameterType="map" resultType="map">
 	
-		SELECT
-			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
-			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
-			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
-			(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
-		FROM
-			${role}
-		WHERE
-			name = #{name}
+		<if test="role != 'Club'">
+		
+			SELECT
+				(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') countchampion,
+				(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor') countballondor,
+				(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer') countgoalscorer,
+				(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') countassistprovider
+			FROM
+				${role}
+			WHERE
+				name = #{name}
+				
+		</if>
+		<if test="role == 'Club'">
+
+			SELECT
+				COUNT(awards) countchampion,
+		        (
+					SELECT
+						COUNT(awards) countmanager
+					FROM
+						awardmanager m
+					WHERE
+						club = #{name}
+		        ) as countmanager,
+		        (
+					SELECT
+						COUNT(awards) countballondor
+					FROM
+						ballondor
+					WHERE
+						club = #{name}
+		        ) as countballondor,
+		        (
+					SELECT
+						COUNT(awards) countgoalscorer
+					FROM
+						goalscorer
+					WHERE
+						club = #{name}
+		        ) as countgoalscorer,
+		        (
+					SELECT
+						COUNT(awards) countassistprovider
+					FROM
+						assistprovider
+					WHERE
+						club = #{name}
+		        ) as countassistprovider
+			FROM
+				awardclub c
+			WHERE
+				name = #{name}
+				
+		</if>
 			
 	</select>
 	
@@ -363,29 +427,54 @@
 	<select id="personal_record" parameterType="map" resultType="map">
 	
 		<if test="role == 'Player'">
-		SELECT
-			*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
-		FROM
-			Score
-		WHERE
-			player = #{name}
-		GROUP BY
-			season
-		ORDER BY
-			season DESC
+		
+			SELECT
+				*, COUNT(round) countround, AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+			FROM
+				Score
+			WHERE
+				player = #{name}
+			GROUP BY
+				season
+			ORDER BY
+				season DESC
+			
 		</if>
-		<if test="role != 'Player'">
-		SELECT
-			*, COUNT(round) countround, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose
-		FROM
-			Ranking
-		WHERE
-			club =	<if test="role == 'Club'">#{name}</if>
-					<if test="role != 'Club'">#{club}</if>
-		GROUP BY
-			season, club
-		ORDER BY
-			season DESC
+		<if test="role == 'Manager'">
+		
+			SELECT
+				*
+			FROM
+				Score s
+			INNER
+				JOIN (
+					SELECT
+						season, club, MAX(game) maxgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose, MAX(point) maxpoint
+					FROM
+						Ranking
+					GROUP BY
+						season, club
+				) AS r
+			    ON s.season = r.season AND s.club = r.club
+			WHERE
+				manager = #{name}
+			GROUP BY
+				s.season, s.manager
+
+		</if>
+		<if test="role == 'Club'">
+		
+			SELECT
+				*, MAX(game) maxgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose
+			FROM
+				Ranking
+			WHERE
+				club =	#{name}
+			GROUP BY
+				season, club
+			ORDER BY
+				season DESC
+			
 		</if>
 			
 	</select>
@@ -395,6 +484,8 @@
 	
 	<select id="personal_stat" parameterType="map" resultType="map">
 	
+		<if test="role == 'Player'">
+		
 		SELECT
 			player, SUM(countgame) sumcountgame, SUM(maxwin) summaxwin, SUM(maxdraw) summaxdraw, SUM(maxlose) summaxlose,
 			SUM(maxwin) / SUM(countgame) winodds, SUM(maxdraw) / SUM(countgame) drawodds, SUM(maxlose) / SUM(countgame) loseodds,
@@ -429,6 +520,42 @@
 		GROUP BY
 			player
 			
+		</if>
+		<if test="role != 'Player'">
+		
+			SELECT
+				SUM(countgame) sumcountgame, SUM(maxwin) summaxwin, SUM(maxdraw) summaxdraw, SUM(maxlose) summaxlose,
+				SUM(maxwin) / SUM(countgame) winodds, SUM(maxdraw) / SUM(countgame) drawodds, SUM(maxlose) / SUM(countgame) loseodds,
+				SUM(maxpoint) summaxpoint, SUM(maxgoalfor) summaxgoalfor, SUM(maxgoalagainst) summaxgoalagainst
+			FROM
+			(
+				SELECT
+					COUNT(game) countgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
+					MAX(point) maxpoint, MAX(goalfor) maxgoalfor, MAX(goalagainst) maxgoalagainst
+				FROM
+					Ranking
+				
+			<if test="role == 'Manager'">
+				INNER
+					JOIN (
+						SELECT
+							name, manager
+						FROM
+							Club
+						WHERE
+							manager = #{name}
+					) AS manager
+					ON club = name
+			</if>
+				WHERE
+					round = game
+			<if test="role == 'Club'">AND club = #{name}</if>
+				GROUP BY
+					season
+			) AS stat
+			
+		</if>
+			
 	</select>
 	
 	
@@ -436,33 +563,75 @@
 	
 	<select id="personal_stat_season" parameterType="map" resultType="map">
 	
-		SELECT
-			r.season, s.player, s.club,
-			COUNT(game) countgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
-			AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
-		FROM 
-			Round r
-		INNER
-			JOIN Ranking rank
-			ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
-				r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
-		INNER
-			JOIN (
-				SELECT 
-					*
-				FROM
-					Score
-				WHERE
-					player = #{name}
-			) AS s
-			ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
-				r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
-		WHERE
-			rank.club = s.club
-		GROUP BY
-			r.season
-		ORDER BY
-			r.season DESC
+		<if test="role == 'Player'">
+		
+			SELECT
+				r.season, s.player, s.club,
+				COUNT(game) countgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose,
+				AVG(rating) avgrating, SUM(goal) sumgoal, SUM(assist) sumassist
+			FROM 
+				Round r
+			INNER
+				JOIN Ranking rank
+				ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
+					r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
+			INNER
+				JOIN (
+					SELECT 
+						*
+					FROM
+						Score
+					WHERE
+						player = #{name}
+				) AS s
+				ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
+					r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
+			WHERE
+				rank.club = s.club
+			GROUP BY
+				r.season
+			ORDER BY
+				r.season DESC
+			
+		</if>
+		<if test="role == 'Manager'">
+		
+			SELECT
+				*, MAX(game) maxgame, MAX(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose, MAX(point) maxpoint
+			FROM
+				Ranking r
+			INNER
+				JOIN (
+					SELECT
+						*
+					FROM
+						Score
+					WHERE
+						manager = #{name}
+					GROUP BY
+						season, manager
+				) AS s
+				ON r.season = s.season AND r.club = s.club
+			GROUP BY
+				r.season, s.club
+			ORDER BY
+				r.season DESC
+		
+		</if>
+		<if test="role == 'Club'">
+		
+			SELECT
+				*, MAX(game) maxgame, max(win) maxwin, MAX(draw) maxdraw, MAX(lose) maxlose, MAX(point) maxpoint
+			FROM
+				Ranking
+			WHERE
+				club = 'Barcelona'
+			GROUP BY
+				season, club
+			ORDER BY
+				season DESC
+		
+		</if>
 			
 	</select>
 	
@@ -483,9 +652,10 @@
 					Ranking
 				GROUP BY
 					season, club
-		    ) AS r
-		    ON a.season = r.season AND a.name = r.club
+			) AS r
+			ON a.season = r.season AND a.name = r.club
 		WHERE
+		<if test="role == 'Player'">
 			player0 = #{name} OR
 			player1 = #{name} OR
 			player2 = #{name} OR
@@ -497,9 +667,32 @@
 			player8 = #{name} OR
 			player9 = #{name} OR
 			player10 = #{name}
+		</if>
+		<if test="role == 'Manager'">
+			manager = #{name}
+		</if>
+		<if test="role == 'Club'">
+			name = #{name}
+		</if>
 		ORDER BY
 			a.season DESC
-			
+	</select>
+	
+	
+<!--	 FIFA Personal Stadium		-->
+	
+	<select id="personal_stadium" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Club
+		INNER
+			JOIN Stadium
+		    ON stadium = std_name
+		WHERE
+			name = #{name}
+	
 	</select>
 	
 	
