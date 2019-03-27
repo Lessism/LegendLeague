@@ -625,7 +625,7 @@
 			FROM
 				Ranking
 			WHERE
-				club = 'Barcelona'
+				club = #{name}
 			GROUP BY
 				season, club
 			ORDER BY
@@ -1070,7 +1070,10 @@
 		SELECT
 			*
 		FROM
-			Manager
+			Manager m
+		INNER
+			JOIN Tactic t
+            ON m.tactic = t.tactic
 		WHERE
 			name = #{name}
 			
