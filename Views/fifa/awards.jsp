@@ -224,8 +224,16 @@
 								<div class="ui middle aligned relaxed divided list">
 									<c:forEach var="history" items="${fifa.award.champion.history.split(',')}">
 										<div class="item">
-											<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
-											<div>${f:substring(history, 7, f:length(history))}</div>
+											<h5 class="f k r">
+												<a class="link f k r" href="${path}/league/review.ll?season=${f:substring(history, 0, 4)}">
+													${f:substring(history, 0, 7)} Season
+												</a>
+											</h5>
+											<div>
+												<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${f:substring(history, 0, 4)}">
+													${f:substring(history, 7, f:length(history))}
+												</a>
+											</div>
 										</div>
 									</c:forEach>
 								</div>
@@ -244,17 +252,41 @@
 								<c:if test="${fifa.award.season eq award.season}">
 									<thead>
 										<tr class="f k r">
-											<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
-											<th><a class="link" href="">${award.name}</a></th>
-											<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+											<th style="width:25%">
+												<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+													<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+												</a>
+											</th>
+											<th>
+												<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+													${award.name}
+												</a>
+											</th>
+											<th>
+												<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+													${award.season}/${f:substring(award.season+1, 2, 4)}
+												</a>
+											</th>
 										</tr>
 									</thead>
 								</c:if>
 								<c:if test="${fifa.award.season ne award.season}">
 									<tr>
-										<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
-										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.name}</a></td>
-										<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+										<td style="width:25%">
+											<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+												<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+											</a>
+										</td>
+										<td>
+											<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+												${award.name}
+											</a>
+										</td>
+										<td>
+											<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+												${award.season}/${f:substring(award.season+1, 2, 4)}
+											</a>
+										</td>
 									</tr>
 								</c:if>
 							</c:if>
@@ -382,11 +414,28 @@
 							<div class="ui segment f k r">
 								<div class="ui middle aligned relaxed divided list">
 									<c:forEach var="history" items="${fifa.award.manager.history.split(',')}">
-										<div class="item">
-											<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
-											<div>${f:substring(history, 7, f:length(history))}</div>
-											<div>FIFA World Manager</div>
-										</div>
+										<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
+											<div class="item">
+												<h5 class="f k r">
+													<a class="link f k r" href="${path}/league/review.ll?season=${f:substring(history, 0, 4)}">
+														${f:substring(history, 0, 7)} Season
+													</a>
+												</h5>
+										</c:if>
+												<div>
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${f:substring(history, 0, 4)}">
+														${f:substring(history, 7, f:length(history))}
+													</a>
+												</div>
+												<div>
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=Manager&award=manager&season=${f:substring(history, 0, 4)}">
+														FIFA World Manager
+													</a>
+												</div>
+										<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
+											</div>
+										</c:if>
+										<c:set var="historySeason" value="${f:substring(history, 0, 7)}"/>
 									</c:forEach>
 								</div>
 							</div>
@@ -404,17 +453,41 @@
 								<c:if test="${fifa.award.season eq award.season}">
 									<thead>
 										<tr class="f k r">
-											<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
-											<th><a class="link" href="">${award.name}</a></th>
-											<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+											<th style="width:25%">
+												<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+													<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+												</a>
+											</th>
+											<th>
+												<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+													${award.name}
+												</a>
+											</th>
+											<th>
+												<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+													${award.season}/${f:substring(award.season+1, 2, 4)}
+												</a>
+											</th>
 										</tr>
 									</thead>
 								</c:if>
 								<c:if test="${fifa.award.season ne award.season}">
 									<tr>
-										<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
-										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.name}</a></td>
-										<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+										<td style="width:25%">
+											<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+												<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+											</a>
+										</td>
+										<td>
+											<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">
+												${award.name}
+											</a>
+										</td>
+										<td>
+											<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+												${award.season}/${f:substring(award.season+1, 2, 4)}
+											</a>
+										</td>
 									</tr>
 								</c:if>
 							</c:if>
@@ -564,9 +637,22 @@
 											<c:forEach var="history" items="${fifa.award.ballondor.history.split(',')}" varStatus="idx">
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													<div class="item">
-														<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
+														<h5 class="f k r">
+															<a class="link f k r" href="${path}/league/review.ll?season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 0, 7)} Season
+															</a>
+														</h5>
 												</c:if>
-														<div>${f:substring(history, 7, f:length(history))}</div>
+														<div>
+															<a class="link f k r" href="${path}/fifa/awards.ll?role=${f:substring(history, 7, f:length(history)) ne ' Legend League Champion' ? 'Player' : 'Club'}&award=
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Legend League Champion'}">champion</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Ballon Dor'}">ballondor</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Goal Scorer'}">goalscorer</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Assist Provider'}">assistprovider</c:if>
+															&season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 7, f:length(history))}
+															</a>
+														</div>
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													</div>
 												</c:if>
@@ -588,17 +674,41 @@
 										<c:if test="${fifa.award.season eq award.season}">
 											<thead>
 												<tr class="f k r">
-													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
-													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th style="width:25%">
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">
+															<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">
+															${award.name}
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+															${award.season}/${f:substring(award.season+1, 2, 4)}
+														</a>
+													</th>
 												</tr>
 											</thead>
 										</c:if>
 										<c:if test="${fifa.award.season ne award.season}">
 											<tr>
-												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td style="width:25%">
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">
+														<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">
+														${award.name}
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+														${award.season}/${f:substring(award.season+1, 2, 4)}
+													</a>
+												</td>
 											</tr>
 										</c:if>
 									</c:if>
@@ -737,9 +847,22 @@
 											<c:forEach var="history" items="${fifa.award.goalscorer.history.split(',')}" varStatus="idx">
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													<div class="item">
-														<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
+														<h5 class="f k r">
+															<a class="link f k r" href="${path}/league/review.ll?season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 0, 7)} Season
+															</a>
+														</h5>
 												</c:if>
-														<div>${f:substring(history, 7, f:length(history))}</div>
+														<div>
+															<a class="link f k r" href="${path}/fifa/awards.ll?role=${f:substring(history, 7, f:length(history)) ne ' Legend League Champion' ? 'Player' : 'Club'}&award=
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Legend League Champion'}">champion</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Ballon Dor'}">ballondor</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Goal Scorer'}">goalscorer</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Assist Provider'}">assistprovider</c:if>
+															&season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 7, f:length(history))}
+															</a>
+														</div>
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													</div>
 												</c:if>
@@ -761,17 +884,41 @@
 										<c:if test="${fifa.award.season eq award.season}">
 											<thead>
 												<tr class="f k r">
-													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
-													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th style="width:25%">
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">
+															<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">
+															${award.name}
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+															${award.season}/${f:substring(award.season+1, 2, 4)}
+														</a>
+													</th>
 												</tr>
 											</thead>
 										</c:if>
 										<c:if test="${fifa.award.season ne award.season}">
 											<tr>
-												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td style="width:25%">
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">
+														<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">
+														${award.name}
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+														${award.season}/${f:substring(award.season+1, 2, 4)}
+													</a>
+												</td>
 											</tr>
 										</c:if>
 									</c:if>
@@ -910,9 +1057,22 @@
 											<c:forEach var="history" items="${fifa.award.assistprovider.history.split(',')}" varStatus="idx">
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													<div class="item">
-														<h5 class="f k r">${f:substring(history, 0, 7)} Season</h5>
+														<h5 class="f k r">
+															<a class="link f k r" href="${path}/league/review.ll?season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 0, 7)} Season
+															</a>
+														</h5>
 												</c:if>
-														<div>${f:substring(history, 7, f:length(history))}</div>
+														<div>
+															<a class="link f k r" href="${path}/fifa/awards.ll?role=${f:substring(history, 7, f:length(history)) ne ' Legend League Champion' ? 'Player' : 'Club'}&award=
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Legend League Champion'}">champion</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Ballon Dor'}">ballondor</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Goal Scorer'}">goalscorer</c:if>
+																<c:if test="${f:substring(history, 7, f:length(history)) eq ' Assist Provider'}">assistprovider</c:if>
+															&season=${f:substring(history, 0, 4)}">
+																${f:substring(history, 7, f:length(history))}
+															</a>
+														</div>
 												<c:if test="${idx.index == 0 || historySeason ne f:substring(history, 0, 7)}">
 													</div>
 												</c:if>
@@ -934,17 +1094,41 @@
 										<c:if test="${fifa.award.season eq award.season}">
 											<thead>
 												<tr class="f k r">
-													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
-													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th style="width:25%">
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">
+															<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">
+															${award.name}
+														</a>
+													</th>
+													<th>
+														<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+															${award.season}/${f:substring(award.season+1, 2, 4)}
+														</a>
+													</th>
 												</tr>
 											</thead>
 										</c:if>
 										<c:if test="${fifa.award.season ne award.season}">
 											<tr>
-												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td style="width:25%">
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">
+														<img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}">
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">
+														${award.name}
+													</a>
+												</td>
+												<td>
+													<a class="link f k r" href="${path}/league/review.ll?season=${award.season}">
+														${award.season}/${f:substring(award.season+1, 2, 4)}
+													</a>
+												</td>
 											</tr>
 										</c:if>
 									</c:if>

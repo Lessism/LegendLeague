@@ -470,7 +470,8 @@
 									</h5>
 							</c:if>
 									<div>
-										<a class="link f k r" href="${path}/fifa/awards.ll?role=Player&award=
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=${f:substring(history, 7, f:length(history)) ne ' Legend League Champion' ? 'Player' : 'Club'}&award=
+											<c:if test="${f:substring(history, 7, f:length(history)) eq ' Legend League Champion'}">champion</c:if>
 											<c:if test="${f:substring(history, 7, f:length(history)) eq ' Ballon Dor'}">ballondor</c:if>
 											<c:if test="${f:substring(history, 7, f:length(history)) eq ' Goal Scorer'}">goalscorer</c:if>
 											<c:if test="${f:substring(history, 7, f:length(history)) eq ' Assist Provider'}">assistprovider</c:if>
