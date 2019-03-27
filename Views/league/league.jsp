@@ -6,8 +6,16 @@
 <%@ include file="../include/rail.jsp" %>
 	<div class="ui grid">
 		<div class="twelve wide column">
-			<h1 class="f k r" style="color:black; margin-top:24px"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
-			<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} ${!empty league.round ? seasonround : 'Free Season'}</h4>
+			<h1 class="f k r" style="color:black; margin-top:24px">
+				<a class="link f k r" href="${path}/league.ll">
+					Legend League
+				</a>
+			</h1>
+			<h4 class="f k r">
+				<a class="link f k r" href="${path}/league/match.ll">
+					${league.season}/${f:substring(league.season+1, 2, 4)} ${!empty league.round ? seasonround : 'Free Season'}
+				</a>
+			</h4>
 		</div>
 		<div class="four wide column" style="display:flex; align-items:center;">
 			<c:if test="${empty league.end}">
@@ -22,7 +30,7 @@
 	<div class="ui grid" id="league">
 		<c:if test="${empty league.round}">
 			<div class="ten wide column">
-				<table class="ui striped center aligned table">
+				<table class="ui striped center aligned table f k r">
 					<thead>
 						<tr class="ui inverted center aligned table f k r">
 							<th colspan="2">예상순위</th>
@@ -34,8 +42,16 @@
 						<c:forEach var="club" items="${league.information}" varStatus="idx">
 							<tr>
 								<td style="width:5%; border-right:1px solid rgba(34,36,38,.1)">${idx.count}</td>
-								<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${club.name}"></td>
-								<td style="width:60%">${club.name}</td>
+								<td style="width:10%">
+									<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club.name}">
+										<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${club.name}">
+									</a>
+								</td>
+								<td style="width:60%">
+									<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club.name}">
+										${club.name}
+									</a>
+								</td>
 								<td style="width:25%">
 									<div class="ui active inverted black progress" style="margin-bottom:0;">
 										<div class="bar" style="width:${club.ovr}%;">
@@ -51,7 +67,7 @@
 		</c:if>
 		<c:if test="${!empty league.round}">
 			<div class="ten wide column">
-				<table class="ui striped center aligned table">
+				<table class="ui striped center aligned table f k r">
 					<thead>
 						<tr class="ui inverted center aligned table f k r">
 							<th colspan="2">순위</th>
@@ -68,8 +84,16 @@
 						<c:forEach var="rank" items="${league.ranking}" varStatus="idx">
 							<tr>
 								<td style="width:10%; border-right:1px solid rgba(34,36,38,.1)">${idx.count}</td>
-								<td style="width:10%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${rank.club}"></td>
-								<td style="width:35%">${rank.club}</td>
+								<td style="width:10%">
+									<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${rank.club}">
+										<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${rank.club}">
+									</a>
+								</td>
+								<td style="width:35%">
+									<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${rank.club}">
+										${rank.club}
+									</a>
+								</td>
 								<td style="width:10%">${rank.game}</td>
 								<td style="width:5%">${rank.win}</td>
 								<td style="width:5%">${rank.draw}</td>
@@ -85,22 +109,52 @@
 		<div class="six wide column">
 			<c:if test="${!empty league.title}">
 				<div class="ui center aligned black segment">
-					<div><h3 class="f k r">Title</h3></div>
+					<div>
+						<h3 class="f k r">
+							<a class="link f k r" href="${path}/league/award.ll?award=champion">
+								Title
+							</a>
+						</h3>
+					</div>
 					<div class="ui divider"></div>
 					<table class="ui center aligned table">
 						<thead>
 							<tr class="f k r">
-								<th style="width:15%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${league.title[1].champion}"></th>
-								<th style="width:70%">${league.title[1].champion}</th>
-								<th style="width:15%">${league.title[1].season}/${f:substring(league.title[1].season+1, 2, 4)}</th>
+								<th style="width:15%">
+									<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${league.title[1].season}">
+										<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${league.title[1].champion}">
+									</a>
+								</th>
+								<th style="width:70%">
+									<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${league.title[1].season}">
+										${league.title[1].champion}
+									</a>
+								</th>
+								<th style="width:15%">
+									<a class="link f k r" href="${path}/league/review.ll?season=${league.title[1].season}">
+										${league.title[1].season}/${f:substring(league.title[1].season+1, 2, 4)}
+									</a>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="title" items="${league.title}" begin="2" end="4">
 								<tr>
-									<td style="width:15%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${title.champion}"></td>
-									<td style="width:70%">${title.champion}</td>
-									<td style="width:15%">${title.season}/${f:substring(title.season+1, 2, 4)}</td>
+									<td style="width:15%">
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${title.season}">
+											<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${title.champion}">
+										</a>
+									</td>
+									<td style="width:70%">
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${title.season}">
+											${title.champion}
+										</a>
+									</td>
+									<td style="width:15%">
+										<a class="link f k r" href="${path}/league/review.ll?season=${title.season}">
+											${title.season}/${f:substring(title.season+1, 2, 4)}
+										</a>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -135,7 +189,13 @@
 			</c:if>
 			<c:if test="${!empty league.round}">
 				<div class="ui center aligned black segment">
-					<div><h3 class="f k r">경기 일정</h3></div>
+					<div>
+						<h3 class="f k r">
+							<a class="link f k r" href="${path}/league/match.ll">
+								경기 일정
+							</a>
+						</h3>
+					</div>
 					<div class="ui divider"></div>
 					<c:if test="${!empty league.end}">
 						<div class="ui center aligned container f k r">모든 Round가 진행되었습니다.</div>
@@ -144,9 +204,21 @@
 						<c:forEach var="match" items="${league.match}">
 							<div class="ui segment">
 								<div class="ui middle aligned grid">
-									<div class="left floated right aligned six wide column"><span class="f k r">${f:split(match.versus,'_')[0]}</span></div>
-									<div class="ui center aligned four wide column"><span class="versus f k r ${f:replace(match.versus, ' ', '_')}">VS</span></div>
-									<div class="right floated left aligned six wide column"><span class="f k r">${f:split(match.versus,'_')[1]}</span></div>
+									<div class="left floated right aligned six wide column">
+										<a class="link f k r" href="${path}/league/match.ll">
+											${f:split(match.versus,'_')[0]}
+										</a>
+									</div>
+									<div class="ui center aligned four wide column">
+										<a class="link f k r" href="${path}/league/match.ll">
+											VS
+										</a>
+									</div>
+									<div class="right floated left aligned six wide column">
+										<a class="link f k r" href="${path}/league/match.ll">
+											${f:split(match.versus,'_')[1]}
+										</a>
+									</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -159,17 +231,34 @@
 				<div class="ui horizontal black segments">
 					<c:if test="${!empty league.toprating}">
 						<div class="ui black segment items">
-							<div class="ui center aligned dividing header f k r">최고 평점</div>
+							<div class="ui center aligned dividing header f k r">
+								<a class="link f k r" href="${path}/league/ranking.ll">
+									최고 평점
+								</a>
+							</div>
 							<div class="item">
 								<div class="image" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.toprating[0].player}" style="height:100px; border-radius:10px;">
 								</div>
 								<div class="middle aligned content">
-									<div class="header">${league.toprating[0].player}</div>
-									<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.toprating[0].club}"> ${league.toprating[0].club}</div>
-									<div class="description" style="text-align:right;"><h3>
-										<c:if test="${league.toprating[0].toprating < 100}">${f:substring(league.toprating[0].toprating, 0, 1)}.${f:substring(league.toprating[0].toprating, 1, 2)} 점</c:if>
-										<c:if test="${league.toprating[0].toprating > 99}">10.0 점</c:if></h3>
+									<div class="header">
+										<h3 class="f k r">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.toprating[0].player}">
+												${league.toprating[0].player}
+											</a>
+										</h3>
+									</div>
+									<div class="meta f k r">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.toprating[0].club}">
+											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.toprating[0].club}" style="width:20px; height:20px;">
+											${league.toprating[0].club}
+										</a>
+									</div>
+									<div class="description" style="text-align:right;">
+										<h3 class="f k r">
+											<c:if test="${league.toprating[0].toprating < 100}">${f:substring(league.toprating[0].toprating, 0, 1)}.${f:substring(league.toprating[0].toprating, 1, 2)} 점</c:if>
+											<c:if test="${league.toprating[0].toprating > 99}">10.0 점</c:if>
+										</h3>
 									</div>
 								</div>
 							</div>
@@ -178,14 +267,25 @@
 								<c:forEach var="rating" items="${league.toprating}" begin="1" end="3">
 									<div class="item" style="vertical-align:middle;">
 										<div class="right floated content">
-											<c:if test="${rating.toprating < 100}">${f:substring(rating.toprating, 0, 1)}.${f:substring(rating.toprating, 1, 2)} 점</c:if>
-											<c:if test="${rating.toprating > 99}">10.0 점</c:if>
+											<h5 class="f k r">
+												<c:if test="${rating.toprating < 100}">${f:substring(rating.toprating, 0, 1)}.${f:substring(rating.toprating, 1, 2)} 점</c:if>
+												<c:if test="${rating.toprating > 99}">10.0 점</c:if>
+											</h5>
 										</div>
 										<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${rating.player}">
 										<div class="content">
-											<div class="header">${rating.player}</div>
-											<div class="description">
-												<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${rating.club}">${rating.club}
+											<div class="header">
+												<h5 class="f k r">
+													<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${rating.player}">
+														${rating.player}
+													</a>
+												</h5>
+											</div>
+											<div class="meta">
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${rating.club}">
+													<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${rating.club}" style="width:20px; height:20px;">
+													${rating.club}
+												</a>
 											</div>
 										</div>
 									</div>
@@ -195,7 +295,11 @@
 					</c:if>
 					<c:if test="${!empty league.goalscorer}">
 						<div class="ui black segment items">
-							<div class="ui center aligned dividing header f k r">최다 득점</div>
+							<div class="ui center aligned dividing header f k r">
+								<a class="link f k r" href="${path}/league/ranking.ll">
+									최다 득점
+								</a>
+							</div>
 							<div class="item">
 								<div class="image" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.goalscorer[0].player}" style="height:100px; border-radius:10px;">
@@ -210,7 +314,11 @@
 							<div class="ui middle aligned divided list">
 								<c:forEach var="goal" items="${league.goalscorer}" begin="1" end="3">
 									<div class="item" style="vertical-align:middle;">
-										<div class="right floated content">${goal.goalscorer} 골</div>
+										<div class="right floated content">
+											<h5 class="f k r">
+												${goal.goalscorer} 골
+											</h5>
+										</div>
 										<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${goal.player}">
 										<div class="content">
 											<div class="header">${goal.player}</div>
@@ -225,7 +333,11 @@
 					</c:if>
 					<c:if test="${!empty league.assistprovider}">
 						<div class="ui black segment items">
-							<div class="ui center aligned dividing header f k r">최다 어시스트</div>
+							<div class="ui center aligned dividing header f k r">
+								<a class="link f k r" href="${path}/league/ranking.ll">
+									최다 어시스트
+								</a>
+							</div>
 							<div class="item">
 								<div class="image" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.assistprovider[0].player}" style="height:100px; border-radius:10px;">
@@ -240,7 +352,11 @@
 							<div class="ui middle aligned divided list">
 								<c:forEach var="assist" items="${league.assistprovider}" begin="1" end="3">
 									<div class="item" style="vertical-align:middle;">
-										<div class="right floated content">${assist.assistprovider} 어시스트</div>
+										<div class="right floated content">
+											<h5 class="f k r">
+												${assist.assistprovider} 어시스트
+											</h5>
+										</div>
 										<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${assist.player}">
 										<div class="content">
 											<div class="header">${assist.player}</div>

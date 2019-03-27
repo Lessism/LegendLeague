@@ -37,16 +37,31 @@
 						<img src="${path}/image.ll?role=${league.award.role}&name=${league.award.count[0].name}" style="${league.award.role eq 'Club' ? 'width:150px; height:150px;' : ''} border-radius:10px;">
 					</div>
 					<div class="middle aligned content">
-						<div><h3 class="f k r">${league.award.count[0].name}</h3></div>
+						<div>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=${league.award.role}&name=${league.award.count[0].name}">
+									${league.award.count[0].name}
+								</a>
+							</h3>
+						</div>
 						<div class="meta">
-							<i class="${f:toLowerCase(league.award.count[0].country)} flag"></i>${league.award.count[0].country}
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.award.count[0].country}">
+								<i class="${f:toLowerCase(league.award.count[0].country)} flag"></i>
+								${league.award.count[0].country}
+							</a>
 						</div>
 						<div class="meta">
 							<c:if test="${league.award.role eq 'Club'}">
-								<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${league.award.count[0].stadium}">${league.award.count[0].stadium}
+								<a class="link f k r" href="${path}/fifa/stadium.ll?role=Club&name=${league.award.count[0].name}">
+									<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${league.award.count[0].stadium}" style="width:20px;height:20px">
+									${league.award.count[0].stadium}
+								</a>
 							</c:if>
 							<c:if test="${league.award.role ne 'Club'}">
-								<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.award.count[0].club}">${league.award.count[0].club}
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.award.count[0].club}">
+									<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.award.count[0].club}" style="width:20px;height:20px">
+									${league.award.count[0].club}
+								</a>
 							</c:if>
 						</div>
 						<div class="description" style="text-align:right;">
@@ -64,17 +79,27 @@
 				<div class="ui middle aligned divided list">
 					<c:forEach var="award" items="${league.award.count}" begin="1">
 						<c:if test="${!empty award.name}">
-							<div class="item">
+							<div class="item f k r">
 								<div class="right floated content">${award.count} 회</div>
 								<img class="ui avatar image" src="${path}/image.ll?role=${league.award.role}&name=${award.name}">
 								<div class="content">
-									<div class="header">${award.name}</div>
+									<div class="header">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=${league.award.role}&name=${award.name}">
+											${award.name}
+										</a>
+									</div>
 									<div class="description">
 										<c:if test="${league.award.role eq 'Club'}">
-											<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${award.stadium}">${award.stadium}
+										<a class="link f k r" href="${path}/fifa/stadium.ll?role=${league.award.role}&name=${award.name}">
+											<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${award.stadium}" style="width:20px;height:20px">
+											${award.stadium}
+										</a>
 										</c:if>
 										<c:if test="${league.award.role ne 'Club'}">
-											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${award.club}">${award.club}
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=${league.award.role}&name=${award.name}">
+											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${award.club}" style="width:20px;height:20px">
+											${award.club}
+										</a>
 										</c:if>
 									</div>
 								</div>
@@ -94,7 +119,7 @@
 					</c:choose>
 				</h3>
 				<div class="ui divider"></div>
-				<table class="ui striped center aligned table">
+				<table class="ui striped center aligned table f k r">
 					<thead>
 						<tr class="ui inverted center aligned table f k r">
 							<th colspan="2">${league.award.role}</th>
@@ -105,9 +130,21 @@
 						<c:forEach var="award" items="${league.award.list}" varStatus="idx">
 							<c:if test="${!empty award.name}">
 								<tr>
-									<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${league.award.role}&name=${award.name}"></td>
-									<td>${award.name}</td>
-									<td>${award.season}/${f:substring(award.season+1, 2, 4)}</td>
+									<td style="width:25%">
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=${league.award.role}&award=${league.award.award}&season=${award.season}">
+											<img class="ui avatar image" src="${path}/image.ll?role=${league.award.role}&name=${award.name}">
+										</a>
+									</td>
+									<td>
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=${league.award.role}&award=${league.award.award}&season=${award.season}">
+											${award.name}
+										</a>
+									</td>
+									<td>
+										<a class="link f k r" href="${path}/fifa/awards.ll?role=${league.award.role}&award=${league.award.award}&season=${award.season}">
+											${award.season}/${f:substring(award.season+1, 2, 4)}
+										</a>
+									</td>
 								</tr>
 							</c:if>
 						</c:forEach>
