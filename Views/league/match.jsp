@@ -3,7 +3,11 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+	<h1 class="f k r" style="margin-top:24px">
+		<a class="link f k r" href="${path}/league.ll">
+			Legend League
+		</a>
+	</h1>
 	<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season Match</h4>
 	<div class="ui divider"></div>
 	<div class="ui black segment">
@@ -30,18 +34,42 @@
 					</c:if>
 							<div class="ui segment">
 								<div class="ui middle aligned grid">
-									<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[0]}"></div>
-									<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus, '_')[0]}</span></div>
-									<div class="ui center aligned four wide column"><span class="f k r">${!empty match.score ? match.score : 'VS'}</span></div>
-									<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus, '_')[1]}</span></div>
-									<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[1]}"></div>
+									<div class="one wide column">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+											<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+										</a>
+									</div>
+									<div class="left floated right aligned five wide column">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+											${f:split(match.versus, '_')[0]}
+										</a>
+									</div>
+									<div class="ui center aligned four wide column">
+										<span class="f k r">
+											${!empty match.score ? match.score : 'VS'}
+										</span>
+									</div>
+									<div class="right floated left aligned five wide column">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+											${f:split(match.versus, '_')[1]}
+										</a>
+									</div>
+									<div class="one wide column">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+											<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+										</a>
+									</div>
 								</div>
 								<c:if test="${!empty match.goal}">
 									<div class="ui grid">
 										<div class="sixteen wide column" style="padding:5px"><div class="ui fitted divider"></div></div>
 										<div class="right aligned seven wide column">
 											<c:forEach var="goal" items="${match.goal}">
-												<div>${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}</div>
+												<div>
+													<a class="link" href="${path}/fifa/profile.ll?role=Player&name=${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}">
+														${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}
+													</a>
+												</div>
 											</c:forEach>
 										</div>
 										<div class="center aligned two wide column">
@@ -53,7 +81,11 @@
 										</div>
 										<div class="left aligned seven wide column">
 											<c:forEach var="goal" items="${match.goal}">
-												<div>${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}</div>
+												<div>
+													<a class="link" href="${path}/fifa/profile.ll?role=Player&name=${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}">
+														${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}
+													</a>
+												</div>
 											</c:forEach>
 										</div>
 									</div>

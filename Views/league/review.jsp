@@ -3,7 +3,11 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+	<h1 class="f k r" style="margin-top:24px">
+		<a class="link f k r" href="${path}/league.ll">
+			Legend League
+		</a>
+	</h1>
 	<h4 class="f k r">${league.review.season.season}/${f:substring(league.review.season.season+1, 2, 4)} Season Review</h4>
 	<div class="ui divider"></div>
 	<div class="ui black segment">
@@ -16,14 +20,36 @@
 				<c:if test="${!empty league.review.season.champion}">
 					<div class="ui center aligned card segment">
 						<div class="content">
-							<h3 class="f k r">Champion</h3>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${league.review.season.season}">
+									Champion
+								</a>
+							</h3>
 							<div class="ui divider"></div>
 						</div>
-						<div><img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.champion.emblem}" style="max-height:150px; max-width:150px"></div>
+						<div>
+							<a class="image" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.champion.name}">
+								<img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.champion.emblem}" style="max-height:150px; max-width:150px">
+							</a>
+						</div>
 						<div class="ui divider"></div>
-						<div class="ui header f k r">${league.review.season.champion.name}</div>
-						<div class="ui meta f k r"><i class="${f:toLowerCase(league.review.season.champion.country)} flag"></i>${league.review.season.champion.country}</div>
-						<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${league.review.season.champion.stadium}">${league.review.season.champion.stadium}</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.champion.name}">
+								${league.review.season.champion.name}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.review.season.champion.country}">
+								<i class="${f:toLowerCase(league.review.season.champion.country)} flag"></i>
+								${league.review.season.champion.country}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/stadium.ll?role=Club&name=${league.review.season.champion.name}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${league.review.season.champion.stadium}" style="max-width:20px; max-height:20px;">
+								${league.review.season.champion.stadium}
+							</a>
+						</div>
 						<div class="ui segment" style="border:none;">
 							<div class="ui active inverted black progress">
 								<div class="bar" style="width:${league.review.season.champion.ovr}%;">
@@ -37,14 +63,36 @@
 				<c:if test="${!empty league.review.season.manager}">
 					<div class="ui center aligned card segment">
 						<div class="content">
-							<h3 class="f k r">FIFA World Manager</h3>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/awards.ll?role=Manager&award=manager&season=${league.review.season.season}">
+									FIFA World Manager
+								</a>
+							</h3>
 							<div class="ui divider"></div>
 						</div>
-						<div><img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.manager.profile}" style="height:150px; max-width:150px"></div>
+						<div>
+							<a class="image" href="${path}/fifa/profile.ll?role=Manager&name=${league.review.season.manager.name}">
+								<img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.manager.profile}" style="height:150px; width:150px">
+							</a>
+						</div>
 						<div class="ui divider"></div>
-						<div class="ui header f k r">${league.review.season.manager.name}</div>
-						<div class="ui meta f k r"><i class="${f:toLowerCase(league.review.season.manager.country)} flag"></i>${league.review.season.manager.country}</div>
-						<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.manager.club}">${league.review.season.manager.club}</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Manager&name=${league.review.season.manager.name}">
+								${league.review.season.manager.name}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.review.season.manager.country}">
+								<i class="${f:toLowerCase(league.review.season.manager.country)} flag"></i>
+								${league.review.season.manager.country}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.manager.club}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.manager.club}" style="max-width:20px; max-height:20px;">
+								${league.review.season.manager.club}
+							</a>
+						</div>
 						<div class="ui segment" style="border:none;">
 							<div class="ui active inverted black progress">
 								<div class="bar" style="width:${league.review.season.manager.ovr}%;">
@@ -58,14 +106,36 @@
 				<c:if test="${!empty league.review.season.ballondor}">
 					<div class="ui center aligned card segment">
 						<div class="content">
-							<h3 class="f k r">Ballon Dor</h3>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/awards.ll?role=Player&award=ballondor&season=${league.review.season.season}">
+									Ballon Dor
+								</a>
+							</h3>
 							<div class="ui divider"></div>
 						</div>
-						<div><img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.ballondor.profile}" style="height:150px; width:150px"></div>
+						<div>
+							<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.ballondor.name}">
+								<img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.ballondor.profile}" style="height:150px; width:150px">
+							</a>
+						</div>
 						<div class="ui divider"></div>
-						<div class="ui header f k r">${league.review.season.ballondor.name}</div>
-						<div class="ui meta f k r"><i class="${f:toLowerCase(league.review.season.ballondor.country)} flag"></i>${league.review.season.ballondor.country}</div>
-						<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.ballondor.club}">${league.review.season.ballondor.club}</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.ballondor.name}">
+								${league.review.season.ballondor.name}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.review.season.ballondor.country}">
+								<i class="${f:toLowerCase(league.review.season.ballondor.country)} flag"></i>
+								${league.review.season.ballondor.country}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.ballondor.club}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.ballondor.club}" style="max-width:20px; max-height:20px;">
+								${league.review.season.ballondor.club}
+							</a>
+						</div>
 						<div class="ui segment" style="border:none;">
 							<div class="ui active inverted ${league.review.season.ballondor.icon} progress" style="margin-bottom:0;bottom:0;">
 								<div class="bar" style="width:${league.review.season.ballondor.ovr}%;">
@@ -78,14 +148,36 @@
 				<c:if test="${!empty league.review.season.goalscorer}">
 					<div class="ui center aligned card segment">
 						<div class="content">
-							<h3 class="f k r">득점왕</h3>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/awards.ll?role=Player&award=goalscorer&season=${league.review.season.season}">
+									Goal Scorer
+								</a>
+							</h3>
 							<div class="ui divider"></div>
 						</div>
-						<div><img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.goalscorer.profile}" style="height:150px; width:150px"></div>
+						<div>
+							<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.goalscorer.name}">
+								<img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.goalscorer.profile}" style="height:150px; width:150px">
+							</a>
+						</div>
 						<div class="ui divider"></div>
-						<div class="ui header f k r">${league.review.season.goalscorer.name}</div>
-						<div class="ui meta f k r"><i class="${f:toLowerCase(league.review.season.goalscorer.country)} flag"></i>${league.review.season.goalscorer.country}</div>
-						<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.goalscorer.club}">${league.review.season.goalscorer.club}</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.goalscorer.name}">
+								${league.review.season.goalscorer.name}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.review.season.goalscorer.country}">
+								<i class="${f:toLowerCase(league.review.season.goalscorer.country)} flag"></i>
+								${league.review.season.goalscorer.country}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.goalscorer.club}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.goalscorer.club}" style="max-width:20px; max-height:20px;">
+								${league.review.season.goalscorer.club}
+							</a>
+						</div>
 						<div class="ui segment" style="border:none;">
 							<div class="ui active inverted ${league.review.season.goalscorer.icon} progress" style="margin-bottom:0;bottom:0;">
 								<div class="bar" style="width:${league.review.season.goalscorer.ovr}%;">
@@ -98,14 +190,36 @@
 				<c:if test="${!empty league.review.season.assistprovider}">
 					<div class="ui center aligned card segment">
 						<div class="content">
-							<h3 class="f k r">도움왕</h3>
+							<h3 class="f k r">
+								<a class="link f k r" href="${path}/fifa/awards.ll?role=Player&award=assistprovider&season=${league.review.season.season}">
+									Assist Provider
+								</a>
+							</h3>
 							<div class="ui divider"></div>
 						</div>
-						<div><img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.assistprovider.profile}" style="height:150px; width:150px"></div>
+						<div>
+							<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.assistprovider.name}">
+								<img class="ui centered rounded image" src="${path}/image.ll?no=${league.review.season.assistprovider.profile}" style="height:150px; width:150px">
+							</a>
+						</div>
 						<div class="ui divider"></div>
-						<div class="ui header f k r">${league.review.season.assistprovider.name}</div>
-						<div class="ui meta f k r"><i class="${f:toLowerCase(league.review.season.assistprovider.country)} flag"></i>${league.review.season.assistprovider.country}</div>
-						<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.assistprovider.club}">${league.review.season.assistprovider.club}</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.review.season.assistprovider.name}">
+								${league.review.season.assistprovider.name}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/country.ll?country=${league.review.season.assistprovider.country}">
+								<i class="${f:toLowerCase(league.review.season.assistprovider.country)} flag"></i>
+								${league.review.season.assistprovider.country}
+							</a>
+						</div>
+						<div class="ui meta f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.review.season.assistprovider.club}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.review.season.assistprovider.club}" style="max-width:20px; max-height:20px;">
+								${league.review.season.assistprovider.club}
+							</a>
+						</div>
 						<div class="ui segment" style="border:none;">
 							<div class="ui active inverted ${league.review.season.assistprovider.icon} progress" style="margin-bottom:0;bottom:0;">
 								<div class="bar" style="width:${league.review.season.assistprovider.ovr}%;">
@@ -130,8 +244,16 @@
 							<tbody>
 								<c:forEach var="club" items="${league.review.season.roster}" varStatus="idx">
 									<tr>
-										<td style="width:25%"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${club}"></td>
-										<td>${club}</td>
+										<td style="width:25%">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club}">
+												<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${club}">
+											</a>
+										</td>
+										<td>
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club}">
+												${club}
+											</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -166,8 +288,16 @@
 								<c:forEach var="club" items="${league.review.ranking}" varStatus="idx">
 									<tr>
 										<td style="width:10%; border-right:1px solid rgba(34,36,38,.1)">${idx.count}</td>
-										<td style="width:10%"><img class="ui rounded fluid mini image" src="${path}/image.ll?role=Club&name=${club.club}"></td>
-										<td style="width:25%">${club.club}</td>
+										<td style="width:10%">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club.club}">
+												<img class="ui rounded fluid mini image" src="${path}/image.ll?role=Club&name=${club.club}">
+											</a>
+										</td>
+										<td style="width:25%">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${club.club}">
+												${club.club}
+											</a>
+										</td>
 										<td style="width:10%">${club.game}</td>
 										<td style="width:5%">${club.win}</td>
 										<td style="width:5%">${club.draw}</td>
@@ -203,18 +333,42 @@
 						</c:if>
 								<div class="ui segment">
 									<div class="ui middle aligned grid">
-										<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[0]}"></div>
-										<div class="left floated right aligned five wide column"><span class="f k r">${f:split(match.versus, '_')[0]}</span></div>
-										<div class="ui center aligned four wide column"><span class="f k r">${match.score}</span></div>
-										<div class="right floated left aligned five wide column"><span class="f k r">${f:split(match.versus, '_')[1]}</span></div>
-										<div class="one wide column"><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[1]}"></div>
+										<div class="one wide column">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+												<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+											</a>
+										</div>
+										<div class="left floated right aligned five wide column">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[0]}">
+												${f:split(match.versus, '_')[0]}
+											</a>
+										</div>
+										<div class="ui center aligned four wide column">
+											<span class="f k r">
+												${match.score}
+											</span>
+										</div>
+										<div class="right floated left aligned five wide column">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+												${f:split(match.versus, '_')[1]}
+											</a>
+										</div>
+										<div class="one wide column">
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+												<img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${f:split(match.versus, '_')[1]}">
+											</a>
+										</div>
 									</div>
 									<c:if test="${!empty match.goal}">
 										<div class="ui grid">
 											<div class="sixteen wide column" style="padding:5px"><div class="ui fitted divider"></div></div>
 											<div class="right aligned seven wide column">
 												<c:forEach var="goal" items="${match.goal}">
-													<div>${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}</div>
+													<div>
+														<a class="link" href="${path}/fifa/profile.ll?role=Player&name=${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}">
+															${f:split(match.versus,'_')[0] eq goal.club ? goal.player : ''}
+														</a>
+													</div>
 												</c:forEach>
 											</div>
 											<div class="center aligned two wide column">
@@ -226,7 +380,11 @@
 											</div>
 											<div class="left aligned seven wide column">
 												<c:forEach var="goal" items="${match.goal}">
-													<div>${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}</div>
+													<div>
+														<a class="link" href="${path}/fifa/profile.ll?role=Player&name=${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}">
+															${f:split(match.versus,'_')[1] eq goal.club ? goal.player : ''}
+														</a>
+													</div>
 												</c:forEach>
 											</div>
 										</div>

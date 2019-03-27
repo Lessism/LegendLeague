@@ -3,7 +3,11 @@
 <section class="ui black segment container">
 <c:set var="rail" value="league"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r"><a href="${path}/league.ll" style="color:black;">Legend League</a></h1>
+	<h1 class="f k r" style="margin-top:24px">
+		<a class="link f k r" href="${path}/league.ll">
+			Legend League
+		</a>
+	</h1>
 	<h4 class="f k r">${league.history.history} History</h4>
 	<div class="ui divider"></div>
 	<c:if test="${league.history.history ne 'Season'}">

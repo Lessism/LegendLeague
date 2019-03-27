@@ -6,7 +6,7 @@
 <%@ include file="../include/rail.jsp" %>
 	<div class="ui grid">
 		<div class="twelve wide column">
-			<h1 class="f k r" style="color:black; margin-top:24px">
+			<h1 class="f k r" style="margin-top:24px">
 				<a class="link f k r" href="${path}/league.ll">
 					Legend League
 				</a>
@@ -166,23 +166,35 @@
 					<div class="ui header">
 						<div class="ui center aligned black segment"><h3 class="f k r">우승후보</h3></div>
 						<div><img class="ui rounded fluid image" src="${path}/image.ll?role=Club&name=${league.information[0].name}"></div>
-						<div class="ui center aligned header f k r">${league.information[0].name}</div>
-						<div class="ui center aligned meta f k r">${league.information[0].stadium}</div>
+						<div class="ui center aligned header f k r">
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.information[0].name}">
+								${league.information[0].name}
+							</a>
+						</div>
+						<div class="ui center aligned meta f k r">
+							<a class="link f k r" href="${path}/fifa/stadium.ll?role=Club&name=${league.information[0].name}">
+								${league.information[0].stadium}
+							</a>
+						</div>
 					</div>
 					<div class="ui relaxed grid content">
 						<div class="five wide column">
 							<h5 class="ui center aligned f k r">Manager</h5>
 						</div>
 						<div class="eleven wide column">
-							<img class="ui avatar image" src="${path}/image.ll?role=Manager&name=${league.information[0].manager}">
-							${league.information[0].manager}
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Manager&name=${league.information[0].manager}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Manager&name=${league.information[0].manager}">
+								${league.information[0].manager}
+							</a>
 						</div>
 						<div class="five wide column">
 							<h5 class="ui center aligned f k r">Key Player</h5>
 						</div>
 						<div class="eleven wide column">
-							<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${league.information[0].keyplayer.name}">
-							${league.information[0].keyplayer.name}
+							<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.information[0].keyplayer.name}">
+								<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${league.information[0].keyplayer.name}">
+								${league.information[0].keyplayer.name}
+							</a>
 						</div>
 					</div>
 				</div>
@@ -232,14 +244,14 @@
 					<c:if test="${!empty league.toprating}">
 						<div class="ui black segment items">
 							<div class="ui center aligned dividing header f k r">
-								<a class="link f k r" href="${path}/league/ranking.ll">
+								<a class="link f k r" href="${path}/league/ranking.ll?player=true">
 									최고 평점
 								</a>
 							</div>
 							<div class="item">
-								<div class="image" style="max-width:125px; max-height:100px;">
+								<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.toprating[0].player}" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.toprating[0].player}" style="height:100px; border-radius:10px;">
-								</div>
+								</a>
 								<div class="middle aligned content">
 									<div class="header">
 										<h3 class="f k r">
@@ -250,7 +262,7 @@
 									</div>
 									<div class="meta f k r">
 										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.toprating[0].club}">
-											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.toprating[0].club}" style="width:20px; height:20px;">
+											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.toprating[0].club}" style="max-width:20px; max-height:20px;">
 											${league.toprating[0].club}
 										</a>
 									</div>
@@ -283,7 +295,7 @@
 											</div>
 											<div class="meta">
 												<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${rating.club}">
-													<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${rating.club}" style="width:20px; height:20px;">
+													<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${rating.club}" style="max-width:20px; max-height:20px;">
 													${rating.club}
 												</a>
 											</div>
@@ -296,18 +308,31 @@
 					<c:if test="${!empty league.goalscorer}">
 						<div class="ui black segment items">
 							<div class="ui center aligned dividing header f k r">
-								<a class="link f k r" href="${path}/league/ranking.ll">
+								<a class="link f k r" href="${path}/league/ranking.ll?player=true">
 									최다 득점
 								</a>
 							</div>
 							<div class="item">
-								<div class="image" style="max-width:125px; max-height:100px;">
+								<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.goalscorer[0].player}" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.goalscorer[0].player}" style="height:100px; border-radius:10px;">
-								</div>
+								</a>
 								<div class="middle aligned content">
-									<div class="header">${league.goalscorer[0].player}</div>
-									<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.goalscorer[0].club}"> ${league.goalscorer[0].club}</div>
-									<div class="description" style="text-align:right;"><h3>${league.goalscorer[0].goalscorer} 골</h3></div>
+									<div class="header">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.goalscorer[0].player}">
+											${league.goalscorer[0].player}
+										</a>
+									</div>
+									<div class="meta">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.goalscorer[0].club}">
+											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.goalscorer[0].club}" style="max-width:20px; max-height:20px;">
+											${league.goalscorer[0].club}
+										</a>
+									</div>
+									<div class="description" style="text-align:right;">
+										<h3 class="f k r">
+											${league.goalscorer[0].goalscorer} 골
+										</h3>
+									</div>
 								</div>
 							</div>
 							<div class="ui divider"></div>
@@ -321,9 +346,16 @@
 										</div>
 										<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${goal.player}">
 										<div class="content">
-											<div class="header">${goal.player}</div>
+											<div class="header">
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${goal.player}">
+													${goal.player}
+												</a>
+											</div>
 											<div class="description">
-												<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${goal.club}">${goal.club}
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${goal.club}">
+													<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${goal.club}" style="max-width:20px; max-height:20px;">
+													${goal.club}
+												</a>
 											</div>
 										</div>
 									</div>
@@ -334,18 +366,31 @@
 					<c:if test="${!empty league.assistprovider}">
 						<div class="ui black segment items">
 							<div class="ui center aligned dividing header f k r">
-								<a class="link f k r" href="${path}/league/ranking.ll">
-									최다 어시스트
+								<a class="link f k r" href="${path}/league/ranking.ll?player=true">
+									최다 도움
 								</a>
 							</div>
 							<div class="item">
-								<div class="image" style="max-width:125px; max-height:100px;">
+								<a class="image" href="${path}/fifa/profile.ll?role=Player&name=${league.assistprovider[0].player}" style="max-width:125px; max-height:100px;">
 									<img src="${path}/image.ll?role=Player&name=${league.assistprovider[0].player}" style="height:100px; border-radius:10px;">
-								</div>
+								</a>
 								<div class="middle aligned content">
-									<div class="header">${league.assistprovider[0].player}</div>
-									<div class="meta"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.assistprovider[0].club}"> ${league.assistprovider[0].club}</div>
-									<div class="description" style="text-align:right;"><h3>${league.assistprovider[0].assistprovider} 어시스트</h3></div>
+									<div class="header">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${league.assistprovider[0].player}">
+											${league.assistprovider[0].player}
+										</a>
+									</div>
+									<div class="meta">
+										<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${league.assistprovider[0].club}">
+											<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${league.assistprovider[0].club}" style="max-width:20px; max-height:20px;">
+											${league.assistprovider[0].club}
+										</a>
+									</div>
+									<div class="description" style="text-align:right;">
+										<h3 class="f k r">
+											${league.assistprovider[0].assistprovider} 도움
+										</h3>
+									</div>
 								</div>
 							</div>
 							<div class="ui divider"></div>
@@ -354,14 +399,21 @@
 									<div class="item" style="vertical-align:middle;">
 										<div class="right floated content">
 											<h5 class="f k r">
-												${assist.assistprovider} 어시스트
+												${assist.assistprovider} 도움
 											</h5>
 										</div>
 										<img class="ui avatar image" src="${path}/image.ll?role=Player&name=${assist.player}">
 										<div class="content">
-											<div class="header">${assist.player}</div>
+											<div class="header">
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${assist.player}">
+													${assist.player}
+												</a>
+											</div>
 											<div class="description">
-												<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${assist.club}">${assist.club}
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${assist.club}">
+													<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${assist.club}" style="max-width:20px; max-height:20px;">
+													${assist.club}
+												</a>
 											</div>
 										</div>
 									</div>
