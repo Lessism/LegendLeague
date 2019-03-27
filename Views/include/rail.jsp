@@ -8,7 +8,11 @@
 			<div class="ui divider"></div>
 			<div class="ui secondary vertical menu">
 				<div class="item">
-					<h4 class="f k r">${league.season}/${f:substring(league.season+1, 2, 4)} Season</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/league/preview.ll">
+							${league.season}/${f:substring(league.season+1, 2, 4)} Season
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/league/preview.ll">Preview</a>
 						<a class="rail item f k r" href="${path}/league/ranking.ll">Ranking</a>
@@ -17,7 +21,11 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">Before Season</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/league/review.ll?season=${league.season-1}">
+							Before Season
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<c:forEach begin="0" end="2" varStatus="idx">
 							<a class="rail item f k r" href="${path}/league/review.ll?season=${league.season-idx.count}">${league.season-idx.count}/${f:substring(league.season-idx.count+1, 2, 4)}</a>
@@ -35,7 +43,11 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">Award</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/league/award.ll?award=champion">
+							Award
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/league/award.ll?award=champion">Legend League Champion</a>
 						<a class="rail item f k r" href="${path}/league/award.ll?award=manager">FIFA World Manager</a>
@@ -46,7 +58,11 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">History</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/league/history.ll?history=League">
+							History
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/league/history.ll?history=League">League</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=Season">Season</a>
@@ -85,11 +101,11 @@
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards player" href="${path}/fifa/awards.ll?role=Player&award=ballondor&season=${fifa.season-1}">FIFA World Player</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player">Information</a>
-						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Info</a>
 						<a class="rail item f k r" href="${path}/fifa/list.ll?history=Season">List</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=League"><i class="dot circle outline red icon"></i>Forward</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=Season"><i class="dot circle outline green icon"></i>Midfielder</a>
 						<a class="rail item f k r" href="${path}/league/history.ll?history=Season"><i class="dot circle outline blue icon"></i>Defender</a>
+						<a class="rail item f k r" href="${path}/league/history.ll?history=League"><i class="dot circle outline yellow icon"></i>Goalkeeper</a>
 					</div>
 				</div>
 				<div class="ui divider"></div>
@@ -118,22 +134,35 @@
 			<div class="ui divider"></div>
 			<div class="ui secondary vertical menu">
 				<div class="item">
-					<h4 class="f k r">${fifa.name}</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+							${fifa.name}
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}"><i class="${f:toLowerCase(fifa.personal.country)} flag"></i>${fifa.personal.country}</a>
 						<c:if test="${fifa.role ne 'Club'}"><a class="rail item f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}" style="height:17.5px;width:17.5px">${fifa.personal.club}</a></c:if>
 						<c:if test="${fifa.role eq 'Club'}"><a class="rail item f k r" href="${path}/fifa/stadium.ll?role=Club&name=${fifa.name}"><img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${fifa.personal.stadium}" style="height:17.5px;width:17.5px">${fifa.personal.stadium}</a></c:if>
 					</div>
 					<div class="ui divider"></div>
-					<h4 class="f k r">Information</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+							Information
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">Profile</a>
 						<a class="rail item f k r" href="${path}/fifa/detail.ll?role=${fifa.role}&name=${fifa.name}">Detail</a>
+						<c:if test="${fifa.role eq 'Club'}"><a class="rail item f k r" href="${path}/fifa/squad.ll?role=Club&name=${fifa.name}">Squad</a></c:if>
 					</div>
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">History</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/title.ll?role=${fifa.role}&name=${fifa.name}">
+							History
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r" href="${path}/fifa/title.ll?role=${fifa.role}&name=${fifa.name}">Title</a>
 						<a class="rail item f k r" href="${path}/fifa/award.ll?role=${fifa.role}&name=${fifa.name}">Award</a>
