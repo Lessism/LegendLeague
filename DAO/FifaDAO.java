@@ -118,6 +118,21 @@ public class FifaDAO {
 		}
 		
 		
+//	Personal Squad
+	
+		public Map<String, Object> squad(Map<String, Object> map) {
+
+			Map<String, Object> squad = db.selectOne("FIFA.personal", map);
+			squad.put("manager", db.selectOne("FIFA.info_manager", squad.get("manager")));
+			squad.put("squad", db.selectList("FIFA.club_lineup", squad));
+			
+			map.put("personal", db.selectOne("FIFA.personal", map));
+			map.put("squad", squad);
+			
+			return map;
+		}
+	
+		
 //	Information
 	
 		public Map<String, Object> information(Map<String, Object> map) {
@@ -198,13 +213,13 @@ public class FifaDAO {
 		
 		
 //	Country
-		
-			public Map<String, Object> country(Map<String, Object> map) {
-				
-				
-				
-				return map;
-			}
+	
+		public Map<String, Object> country(Map<String, Object> map) {
+			
+			
+			
+			return map;
+		}
 	
 	
 //	FIFA List
