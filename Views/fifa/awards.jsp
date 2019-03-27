@@ -23,9 +23,23 @@
 					</div>
 					<div><img class="ui centered rounded image" src="${path}/image.ll?no=${fifa.award.champion.emblem}" style="max-height:500px"></div>
 					<div class="ui divider"></div>
-					<div class="ui header f k r">${fifa.award.champion.name}</div>
-					<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.award.champion.country)} flag"></i>${fifa.award.champion.country}</div>
-					<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${fifa.award.champion.stadium}">${fifa.award.champion.stadium}</div>
+					<div class="ui header f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.award.champion.name}">
+							${fifa.award.champion.name}
+						</a>
+					</div>
+					<div class="ui meta f k r">
+						<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.champion.country}">
+							<i class="${f:toLowerCase(fifa.award.champion.country)} flag"></i>
+							${fifa.award.champion.country}
+						</a>
+					</div>
+					<div class="ui meta f k r">
+						<a class="link f k r" href="${path}/fifa/stadium.ll?role=Club&name=${fifa.award.champion.name}">
+							<img class="ui avatar image" src="${path}/image.ll?role=Stadium&name=${fifa.award.champion.stadium}">
+							${fifa.award.champion.stadium}
+						</a>
+					</div>
 					<div class="ui divider"></div>
 					<div class="ui segment">
 						<div class="ui active inverted black progress">
@@ -35,7 +49,11 @@
 							<div class="label f k r" style="color:black">OVR</div>
 						</div>
 						<div class="ui divider"></div>
-						<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
+						<h4 class="f k r">
+							<a class="link f k r" href="${path}/league/review.ll?season=${fifa.award.season}">
+								${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
+							</a>
+						</h4>
 						<div class="ui five statistics">
 							<div class="statistic">
 								<div class="value"><h2 class="f k r">${fifa.award.champion.odds.game}</h2></div>
@@ -73,17 +91,26 @@
 						</div>
 					</div>
 					<div class="ui segment f k r">
-						<div class="ui header f k r">Information</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/squad.ll?role=Club&name=${fifa.award.champion.name}">
+								Squad
+							</a>
+						</div>
 						<table class="ui left aligned table">
 							<tr>
 								<th class="ui center aligned">Manager</th>
 								<td>
 									<div class="ui image header f k r">
-										<img class="ui rounded image" src="${path}/image.ll?no=${fifa.award.champion.manager.profile}" style="height:50px">
+										<img class="ui rounded image" src="${path}/image.ll?no=${fifa.award.champion.manager.profile}" style="height:50px; width:42.5px">
 										<div class="content">
-											${fifa.award.champion.manager.name}
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Manager&name=${fifa.award.champion.manager.name}">
+												${fifa.award.champion.manager.name}
+											</a>
 											<div class="sub header">
-												<i class="dot circle outline icon"></i><i class="${f:toLowerCase(fifa.award.champion.manager.country)} flag"></i>${fifa.award.champion.manager.country}
+												<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.champion.manager.country}">
+													<i class="dot circle outline icon"></i><i class="${f:toLowerCase(fifa.award.champion.manager.country)} flag"></i>
+													${fifa.award.champion.manager.country}
+												</a>
 											</div>
 										</div>
 									</div>
@@ -103,9 +130,15 @@
 									<div class="ui image header f k r">
 										<img class="ui rounded image" src="${path}/image.ll?no=${fifa.award.champion.roster[0].profile}" style="height:50px">
 										<div class="content">
-											${fifa.award.champion.roster[0].name}
+											<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${fifa.award.champion.roster[0].name}">
+												${fifa.award.champion.roster[0].name}
+											</a>
 											<div class="sub header">
-												<i class="dot circle outline ${fifa.award.champion.roster[0].icon} icon"></i><i class="${f:toLowerCase(fifa.award.champion.roster[0].country)} flag"></i>${fifa.award.champion.roster[0].country}
+												<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.champion.roster[0].country}">
+													<i class="dot circle outline ${fifa.award.champion.roster[0].icon} icon"></i>
+													<i class="${f:toLowerCase(fifa.award.champion.roster[0].country)} flag"></i>
+													${fifa.award.champion.roster[0].country}
+												</a>
 											</div>
 										</div>
 									</div>
@@ -137,9 +170,16 @@
 									<td>
 										<div class="ui image header f k r">
 											<img class="ui rounded image" src="${path}/image.ll?no=${player.profile}" style="height:50px">
-											<div class="content">${player.name}
+											<div class="content">
+												<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${player.name}">
+													${player.name}
+												</a>
 												<div class="sub header">
-													<i class="dot circle outline ${player.icon} icon"></i><i class="${f:toLowerCase(player.country)} flag"></i>${player.country}
+													<a class="link f k r" href="${path}/fifa/country.ll?country=${player.country}">
+														<i class="dot circle outline ${player.icon} icon"></i>
+														<i class="${f:toLowerCase(player.country)} flag"></i>
+														${player.country}
+													</a>
 												</div>
 											</div>
 										</div>
@@ -171,7 +211,11 @@
 					</div>
 					<c:if test="${fifa.award.champion.history ne null}">
 						<div class="ui segment f k r">
-							<div class="ui header f k r">History</div>
+							<div class="ui header f k r">
+								<a class="link f k r" href="${path}/fifa/title.ll?role=Club&name=${fifa.award.champion.name}">
+									History
+								</a>
+							</div>
 							<div class="ui center aligned statistic">
 								<div class="value"><h2 class="f k r">${fifa.award.champion.countchampion}</h2></div>
 								<div class="label"><h5 class="f k r">Champion</h5></div>
@@ -202,7 +246,7 @@
 										<tr class="f k r">
 											<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
 											<th><a class="link" href="">${award.name}</a></th>
-											<th><a class="link" href="">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+											<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
 										</tr>
 									</thead>
 								</c:if>
@@ -210,7 +254,7 @@
 									<tr>
 										<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
 										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.name}</a></td>
-										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+										<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
 									</tr>
 								</c:if>
 							</c:if>
@@ -230,9 +274,23 @@
 					</div>
 					<div><img class="ui centered rounded image" src="${path}/image.ll?no=${fifa.award.manager.profile}" style="max-height:500px"></div>
 					<div class="ui divider"></div>
-					<div class="ui header f k r">${fifa.award.manager.name}</div>
-					<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.award.manager.country)} flag"></i>${fifa.award.manager.country}</div>
-					<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.manager.club}">${fifa.award.manager.club}</div>
+					<div class="ui header f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=Manager&name=${fifa.award.manager.name}">
+							${fifa.award.manager.name}
+						</a>
+					</div>
+					<div class="ui meta f k r">
+						<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.manager.country}">
+							<i class="${f:toLowerCase(fifa.award.manager.country)} flag"></i>
+							${fifa.award.manager.country}
+						</a>
+					</div>
+					<div class="ui meta f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.award.manager.club}">
+							<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.manager.club}">
+							${fifa.award.manager.club}
+						</a>
+					</div>
 					<div class="ui divider"></div>
 					<div class="ui segment">
 						<div class="ui active inverted black progress">
@@ -242,7 +300,11 @@
 							<div class="label f k r" style="color:black">OVR</div>
 						</div>
 						<div class="ui divider"></div>
-						<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
+						<h4 class="f k r">
+							<a class="link f k r" href="${path}/league/review.ll?season=${fifa.award.season}">
+								${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
+							</a>
+						</h4>
 						<div class="ui five statistics">
 							<div class="statistic">
 								<div class="value"><h2 class="f k r">${fifa.award.manager.odds.game}</h2></div>
@@ -280,7 +342,11 @@
 						</div>
 					</div>
 					<div class="ui segment f k r">
-						<div class="ui header f k r">Information</div>
+						<div class="ui header f k r">
+							<a class="link f k r" href="${path}/fifa/detail.ll?role=Manager&name=${fifa.award.manager.name}">
+								Information
+							</a>
+						</div>
 						<table class="ui center aligned table">
 							<tr>
 								<th>Birth</th>
@@ -298,7 +364,11 @@
 					</div>
 					<c:if test="${fifa.award.manager.history ne null}">
 						<div class="ui segment f k r">
-							<div class="ui header f k r">History</div>
+							<div class="ui header f k r">
+								<a class="link f k r" href="${path}/fifa/award.ll?role=Manager&name=${fifa.award.manager.name}">
+									History
+								</a>
+							</div>
 							<div class="ui two statistics">
 								<div class="statistic">
 									<div class="value"><h2 class="f k r">${fifa.award.manager.countchampion}</h2></div>
@@ -336,7 +406,7 @@
 										<tr class="f k r">
 											<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
 											<th><a class="link" href="">${award.name}</a></th>
-											<th><a class="link" href="">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+											<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
 										</tr>
 									</thead>
 								</c:if>
@@ -344,7 +414,7 @@
 									<tr>
 										<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
 										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.name}</a></td>
-										<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=${fifa.award.award}&season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+										<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
 									</tr>
 								</c:if>
 							</c:if>
@@ -375,9 +445,23 @@
 							</div>
 							<div><img class="ui centered rounded image" src="${path}/image.ll?no=${fifa.award.ballondor.profile}" style="max-height:500px"></div>
 							<div class="ui divider"></div>
-							<div class="ui header f k r">${fifa.award.ballondor.name}</div>
-							<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.award.ballondor.country)} flag"></i>${fifa.award.ballondor.country}</div>
-							<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.ballondor.club}">${fifa.award.ballondor.club}</div>
+							<div class="ui header f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${fifa.award.ballondor.name}">
+									${fifa.award.ballondor.name}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.ballondor.country}">
+									<i class="${f:toLowerCase(fifa.award.ballondor.country)} flag"></i>
+									${fifa.award.ballondor.country}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.award.ballondor.club}">
+									<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.ballondor.club}">
+									${fifa.award.ballondor.club}
+								</a>
+							</div>
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.ballondor.icon} progress">
@@ -387,7 +471,11 @@
 									<div class="label f k r" style="color:black">OVR</div>
 								</div>
 								<div class="ui divider"></div>
-								<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
+								<h4 class="f k r">
+									<a class="link f k r" href="${path}/league/review.ll?season=${fifa.award.season}">
+										${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
+									</a>
+								</h4>
 								<div class="ui four statistics">
 									<div class="statistic">
 										<div class="value"><h2 class="f k r">${fifa.award.ballondor.score.countround}</h2></div>
@@ -426,7 +514,11 @@
 								</div>
 							</div>
 							<div class="ui segment f k r">
-								<div class="ui header f k r">Information</div>
+								<div class="ui header f k r">
+									<a class="link f k r" href="${path}/fifa/detail.ll?role=Player&name=${fifa.award.ballondor.name}">
+										Information
+									</a>
+								</div>
 								<table class="ui center aligned table">
 									<tr>
 										<th>Birth</th>
@@ -444,7 +536,11 @@
 							</div>
 							<c:if test="${fifa.award.ballondor.history ne null}">
 								<div class="ui segment f k r">
-									<div class="ui header f k r">History</div>
+									<div class="ui header f k r">
+										<a class="link f k r" href="${path}/fifa/award.ll?role=Player&name=${fifa.award.ballondor.name}">
+											History
+										</a>
+									</div>
 									<div class="ui four statistics">
 										<div class="statistic">
 											<div class="value"><h2 class="f k r">${fifa.award.ballondor.countchampion}</h2></div>
@@ -494,7 +590,7 @@
 												<tr class="f k r">
 													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
 													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
 												</tr>
 											</thead>
 										</c:if>
@@ -502,7 +598,7 @@
 											<tr>
 												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
 												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=ballondor&season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
 											</tr>
 										</c:if>
 									</c:if>
@@ -522,9 +618,23 @@
 							</div>
 							<div><img class="ui centered rounded image" src="${path}/image.ll?no=${fifa.award.goalscorer.profile}" style="max-height:500px"></div>
 							<div class="ui divider"></div>
-							<div class="ui header f k r">${fifa.award.goalscorer.name}</div>
-							<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.award.goalscorer.country)} flag"></i>${fifa.award.goalscorer.country}</div>
-							<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.goalscorer.club}">${fifa.award.goalscorer.club}</div>
+							<div class="ui header f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${fifa.award.goalscorer.name}">
+									${fifa.award.goalscorer.name}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.goalscorer.country}">
+									<i class="${f:toLowerCase(fifa.award.goalscorer.country)} flag"></i>
+									${fifa.award.goalscorer.country}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.award.goalscorer.club}">
+									<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.goalscorer.club}">
+									${fifa.award.goalscorer.club}
+								</a>
+							</div>
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.goalscorer.icon} progress">
@@ -534,7 +644,11 @@
 									<div class="label f k r" style="color:black">OVR</div>
 								</div>
 								<div class="ui divider"></div>
-								<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
+								<h4 class="f k r">
+									<a class="link f k r" href="${path}/league/review.ll?season=${fifa.award.season}">
+										${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
+									</a>
+								</h4>
 								<div class="ui four statistics">
 									<div class="statistic">
 										<div class="value"><h2 class="f k r">${fifa.award.goalscorer.score.countround}</h2></div>
@@ -573,7 +687,11 @@
 								</div>
 							</div>
 							<div class="ui segment f k r">
-								<div class="ui header f k r">Information</div>
+								<div class="ui header f k r">
+									<a class="link f k r" href="${path}/fifa/detail.ll?role=Player&name=${fifa.award.goalscorer.name}">
+										Information
+									</a>
+								</div>
 								<table class="ui center aligned table">
 									<tr>
 										<th>Birth</th>
@@ -591,7 +709,11 @@
 							</div>
 							<c:if test="${fifa.award.goalscorer.history ne null}">
 								<div class="ui segment f k r">
-									<div class="ui header f k r">History</div>
+									<div class="ui header f k r">
+										<a class="link f k r" href="${path}/fifa/award.ll?role=Player&name=${fifa.award.goalscorer.name}">
+											History
+										</a>
+									</div>
 									<div class="ui four statistics">
 										<div class="statistic">
 											<div class="value"><h2 class="f k r">${fifa.award.goalscorer.countchampion}</h2></div>
@@ -641,7 +763,7 @@
 												<tr class="f k r">
 													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
 													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
 												</tr>
 											</thead>
 										</c:if>
@@ -649,7 +771,7 @@
 											<tr>
 												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
 												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=goalscorer&season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
 											</tr>
 										</c:if>
 									</c:if>
@@ -669,9 +791,23 @@
 							</div>
 							<div><img class="ui centered rounded image" src="${path}/image.ll?no=${fifa.award.assistprovider.profile}" style="max-height:500px"></div>
 							<div class="ui divider"></div>
-							<div class="ui header f k r">${fifa.award.assistprovider.name}</div>
-							<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.award.assistprovider.country)} flag"></i>${fifa.award.assistprovider.country}</div>
-							<div class="ui meta f k r"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.assistprovider.club}">${fifa.award.assistprovider.club}</div>
+							<div class="ui header f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Player&name=${fifa.award.assistprovider.name}">
+									${fifa.award.assistprovider.name}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.award.assistprovider.country}">
+									<i class="${f:toLowerCase(fifa.award.assistprovider.country)} flag"></i>
+									${fifa.award.assistprovider.country}
+								</a>
+							</div>
+							<div class="ui meta f k r">
+								<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.award.assistprovider.club}">
+									<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${fifa.award.assistprovider.club}">
+									${fifa.award.assistprovider.club}
+								</a>
+							</div>
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.assistprovider.icon} progress">
@@ -681,7 +817,11 @@
 									<div class="label f k r" style="color:black">OVR</div>
 								</div>
 								<div class="ui divider"></div>
-								<h4 class="f k r">${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season</h4>
+								<h4 class="f k r">
+									<a class="link f k r" href="${path}/league/review.ll?season=${fifa.award.season}">
+										${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
+									</a>
+								</h4>
 								<div class="ui four statistics">
 									<div class="statistic">
 										<div class="value"><h2 class="f k r">${fifa.award.assistprovider.score.countround}</h2></div>
@@ -720,7 +860,11 @@
 								</div>
 							</div>
 							<div class="ui segment f k r">
-								<div class="ui header f k r">Information</div>
+								<div class="ui header f k r">
+									<a class="link f k r" href="${path}/fifa/detail.ll?role=Player&name=${fifa.award.assistprovider.name}">
+										Information
+									</a>
+								</div>
 								<table class="ui center aligned table">
 									<tr>
 										<th>Birth</th>
@@ -738,7 +882,11 @@
 							</div>
 							<c:if test="${fifa.award.assistprovider.history ne null}">
 								<div class="ui segment f k r">
-									<div class="ui header f k r">History</div>
+									<div class="ui header f k r">
+										<a class="link f k r" href="${path}/fifa/award.ll?role=Player&name=${fifa.award.assistprovider.name}">
+											History
+										</a>
+									</div>
 									<div class="ui four statistics">
 										<div class="statistic">
 											<div class="value"><h2 class="f k r">${fifa.award.assistprovider.countchampion}</h2></div>
@@ -788,7 +936,7 @@
 												<tr class="f k r">
 													<th style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></th>
 													<th><a class="link" href="">${award.name}</th>
-													<th><a class="link" href="">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
+													<th><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></th>
 												</tr>
 											</thead>
 										</c:if>
@@ -796,7 +944,7 @@
 											<tr>
 												<td style="width:25%"><img class="ui avatar image" src="${path}/image.ll?role=${fifa.award.role}&name=${award.name}"></td>
 												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">${award.name}</a></td>
-												<td><a class="link" href="${path}/fifa/awards.ll?role=${fifa.award.role}&award=assistprovider&season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
+												<td><a class="link" href="${path}/league/review.ll?season=${award.season}">${award.season}/${f:substring(award.season+1, 2, 4)}</a></td>
 											</tr>
 										</c:if>
 									</c:if>

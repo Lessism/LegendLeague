@@ -25,22 +25,34 @@
 	<div class="ui grid">
 	<div class="five wide column" style="padding:30px;">
 		<div class="ui center aligned card segment">
-			<div class="ui image"><img src="${path}/image.ll?no=${fifa.personal.profile}" style="background-color:white; border-bottom:1px solid #d4d4d5;"></div>
+			<div class="ui image">
+				<img src="${path}/image.ll?no=${fifa.personal.profile}" style="background-color:white; border-bottom:1px solid #d4d4d5;">
+			</div>
 			<div class="ui header f k r">
-				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">${fifa.name}</a>
+				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+					${fifa.name}
+				</a>
 			</div>
 			<div class="ui meta f k r">
-				<i class="${f:toLowerCase(fifa.personal.country)} flag"></i>
-				<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">${fifa.personal.country}</a>
+				<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">
+					<i class="${f:toLowerCase(fifa.personal.country)} flag"></i>
+					${fifa.personal.country}
+				</a>
 			</div>
 			<div class="ui meta f k r">
-				<img class="ui avatar mini image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}">
-				<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}">${fifa.personal.club}</a>
+				<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}">
+					<img class="ui avatar mini image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}" style="height:17.5px;width:17.5px">
+					${fifa.personal.club}
+				</a>
 			</div>
 			<div class="ui container">
 				<div class="ui active inverted ${fifa.personal.icon} progress" style="margin-top:10px;margin-bottom:0;">
 					<div class="bar" style="width:${fifa.personal.ovr}%;">
-						<div class="progress"><div class="ui meta f k r">${fifa.personal.position}<i class="dot circle outline ${fifa.personal.icon} icon"></i>${fifa.personal.ovr}</div></div>
+						<div class="progress">
+							<div class="ui meta f k r">
+								${fifa.personal.position}<i class="dot circle outline ${fifa.personal.icon} icon"></i>${fifa.personal.ovr}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -180,10 +192,22 @@
 		<div class="ui center aligned card segment">
 			<div class="ui image"><img src="${path}/image.ll?no=${fifa.personal.profile}" style="background-color:white; border-bottom:1px solid #d4d4d5;"></div>
 			<div class="ui header f k r">
-				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">${fifa.name}</a>
+				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+					${fifa.name}
+				</a>
 			</div>
-			<div class="ui meta f k r"><i class="${f:toLowerCase(fifa.personal.country)} flag"></i><a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">${fifa.personal.country}</a></div>
-			<div class="ui meta f k r"><img class="ui avatar mini image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}"><a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}">${fifa.personal.club}</a></div>
+			<div class="ui meta f k r">
+				<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">
+					<i class="${f:toLowerCase(fifa.personal.country)} flag"></i>
+					${fifa.personal.country}
+				</a>
+			</div>
+			<div class="ui meta f k r">
+				<a class="link f k r" href="${path}/fifa/profile.ll?role=Club&name=${fifa.personal.club}">
+					<img class="ui avatar mini image" src="${path}/image.ll?role=Club&name=${fifa.personal.club}">
+					${fifa.personal.club}
+				</a>
+			</div>
 			<div class="ui container">
 				<div class="ui active inverted black progress"style="margin-top:10px;">
 					<div class="bar" style="width:${fifa.personal.ovr}%;">
@@ -308,17 +332,25 @@
 	<div class="ui grid">
 	<div class="five wide column" style="padding:30px;">
 		<div class="ui center aligned black card segment">
-			<div class="ui image"><img src="${path}/image.ll?no=${fifa.personal.emblem}" style="background-color:white; border-bottom:1px solid #d4d4d5;"></div>
+			<div class="ui image">
+				<img src="${path}/image.ll?no=${fifa.personal.emblem}" style="background-color:white; border-bottom:1px solid #d4d4d5;">
+			</div>
 			<div class="ui header f k r">
-				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">${fifa.name}</a>
+				<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+					${fifa.name}
+				</a>
 			</div>
 			<div class="ui meta f k r">
-				<i class="${f:toLowerCase(fifa.personal.country)} flag"></i>
-				<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">${fifa.personal.country}</a>
+				<a class="link f k r" href="${path}/fifa/country.ll?country=${fifa.personal.country}">
+					<i class="${f:toLowerCase(fifa.personal.country)} flag"></i>
+					${fifa.personal.country}
+				</a>
 			</div>
 			<div class="ui meta f k r">
-				<img class="ui avatar mini image" src="${path}/image.ll?role=Stadium&name=${fifa.personal.stadium}">
-				<a class="link f k r" href="${path}/fifa/profile.ll?role=Stadium&name=${fifa.personal.stadium}">${fifa.personal.stadium}</a>
+				<a class="link f k r" href="${path}/fifa/stadium.ll?role=Club&name=${fifa.personal.name}">
+					<img class="ui avatar mini image" src="${path}/image.ll?role=Stadium&name=${fifa.personal.stadium}">
+					${fifa.personal.stadium}
+				</a>
 			</div>
 			<div class="ui container">
 				<div class="ui active inverted black progress"style="margin-top:10px;">

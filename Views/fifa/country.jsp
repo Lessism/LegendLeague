@@ -8,10 +8,13 @@
 		<div class="content">
 			<h4 class="f k r">Country</h4>
 			<div class="sub header">
-				<h4 class="f k r"><i class="spain flag"></i>Spain</h4>
+				<h4 class="f k r"><i class="${f:toLowerCase(fifa.country)} flag"></i>${fifa.country}</h4>
 			</div>
 		</div>
 	</div>
 	<div class="ui divider"></div>
+	<div class="ui grid">
+		<div class=""></div>
+	</div>
 </section>
 <jsp:include page="../include/footer.jsp"/>
