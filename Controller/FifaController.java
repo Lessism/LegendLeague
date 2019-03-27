@@ -70,6 +70,14 @@ public class FifaController {
 		}
 		
 
+//	Personal Squad
+			
+			@RequestMapping("squad.ll")
+			public ModelAndView squad(@RequestParam Map<String, Object> map) {
+				return new ModelAndView("fifa/squad", "fifa", fDAO.squad(map));
+			}
+		
+
 //	Country
 		
 		@RequestMapping("country.ll")
