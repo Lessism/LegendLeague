@@ -111,7 +111,7 @@
 				<div class="ui center aligned black segment">
 					<div>
 						<h3 class="f k r">
-							<a class="link f k r" href="${path}/league/award.ll?award=champion">
+							<a class="link f k r" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${league.title[1].season}">
 								Title
 							</a>
 						</h3>

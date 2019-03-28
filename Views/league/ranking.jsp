@@ -267,6 +267,8 @@ $(function(){
 				postUnits	: ' p',
 				hideHover	: true,
 				parseTime	: false,
+				smooth		: true,
+				gridTextFamily : 'Noto Serif KR',
 				data		: chart.data
 			})
 		}
