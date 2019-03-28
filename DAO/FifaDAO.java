@@ -138,8 +138,13 @@ public class FifaDAO {
 		public Map<String, Object> information(Map<String, Object> map) {
 			
 			Map<String, Object> information = new HashMap<>(map);
+			information.put("rank", db.selectList("FIFA.information_rank", map));
+			information.put("ranktitle", db.selectList("FIFA.information_rank_title", map));
+			information.put("rankold", db.selectList("FIFA.information_rank_old", map));
+			information.put("ranknew", db.selectList("FIFA.information_rank_new", map));
 			
 			map.put("season", db.selectOne("League.recency_season"));
+			map.put("countrylist", db.selectList("FIFA.country_list"));
 			map.put("information", information);
 			
 			return map;
@@ -206,6 +211,7 @@ public class FifaDAO {
 			}
 
 			map.put("season", db.selectOne("League.recency_season"));
+			map.put("countrylist", db.selectList("FIFA.country_list"));
 			map.put("award", award);
 			
 			return map;
@@ -215,8 +221,16 @@ public class FifaDAO {
 //	Country
 	
 		public Map<String, Object> country(Map<String, Object> map) {
-			
-			
+
+			Map<String, Object> country = new HashMap<>(map);
+			country.put("count", db.selectOne("FIFA.country_count", map));
+			country.put("rankclub", db.selectList("FIFA.country_rank_club", map));
+			country.put("rankmanager", db.selectList("FIFA.country_rank_manager", map));
+			country.put("rankplayer", db.selectList("FIFA.country_rank_player", map));
+
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("countrylist", db.selectList("FIFA.country_list"));
+			map.put("countryinfo", country);
 			
 			return map;
 		}
