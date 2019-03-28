@@ -6,7 +6,10 @@ $(function(){
 		xhr.setRequestHeader($("meta[name='csrf_header']").attr("content"), $("meta[name='csrf_token']").attr("content"))
 	})
 	
-	$('#rail').sticky()
+	$('.opening, .playing, .ending').transition('set looping').transition('pulse', '2500ms')
+	;
+	
+	$('#rail, #subrail').sticky()
 	
 	$('.dropdown').dropdown()
 	

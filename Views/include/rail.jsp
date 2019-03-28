@@ -79,7 +79,11 @@
 			<div class="ui divider"></div>
 			<div class="ui secondary vertical menu">
 				<div class="item">
-					<h4 class="f k r">Club</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/information.ll?role=Club">
+							Club
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards club" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${fifa.season-1}">Legend League Champion</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Club">Information</a>
@@ -88,7 +92,11 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">Manager</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/information.ll?role=Manager">
+							Manager
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards manager" href="${path}/fifa/awards.ll?role=Manager&award=manager&season=${fifa.season-1}">FIFA World Manager</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Manager">Information</a>
@@ -97,30 +105,62 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="item">
-					<h4 class="f k r">Player</h4>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/information.ll?role=Player">
+							Player
+						</a>
+					</h4>
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards player" href="${path}/fifa/awards.ll?role=Player&award=ballondor&season=${fifa.season-1}">FIFA World Player</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player">Information</a>
 						<a class="rail item f k r" href="${path}/fifa/list.ll?history=Season">List</a>
-						<a class="rail item f k r" href="${path}/league/history.ll?history=League"><i class="dot circle outline red icon"></i>Forward</a>
-						<a class="rail item f k r" href="${path}/league/history.ll?history=Season"><i class="dot circle outline green icon"></i>Midfielder</a>
-						<a class="rail item f k r" href="${path}/league/history.ll?history=Season"><i class="dot circle outline blue icon"></i>Defender</a>
-						<a class="rail item f k r" href="${path}/league/history.ll?history=League"><i class="dot circle outline yellow icon"></i>Goalkeeper</a>
+						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=FW"><i class="dot circle outline red icon"></i>Forward</a>
+						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=MF"><i class="dot circle outline green icon"></i>Midfielder</a>
+						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=DF"><i class="dot circle outline blue icon"></i>Defender</a>
+						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=GK"><i class="dot circle outline yellow icon"></i>Goalkeeper</a>
 					</div>
 				</div>
 				<div class="ui divider"></div>
 				<div class="ui icon input">
-					<input type="text" placeholder="Search Player">
+					<input type="text" placeholder="Search">
 					<i class="search icon"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui right very close rail">
+		<div class="ui black sticky segment" id="subrail">
+		<div class="header"><h3 class="f k r"><a class="rail item f k r" href="${path}/fifa/country.ll?country=${fifa.countrylist[0].country}" style="color:black;">Country</a></h3></div>
+			<div class="ui divider"></div>
+			<div class="ui secondary vertical menu">
+				<div class="item">
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/country.ll?country=${empty fifa.countryinfo ? fifa.countrylist[0].country : fifa.countryinfo.country}">
+							${empty fifa.countryinfo ? 'Information' : fifa.countryinfo.country}
+						</a>
+					</h4>
+					<div class="ui secondary vertical pointing menu">
+					<c:forEach var="countrylist" items="${fifa.countrylist}" end="10">
+						<a class="rail item f k r" href="${path}/fifa/country.ll?country=${countrylist.country}">
+							<i class="${f:toLowerCase(countrylist.country)} flag"></i>
+							${countrylist.country} (${countrylist.sumcountcountry})
+						</a>
+					</c:forEach>
+					</div>
 				</div>
 				<div class="ui divider"></div>
 				<div class="ui fluid selection dropdown">
-					<div class="default text">Country</div>
+					<div class="default text">${empty fifa.country ? 'Country' : fifa.country}</div>
 					<i class="dropdown icon"></i>
 					<div class="menu">
-						<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
-						<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
-						<a class="rail item f k r" href="${path}/league/review.ll?season=">Korea</a>
+						<c:forEach var="countrylist" items="${fifa.countrylist}" begin="10">
+						<h4>
+							<a class="rail item f k r" href="${path}/fifa/country.ll?country=${countrylist.country}">
+								<i class="${f:toLowerCase(countrylist.country)} flag"></i>
+								${countrylist.country}
+							</a>
+						</h4>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
