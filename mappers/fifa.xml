@@ -696,6 +696,147 @@
 	</select>
 	
 	
+<!--	 FIFA Information Rank		-->
+	
+	<select id="information_rank" resultType="map">
+	
+		SELECT
+			*, ovr
+			+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+		<if test="role == 'Manager'">*2</if>
+			+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+			+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+			+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+		FROM
+			${role} r
+		<if test="role == 'Player'">
+		INNER
+			JOIN Position po
+			ON r.position = po.position
+		</if>
+		<if test="type != null">
+		WHERE
+			type = #{type}
+		</if>
+		ORDER BY
+			rankpoint DESC
+		LIMIT
+			10
+	
+	</select>
+	
+	
+<!--	 FIFA Information Rank Title		-->
+	
+	<select id="information_rank_title" resultType="map">
+	
+		<if test="role != 'Player'">
+		
+		SELECT
+			*, COUNT(awards) countawards
+		FROM
+			<if test="role == 'Club'">awardclub</if>
+			<if test="role == 'Manager'">awardmanager</if>
+		GROUP BY
+			name
+		ORDER BY
+			countawards DESC
+		LIMIT
+			10
+			
+		</if>
+		<if test="role == 'Player'">
+		
+		SELECT
+			*, SUM(countaward) countawards
+		FROM (
+			SELECT
+				*, COUNT(name) countaward
+			FROM
+				ballondor
+			GROUP BY
+				name
+			UNION
+				SELECT
+					*, COUNT(name) countaward
+				FROM
+					goalscorer
+				GROUP BY
+					name
+			UNION
+				SELECT
+					*, COUNT(name) countaward
+				FROM
+					assistprovider
+				GROUP BY
+					name
+		) AS award
+		INNER
+			JOIN Position p
+			ON award.position = p.position
+		<if test="type != null">
+		WHERE
+			type = #{type}
+		</if>
+		GROUP BY
+			name
+		ORDER BY
+			countawards DESC
+		LIMIT
+			10
+			
+		</if>
+	</select>
+	
+	
+<!--	 FIFA Information Rank Old Regdate		-->
+	
+	<select id="information_rank_old" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			${role} r
+		<if test="type != null">
+		INNER
+			JOIN Position p
+			ON r.position = p.position
+		WHERE
+			type = #{type}
+		</if>
+		ORDER BY
+		<if test="role == 'Club'">regdate ASC</if>
+		<if test="role != 'Club'">birth ASC</if>
+		LIMIT
+			10
+	
+	</select>
+	
+	
+<!--	 FIFA Information Rank New Regdate		-->
+	
+	<select id="information_rank_new" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			${role} r
+		<if test="type != null">
+		INNER
+			JOIN Position p
+			ON r.position = p.position
+		WHERE
+			type = #{type}
+		</if>
+		ORDER BY
+		<if test="role == 'Club'">regdate DESC</if>
+		<if test="role != 'Club'">birth DESC</if>
+		LIMIT
+			10
+	
+	</select>
+	
+	
 <!--	 FIFA Club Lineup		-->
 	
 	<select id="club_lineup" parameterType="map" resultType="map">
@@ -1092,6 +1233,130 @@
 			ON p.position = po.position
 		WHERE
 			p.name = #{name}
+	
+	</select>
+	
+	
+<!-- 	Country List	 -->
+
+	<select id="country_list" resultType="map">
+	
+		SELECT
+			*, SUM(countcountry) sumcountcountry
+		FROM (
+			SELECT
+				country, COUNT(country) countcountry
+			FROM
+				Club
+			GROUP BY
+				country
+			UNION ALL
+				SELECT
+					country, COUNT(country) countcountry
+				FROM
+					Manager
+				GROUP BY
+					country
+			UNION ALL
+				SELECT
+					country, COUNT(country) countcountry
+				FROM
+					Player
+				GROUP BY
+					country
+		) AS country
+		GROUP BY
+			country
+		ORDER BY
+			sumcountcountry DESC, country ASC
+	
+	</select>
+	
+	
+<!-- 	Country Count	 -->
+
+	<select id="country_count" parameterType="map" resultType="map">
+	
+		SELECT
+		(
+			SELECT
+				COUNT(country)
+			FROM
+				Club
+			WHERE
+				country = #{country}
+		) AS club, (
+			SELECT
+				COUNT(country)
+			FROM
+				Manager
+			WHERE
+				country = #{country}
+		) AS manager, (
+			SELECT
+				COUNT(country)
+			FROM
+				Player
+			WHERE
+				country = #{country}
+		) AS player
+	
+	</select>
+	
+	
+<!-- 	Country Rank Club	 -->
+
+	<select id="country_rank_club" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Club
+		WHERE
+			country = #{country}
+		ORDER BY
+			ovr DESC
+		LIMIT
+			10
+	
+	</select>
+	
+	
+<!-- 	Country Rank Manager	 -->
+
+	<select id="country_rank_manager" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Manager
+		WHERE
+			country = #{country}
+		ORDER BY
+			ovr DESC
+		LIMIT
+			10
+	
+	</select>
+	
+	
+<!-- 	Country Rank Player	 -->
+
+	<select id="country_rank_player" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			Player p
+		INNER
+			JOIN Position po
+			ON p.position = po.position
+		WHERE
+			country = #{country}
+		ORDER BY
+			ovr DESC
+		LIMIT
+			10
 	
 	</select>
 	
