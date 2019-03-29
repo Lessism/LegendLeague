@@ -2,7 +2,6 @@ package com.lessism.legendleague.dao;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -256,20 +255,11 @@ public class FifaDAO {
 	
 		public Map<String, Object> list(Map<String, Object> map) {
 
-			Map<String, Object> list = new HashMap<>(map);
-
 			map.put("season", db.selectOne("League.recency_season"));
 			map.put("countrylist", db.selectList("FIFA.country_list"));
-			map.put("list", list);
+			map.put("list", db.selectList("FIFA.list", map));
 			
 			return map;
-		}
-	
-	
-//	FIFA List
-	
-		public List<Map<String, Object>> listFIFA(Map<String, Object> map) {
-			return db.selectList("FIFA.list", map);
 		}
 	
 	
