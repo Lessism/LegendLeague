@@ -901,8 +901,13 @@
 	
 	<select id="information_rank_old" resultType="map">
 	
+		
+
 		SELECT
 			*
+		<if test="role != 'Club'">
+			, YEAR(NOW()) - birth + 0 age
+		</if>
 		FROM
 			${role} r
 		<if test="type != null">
@@ -914,7 +919,7 @@
 		</if>
 		ORDER BY
 		<if test="role == 'Club'">regdate ASC</if>
-		<if test="role != 'Club'">birth ASC</if>
+		<if test="role != 'Club'">age DESC</if>
 		LIMIT
 			10
 	
@@ -927,6 +932,9 @@
 	
 		SELECT
 			*
+		<if test="role != 'Club'">
+			, (YEAR(NOW()) - birth)/1 age
+		</if>
 		FROM
 			${role} r
 		<if test="type != null">
@@ -938,7 +946,7 @@
 		</if>
 		ORDER BY
 		<if test="role == 'Club'">regdate DESC</if>
-		<if test="role != 'Club'">birth DESC</if>
+		<if test="role != 'Club'">age ASC</if>
 		LIMIT
 			10
 	
@@ -1256,17 +1264,17 @@
 	
 		SELECT
 			*
+		<if test="role != 'Club'">, YEAR(NOW()) - birth + 0 age</if>
 		FROM
-			${role}
-			
-			<if test="role == null">
-			
-				Club
-				
-			</if>
-			
+			${role} r
+		<if test="role == 'Player'">
+		INNER
+			JOIN Position p
+			ON r.position = p.position
+		</if>
 		ORDER BY
-			ovr DESC
+		<if test="role == 'Club'">roster DESC,</if>
+			ovr DESC, name ASC
 			
 	</select>
 	
