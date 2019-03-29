@@ -43,7 +43,6 @@
 		<a class="item f k r" id="menu">Menu</a>
 		<a class="nav item f k r" href="${path}/league.ll">League</a>
 		<a class="nav item f k r" href="${path}/fifa.ll">FIFA</a>
-		<a class="rail item f k r" href="${path}/fifa/country.ll?country=Spain">Country</a>
 		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Club&name=Barcelona">Club</a>
 		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Manager</a>
 		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
