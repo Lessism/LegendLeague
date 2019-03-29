@@ -30,6 +30,22 @@ public class FifaDAO {
 		}
 		
 		
+//	FIFA Main System
+	
+		public Map<String, Object> fifa() {
+			
+			Map<String, Object> fifa = new HashMap<>();
+			fifa.put("fifaBestClub", db.selectOne("FIFA.fifa_best_club"));
+			fifa.put("fifaBestManager", db.selectOne("FIFA.fifa_best_manager"));
+			fifa.put("fifaBestEleven", db.selectList("FIFA.fifa_best_eleven"));
+			
+			fifa.put("season", db.selectOne("League.recency_season"));
+			fifa.put("countrylist", db.selectList("FIFA.country_list"));
+			
+			return fifa;
+		}
+		
+		
 //	Personal Profile
 	
 		public Map<String, Object> profile(Map<String, Object> map) {

@@ -16,7 +16,7 @@ public class LeagueDAO {
 	private SqlSession db;
 	
 	
-//	League Main system
+//	League Main System
 	
 		public Map<String, Object> league() {
 			
