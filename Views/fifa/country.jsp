@@ -4,7 +4,7 @@
 <c:set var="rail" value="fifa"/>
 <%@ include file="../include/rail.jsp" %>
 	<h1 class="f k r">
-		<a href="${path}/fifa.ll" style="color:black;">
+		<a class="link f k r" href="${path}/fifa.ll">
 			FIFA
 		</a>
 	</h1>
@@ -52,7 +52,7 @@
 							</div>
 							<div class="description">
 								<div class="ui active inverted black progress"style="margin-top:10px;">
-									<div class="bar" style="width:${fifa.countryinfo.rankclub[0].ovr}%;">
+									<div class="bar" style="width:${fifa.countryinfo.rankclub[0].ovr+1}%;">
 										<div class="progress f k r">${fifa.countryinfo.rankclub[0].ovr}</div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>
@@ -115,7 +115,7 @@
 							</div>
 							<div class="description">
 								<div class="ui active inverted black progress"style="margin-top:10px;">
-									<div class="bar" style="width:${fifa.countryinfo.rankmanager[0].ovr}%;">
+									<div class="bar" style="width:${fifa.countryinfo.rankmanager[0].ovr+1}%;">
 										<div class="progress f k r">${fifa.countryinfo.rankmanager[0].ovr}</div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>
@@ -178,7 +178,7 @@
 							</div>
 							<div class="description">
 								<div class="ui active inverted ${fifa.countryinfo.rankplayer[0].icon} progress">
-									<div class="bar" style="width:${fifa.countryinfo.rankplayer[0].ovr}%;">
+									<div class="bar" style="width:${fifa.countryinfo.rankplayer[0].ovr+1}%;">
 										<div class="progress f k r" style="color:black">
 											${fifa.countryinfo.rankplayer[0].position}<i class="dot circle outline ${fifa.countryinfo.rankplayer[0].icon} icon"></i>${fifa.countryinfo.rankplayer[0].ovr}
 										</div>

@@ -3,7 +3,11 @@
 <section class="ui black segment container">
 <c:set var="rail" value="fifa"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r"><a href="${path}/fifa.ll" style="color:black;">FIFA</a></h1>
+	<h1 class="f k r">
+		<a class="link f k r" href="${path}/fifa.ll">
+			FIFA
+		</a>
+	</h1>
 	<h4 class="f k r">
 		<c:choose>
 			<c:when test="${fifa.role eq 'Club'}">Club Information</c:when>
@@ -45,7 +49,7 @@
 							</div>
 							<div class="description">
 								<div class="ui active inverted black progress"style="margin-top:10px;">
-									<div class="bar" style="width:${fifa.information.rank[0].ovr}%;">
+									<div class="bar" style="width:${fifa.information.rank[0].ovr+1}%;">
 										<div class="progress f k r">
 											OVR <i class="dot circle outline white icon"></i>${fifa.information.rank[0].ovr}
 										</div>
@@ -263,7 +267,7 @@
 							</div>
 							<div class="description">
 								<div class="ui active inverted ${fifa.role eq 'Manager' ? 'black' : fifa.information.rank[0].icon} progress"style="margin-top:10px;">
-									<div class="bar" style="width:${fifa.information.rank[0].ovr}%;">
+									<div class="bar" style="width:${fifa.information.rank[0].ovr+1}%;">
 										<div class="progress f k r"  style="color:${fifa.role eq 'Player' ? 'black' : ''}">
 										<c:if test="${fifa.role eq 'Player'}">
 											${fifa.information.rank[0].position}<i class="dot circle outline ${fifa.information.rank[0].icon} icon"></i>
@@ -302,7 +306,8 @@
 								</div>
 								<div class="right floated content">
 									<h5 class="f k r">
-										<i class="futbol icon"></i>${role.rankpoint}
+										<i class="futbol icon"></i>
+										${role.rankpoint}
 									</h5>
 								</div>
 							</div>
@@ -387,7 +392,7 @@
 								</th>
 								<th style="width:25%">
 									<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.information.rankold[0].name}">
-										출생
+										나이
 									</a>
 								</th>
 							</tr>
@@ -407,7 +412,7 @@
 									</td>
 									<td style="width:25%">
 										<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${title.name}">
-											${f:substring(title.birth, 0, 4)} 년
+											${f:split(title.age, '.')[0]} 살
 										</a>
 									</td>
 								</tr>
@@ -432,7 +437,7 @@
 								</th>
 								<th style="width:25%">
 									<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.information.ranknew[0].name}">
-										출생
+										나이
 									</a>
 								</th>
 							</tr>
@@ -452,7 +457,7 @@
 									</td>
 									<td style="width:25%">
 										<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${title.name}">
-											${f:substring(title.birth, 0, 4)} 년
+											${f:split(title.age, '.')[0]} 살
 										</a>
 									</td>
 								</tr>

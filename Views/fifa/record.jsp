@@ -53,7 +53,7 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="ui active progress" data-percent="100" style="display:flex;">
-					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.winodds}" type="percent"/>; background-color:#2ecc40;">
+					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.winodds+0.10}" type="percent"/>; background-color:#2ecc40;">
 						<div class="progress">${fifa.record.stat.summaxwin} 승</div>
 					</div>
 					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.drawodds}" type="percent"/>; background-color:#ffe21f;">
@@ -90,7 +90,7 @@
 				</div>
 				<div class="ui divider"></div>
 				<div class="ui active progress" data-percent="100" style="display:flex;">
-					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.winodds}" type="percent"/>; background-color:#2ecc40;">
+					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.winodds+0.10}" type="percent"/>; background-color:#2ecc40;">
 						<div class="progress">${fifa.record.stat.summaxwin} 승</div>
 					</div>
 					<div class="bar" style="width:<fmt:formatNumber value="${fifa.record.stat.drawodds}" type="percent"/>; background-color:#ffe21f;">

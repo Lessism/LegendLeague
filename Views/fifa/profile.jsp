@@ -47,10 +47,12 @@
 			</div>
 			<div class="ui container">
 				<div class="ui active inverted ${fifa.personal.icon} progress" style="margin-top:10px;margin-bottom:0;">
-					<div class="bar" style="width:${fifa.personal.ovr}%;">
+					<div class="bar" style="width:${fifa.personal.ovr+1}%;">
 						<div class="progress">
-							<div class="ui meta f k r">
-								${fifa.personal.position}<i class="dot circle outline ${fifa.personal.icon} icon"></i>${fifa.personal.ovr}
+							<div class="ui meta f k r" style="color:black;">
+								${fifa.personal.position}
+								<i class="dot circle outline ${fifa.personal.icon} icon"></i>
+								${fifa.personal.ovr}
 							</div>
 						</div>
 					</div>
@@ -210,8 +212,10 @@
 			</div>
 			<div class="ui container">
 				<div class="ui active inverted black progress"style="margin-top:10px;">
-					<div class="bar" style="width:${fifa.personal.ovr}%;">
-						<div class="progress">${fifa.personal.ovr}</div>
+					<div class="bar" style="width:${fifa.personal.ovr+1}%;">
+						<div class="progress">
+							${fifa.personal.ovr}
+						</div>
 					</div>
 					<div class="label f k r" style="color:black">OVR</div>
 				</div>
@@ -354,7 +358,7 @@
 			</div>
 			<div class="ui container">
 				<div class="ui active inverted black progress"style="margin-top:10px;">
-					<div class="bar" style="width:${fifa.personal.ovr}%;">
+					<div class="bar" style="width:${fifa.personal.ovr+1}%;">
 						<div class="progress">${fifa.personal.ovr}</div>
 					</div>
 					<div class="label f k r" style="color:black">OVR</div>

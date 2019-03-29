@@ -48,7 +48,7 @@
 		</div>
 		<div class="ui segment">
 			<div class="ui active inverted black progress"style="margin-top:10px;">
-				<div class="bar" style="width:${fifa.personal.ovr}%;">
+				<div class="bar" style="width:${fifa.personal.ovr+1}%;">
 					<div class="progress">${fifa.personal.ovr}</div>
 				</div>
 				<div class="label f k r" style="color:black">OVR</div>
@@ -107,7 +107,7 @@
 			</div>
 			<div class="ui divider"></div>
 			<div class="ui active progress" data-percent="100" style="display:flex;">
-				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds}" type="percent"/>; background-color:#2ecc40;">
+				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds+0.10}" type="percent"/>; background-color:#2ecc40;">
 					<div class="progress">${fifa.detail.stat.summaxwin} 승</div>
 				</div>
 				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.drawodds}" type="percent"/>; background-color:#ffe21f;">
@@ -203,7 +203,7 @@
 		</div>
 		<div class="ui segment">
 			<div class="ui active inverted black progress"style="margin-top:10px;">
-				<div class="bar" style="width:${fifa.personal.ovr}%;">
+				<div class="bar" style="width:${fifa.personal.ovr+1}%;">
 					<div class="progress">${fifa.personal.ovr}</div>
 				</div>
 				<div class="label f k r" style="color:black">OVR</div>
@@ -264,7 +264,7 @@
 			</div>
 			<div class="ui divider"></div>
 			<div class="ui active progress" data-percent="100" style="display:flex;">
-				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds}" type="percent"/>; background-color:#2ecc40;">
+				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds+0.10}" type="percent"/>; background-color:#2ecc40;">
 					<div class="progress">${fifa.detail.stat.summaxwin} 승</div>
 				</div>
 				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.drawodds}" type="percent"/>; background-color:#ffe21f;">
@@ -353,8 +353,14 @@
 		</div>
 		<div class="ui segment">
 			<div class="ui active inverted ${fifa.personal.icon} progress" style="margin-top:10px;margin-bottom:0;">
-				<div class="bar" style="width:${fifa.personal.ovr}%;">
-					<div class="progress"><div class="ui meta f k r">${fifa.personal.position}<i class="dot circle outline ${fifa.personal.icon} icon"></i>${fifa.personal.ovr}</div></div>
+				<div class="bar" style="width:${fifa.personal.ovr+1}%;">
+					<div class="progress">
+						<div class="ui meta f k r" style="color:black;">
+							${fifa.personal.position}
+							<i class="dot circle outline ${fifa.personal.icon} icon"></i>
+							${fifa.personal.ovr}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -420,7 +426,7 @@
 			</div>
 			<div class="ui divider"></div>
 			<div class="ui active progress" data-percent="100" style="display:flex;">
-				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds}" type="percent"/>; background-color:#2ecc40;">
+				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.winodds+0.10}" type="percent"/>; background-color:#2ecc40;">
 					<div class="progress">${fifa.detail.stat.summaxwin} 승</div>
 				</div>
 				<div class="bar" style="width:<fmt:formatNumber value="${fifa.detail.stat.drawodds}" type="percent"/>; background-color:#ffe21f;">

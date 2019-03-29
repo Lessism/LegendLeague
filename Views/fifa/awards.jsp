@@ -3,7 +3,11 @@
 <section class="ui black segment container">
 <c:set var="rail" value="fifa"/>
 <%@ include file="../include/rail.jsp" %>
-	<h1 class="f k r"><a href="${path}/fifa.ll" style="color:black;">FIFA</a></h1>
+	<h1 class="f k r">
+		<a class="link f k r" href="${path}/fifa.ll">
+			FIFA
+		</a>
+	</h1>
 	<h4 class="f k r">
 		${fifa.award.season}/${f:substring(fifa.award.season+1, 2, 4)} Season
 		<c:choose>
@@ -43,7 +47,7 @@
 					<div class="ui divider"></div>
 					<div class="ui segment">
 						<div class="ui active inverted black progress">
-							<div class="bar" style="width:${fifa.award.champion.ovr}%;">
+							<div class="bar" style="width:${fifa.award.champion.ovr+1}%;">
 								<div class="progress">${fifa.award.champion.ovr}</div>
 							</div>
 							<div class="label f k r" style="color:black">OVR</div>
@@ -326,7 +330,7 @@
 					<div class="ui divider"></div>
 					<div class="ui segment">
 						<div class="ui active inverted black progress">
-							<div class="bar" style="width:${fifa.award.manager.ovr}%;">
+							<div class="bar" style="width:${fifa.award.manager.ovr+1}%;">
 								<div class="progress">${fifa.award.manager.ovr}</div>
 							</div>
 							<div class="label f k r" style="color:black">OVR</div>
@@ -538,7 +542,7 @@
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.ballondor.icon} progress">
-									<div class="bar" style="width:${fifa.award.ballondor.ovr}%;">
+									<div class="bar" style="width:${fifa.award.ballondor.ovr+1}%;">
 										<div class="progress"><div class="ui meta f k r">${fifa.award.ballondor.type} ${fifa.award.ballondor.ovr}</div></div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>
@@ -748,7 +752,7 @@
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.goalscorer.icon} progress">
-									<div class="bar" style="width:${fifa.award.goalscorer.ovr}%;">
+									<div class="bar" style="width:${fifa.award.goalscorer.ovr+1}%;">
 										<div class="progress"><div class="ui meta f k r">${fifa.award.goalscorer.type} ${fifa.award.goalscorer.ovr}</div></div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>
@@ -958,7 +962,7 @@
 							<div class="ui divider"></div>
 							<div class="ui segment">
 								<div class="ui active ${fifa.award.assistprovider.icon} progress">
-									<div class="bar" style="width:${fifa.award.assistprovider.ovr}%;">
+									<div class="bar" style="width:${fifa.award.assistprovider.ovr+1}%;">
 										<div class="progress"><div class="ui meta f k r">${fifa.award.assistprovider.type} ${fifa.award.assistprovider.ovr}</div></div>
 									</div>
 									<div class="label f k r" style="color:black">OVR</div>

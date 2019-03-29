@@ -4,7 +4,7 @@
 <c:set var="rail" value="fifa"/>
 <%@ include file="../include/rail.jsp" %>
 	<h1 class="f k r">
-		<a href="${path}/fifa.ll" style="color:black;">
+		<a class="link f k r" href="${path}/fifa.ll">
 			FIFA
 		</a>
 	</h1>
@@ -51,7 +51,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted black progress"style="margin-top:10px;">
-						<div class="bar" style="width:${fifa.fifaBestClub.ovr}%;">
+						<div class="bar" style="width:${fifa.fifaBestClub.ovr+1}%;">
 							<div class="progress f k r">
 								OVR <i class="dot circle outline white icon"></i>${fifa.fifaBestClub.ovr}
 							</div>
@@ -94,7 +94,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted ${fifa.fifaBestEleven[0].icon} progress"style="margin-top:10px;">
-						<div class="bar" style="width:${fifa.fifaBestEleven[0].ovr}%;">
+						<div class="bar" style="width:${fifa.fifaBestEleven[0].ovr+1}%;">
 							<div class="progress f k r" style="color:black;">
 								${fifa.fifaBestEleven[0].position} <i class="dot circle outline ${fifa.fifaBestEleven[0].icon} icon"></i>${fifa.fifaBestEleven[0].ovr}
 							</div>
@@ -137,7 +137,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted black progress"style="margin-top:10px;">
-						<div class="bar" style="width:${fifa.fifaBestManager.ovr}%;">
+						<div class="bar" style="width:${fifa.fifaBestManager.ovr+1}%;">
 							<div class="progress f k r">
 								OVR <i class="dot circle outline white icon"></i>${fifa.fifaBestManager.ovr}
 							</div>
@@ -182,7 +182,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted ${fifa.fifaBestEleven[3].icon} progress"style="margin-top:10px;">
-						<div class="bar" style="width:${fifa.fifaBestEleven[3].ovr}%;">
+						<div class="bar" style="width:${fifa.fifaBestEleven[3].ovr+1}%;">
 							<div class="progress f k r" style="color:black;">
 								${fifa.fifaBestEleven[3].position} <i class="dot circle outline ${fifa.fifaBestEleven[3].icon} icon"></i>${fifa.fifaBestEleven[3].ovr}
 							</div>
@@ -227,7 +227,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted ${player.icon} progress"style="margin-top:10px;">
-						<div class="bar" style="width:${player.ovr}%;">
+						<div class="bar" style="width:${player.ovr+1}%;">
 							<div class="progress f k r" style="color:black;">
 								${player.position} <i class="dot circle outline ${player.icon} icon"></i>${player.ovr}
 							</div>
@@ -275,7 +275,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted ${player.icon} progress"style="margin-top:10px;">
-						<div class="bar" style="width:${player.ovr}%;">
+						<div class="bar" style="width:${player.ovr+1}%;">
 							<div class="progress f k r" style="color:black;">
 								${player.position} <i class="dot circle outline ${player.icon} icon"></i>${player.ovr}
 							</div>
@@ -322,7 +322,7 @@
 				</div>
 				<div class="description">
 					<div class="ui active inverted ${player.icon} progress"style="margin-top:10px;">
-						<div class="bar" style="width:${player.ovr}%;">
+						<div class="bar" style="width:${player.ovr+1}%;">
 							<div class="progress f k r" style="color:black;">
 								${player.position} <i class="dot circle outline ${player.icon} icon"></i>${player.ovr}
 							</div>
