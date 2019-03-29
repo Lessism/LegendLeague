@@ -17,8 +17,9 @@
 			FIFA World Best Eleven
 		</h3>
 		<div class="ui divider"></div>
+	<div class="ui black segment f k r" style="background-image:url(${path}/image.ll?no=1000);">
 		<div class="ui three cards">
-			<div class="ui center aligned black card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned black card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #1b1c1d!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Club">
 						Club
@@ -61,7 +62,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ui center aligned ${fifa.fifaBestEleven[0].icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned ${fifa.fifaBestEleven[0].icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #fbbd08!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Player&type=${fifa.fifaBestEleven[0].type}">
 						${fifa.fifaBestEleven[0].position}
@@ -104,7 +105,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ui center aligned black card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned black card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #1b1c1d!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Manager">
 						Manager
@@ -149,7 +150,7 @@
 			</div>
 		</div>
 		<div class="ui four cards">
-			<div class="ui center aligned ${fifa.fifaBestEleven[3].icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned ${fifa.fifaBestEleven[3].icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #2185d0!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Player&type=${fifa.fifaBestEleven[3].type}">
 						${fifa.fifaBestEleven[3].position}
@@ -194,7 +195,7 @@
 			</div>
 		<c:forEach var="player" items="${fifa.fifaBestEleven}" begin="1" end="4" varStatus="idx">
 		<c:if test="${idx.index != 3}">
-			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #2185d0!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Player&type=${player.type}">
 						${player.position}
@@ -242,7 +243,7 @@
 		</div>
 		<div class="ui three cards">
 		<c:forEach var="player" items="${fifa.fifaBestEleven}" begin="5" end="7">
-			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #21ba45!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Player&type=${player.type}">
 						${player.position}
@@ -289,7 +290,7 @@
 		</div>
 		<div class="ui three cards">
 		<c:forEach var="player" items="${fifa.fifaBestEleven}" begin="8" end="10">
-			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px;">
+			<div class="ui center aligned ${player.icon} card segment" style="max-width:250px; margin:auto; margin-top:25px; margin-bottom:10px; border-top:5px solid #db2828!important;">
 				<div class="ui header f k r" style="margin:0; margin-top:10px;">
 					<a class="link f k r" href="${path}/fifa/information.ll?role=Player&type=${player.type}">
 						${player.position}
@@ -334,6 +335,7 @@
 			</div>
 		</c:forEach>
 		</div>
+	</div>
 	</div>
 </section>
 <jsp:include page="../include/footer.jsp"/>
