@@ -87,7 +87,7 @@
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards club" href="${path}/fifa/awards.ll?role=Club&award=champion&season=${fifa.season-1}">Legend League Champion</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Club">Information</a>
-						<a class="rail item f k r" href="${path}/league/ranking.ll">List</a>
+						<a class="rail item f k r" href="${path}/fifa/list.ll?role=Club">List</a>
 					</div>
 				</div>
 				<div class="ui divider"></div>
@@ -100,7 +100,7 @@
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards manager" href="${path}/fifa/awards.ll?role=Manager&award=manager&season=${fifa.season-1}">FIFA World Manager</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Manager">Information</a>
-						<a class="rail item f k r" href="${path}/league/history.ll?history=Season">List</a>
+						<a class="rail item f k r" href="${path}/fifa/list.ll?role=Manager">List</a>
 					</div>
 				</div>
 				<div class="ui divider"></div>
@@ -113,7 +113,7 @@
 					<div class="ui secondary vertical pointing menu">
 						<a class="rail item f k r awards player" href="${path}/fifa/awards.ll?role=Player&award=ballondor&season=${fifa.season-1}">FIFA World Player</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player">Information</a>
-						<a class="rail item f k r" href="${path}/fifa/list.ll?history=Season">List</a>
+						<a class="rail item f k r" href="${path}/fifa/list.ll?role=Player">List</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=FW"><i class="dot circle outline red icon"></i>Forward</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=MF"><i class="dot circle outline green icon"></i>Midfielder</a>
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=DF"><i class="dot circle outline blue icon"></i>Defender</a>
