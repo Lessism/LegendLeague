@@ -120,11 +120,6 @@
 						<a class="rail item f k r" href="${path}/fifa/information.ll?role=Player&type=GK"><i class="dot circle outline yellow icon"></i>Goalkeeper</a>
 					</div>
 				</div>
-				<div class="ui divider"></div>
-				<div class="ui icon input">
-					<input type="text" placeholder="Search">
-					<i class="search icon"></i>
-				</div>
 			</div>
 		</div>
 	</div>

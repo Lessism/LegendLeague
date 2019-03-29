@@ -7,7 +7,6 @@ $(function(){
 	})
 	
 	$('.opening, .playing, .ending').transition('set looping').transition('pulse', '2500ms')
-	;
 	
 	$('#rail, #subrail').sticky()
 	
@@ -29,20 +28,6 @@ $(function(){
 		}
 	}
 	
-/*
-	popup sample
-	
-		<div class="ui inverted flowing popup bottom left transition hidden">
-			<a class="item" href="${path}/fifa/list.ll?role=Club">Club</a>
-			<a class="item" href="${path}/fifa/list.ll?role=Manager">Manager</a>
-			<a class="item" href="${path}/fifa/list.ll?role=Player">Player</a>
-		</div>
-
-		$('#popup_fifa').popup({
-		hoverable : true
-		
-		})
-*/
 })
 </script>
 </body>
