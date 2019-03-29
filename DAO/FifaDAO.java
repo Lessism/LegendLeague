@@ -250,6 +250,20 @@ public class FifaDAO {
 			
 			return map;
 		}
+		
+		
+//	FIFA List
+	
+		public Map<String, Object> list(Map<String, Object> map) {
+
+			Map<String, Object> list = new HashMap<>(map);
+
+			map.put("season", db.selectOne("League.recency_season"));
+			map.put("countrylist", db.selectList("FIFA.country_list"));
+			map.put("list", list);
+			
+			return map;
+		}
 	
 	
 //	FIFA List
