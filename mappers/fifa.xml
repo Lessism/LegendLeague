@@ -199,35 +199,6 @@
 	</insert>
 	
 	
-<!--	 FIFA player round ranking score		-->
-	
-	<select id="playerroundrankscore" parameterType="map" resultType="map">
-	
-		SELECT
-			*
-		FROM 
-			Round r
-		INNER
-			JOIN Ranking rank
-			ON	r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', 1) = rank.club OR
-				r.season = rank.season and r.round = rank.round and SUBSTRING_INDEX(r.versus, '_', -1) = rank.club
-		INNER
-			JOIN (
-				SELECT 
-					*
-				FROM
-					Score
-				WHERE
-					player = #{name}
-			) AS s
-			ON	r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', 1) = s.club OR
-				r.season = s.season and r.round = s.round and SUBSTRING_INDEX(r.versus, '_', -1) = s.club
-		WHERE
-			rank.club = s.club
-	
-	</select>
-	
-	
 <!--	 FIFA Personal		-->
 	
 	<select id="personal" parameterType="map" resultType="map">
@@ -692,6 +663,143 @@
 		    ON stadium = std_name
 		WHERE
 			name = #{name}
+	
+	</select>
+	
+	
+<!--	 FIFA Best Club		-->
+	
+	<select id="fifa_best_club" resultType="map">
+	
+		SELECT
+			*, ovr + (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') rankpoint
+		FROM
+			Club
+		ORDER BY
+			rankpoint DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	 FIFA Best Manager		-->
+	
+	<select id="fifa_best_manager" resultType="map">
+	
+		SELECT
+			*, ovr + (CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion') * 2 rankpoint
+		FROM
+			Manager
+		ORDER BY
+			rankpoint DESC
+		LIMIT
+			1
+	
+	</select>
+	
+	
+<!--	 FIFA Best Eleven		-->
+	
+	<select id="fifa_best_eleven" resultType="map">
+	
+		SELECT
+			* 
+		FROM (
+			SELECT
+				name, profile, country, birth, height, weight, p.ovr fadf, club, po.position position, ovr, type, icon, ovr
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+			FROM
+				Player p
+			INNER
+				JOIN Position po
+				ON p.position = po.position
+			WHERE
+				type = 'GK'
+			ORDER BY
+				rankpoint DESC
+			LIMIT
+				1
+		) AS base
+		UNION (
+			SELECT
+				name, profile, country, birth, height, weight, p.ovr fadf, club, po.position position, ovr, type, icon, ovr
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+			FROM
+				Player p
+			INNER
+				JOIN Position po
+				ON p.position = po.position
+			WHERE
+				po.position = 'CB'
+			ORDER BY
+				rankpoint DESC
+			LIMIT
+				2
+		)
+		UNION (
+			SELECT
+				name, profile, country, birth, height, weight, p.ovr fadf, club, po.position position, ovr, type, icon, ovr
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+			FROM
+				Player p
+			INNER
+				JOIN Position po
+				ON p.position = po.position
+			WHERE
+				po.position = 'WB'
+			ORDER BY
+				rankpoint DESC
+			LIMIT
+				2
+		)
+		UNION (
+			SELECT
+				name, profile, country, birth, height, weight, p.ovr fadf, club, po.position position, ovr, type, icon, ovr
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+			FROM
+				Player p
+			INNER
+				JOIN Position po
+				ON p.position = po.position
+			WHERE
+				po.type = 'MF'
+			ORDER BY
+				rankpoint DESC
+			LIMIT
+				3
+		)
+		UNION (
+			SELECT
+				name, profile, country, birth, height, weight, p.ovr fadf, club, po.position position, ovr, type, icon, ovr
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Champion',''))) DIV CHAR_LENGTH('Champion')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Ballon Dor',''))) DIV CHAR_LENGTH('Ballon Dor')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Goal Scorer',''))) DIV CHAR_LENGTH('Goal Scorer')
+				+(CHAR_LENGTH(history)-CHAR_LENGTH(REPLACE(history,'Assist Provider',''))) DIV CHAR_LENGTH('Assist Provider') rankpoint
+			FROM
+				Player p
+			INNER
+				JOIN Position po
+				ON p.position = po.position
+			WHERE
+				po.type = 'FW'
+			ORDER BY
+				rankpoint DESC
+			LIMIT
+				3
+		)
 	
 	</select>
 	
