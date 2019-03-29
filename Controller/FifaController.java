@@ -1,7 +1,6 @@
 package com.lessism.legendleague.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +142,7 @@ public class FifaController {
 		public String leagueRoster(Model model) {
 			
 			Map<String, Object> map = null;
-			List<Map<String, Object>> clublist = fDAO.listFIFA(map);
+			Map<String, Object> clublist = fDAO.list(map);
 			Map<String, Object> roster = fDAO.infoLeague();
 			if(roster.get("roster") != null) {
 				roster.replace("roster", roster.get("roster").toString().split(","));

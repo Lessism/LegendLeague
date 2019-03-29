@@ -48,7 +48,7 @@ public class EditController {
 	
 		@RequestMapping(value="club.ll", method=RequestMethod.GET)
 		public ModelAndView editClub() {
-			return new ModelAndView("edit/club", "list", fDAO.listFIFA(null));
+			return new ModelAndView("edit/club", "list", fDAO.list(null));
 		}
 		
 		
