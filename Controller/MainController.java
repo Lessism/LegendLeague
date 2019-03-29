@@ -52,7 +52,7 @@ public class MainController {
 	
 		@RequestMapping("fifa.ll")
 		public ModelAndView fifa() {
-			return new ModelAndView("fifa/fifa", "fifa", lDAO.league());
+			return new ModelAndView("fifa/fifa", "fifa", fDAO.fifa());
 		}
 		
 		
