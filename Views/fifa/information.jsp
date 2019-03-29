@@ -262,9 +262,6 @@
 								</a>
 							</div>
 							<div class="description">
-										<div class="progress f k r" style="color:black">
-											${fifa.countryinfo.rankplayer[0].ovr}
-										</div>
 								<div class="ui active inverted ${fifa.role eq 'Manager' ? 'black' : fifa.information.rank[0].icon} progress"style="margin-top:10px;">
 									<div class="bar" style="width:${fifa.information.rank[0].ovr}%;">
 										<div class="progress f k r"  style="color:${fifa.role eq 'Player' ? 'black' : ''}">
