@@ -105,8 +105,8 @@ public class FifaController {
 //	FIFA List
 		
 		@RequestMapping(value="list.ll")
-		public ModelAndView listClub(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("fifa/list", "list", fDAO.listFIFA(map));
+		public ModelAndView list(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("fifa/list", "fifa", fDAO.list(map));
 		}
 		
 		
