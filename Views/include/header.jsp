@@ -20,35 +20,36 @@
 	<script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
 </head>
 <body>
-<header class="ui inverted vertical segment">
+<header class="ui inverted vertical segment f k r">
 	<div class="ui inverted menu container">
 		<div class="ui inverted left menu">
 			<a class="ui inverted button" href="https://github.com/Lessism">Lessism</a>
 		</div>
 		<div class="ui inverted secondary pointing right menu">
 			<s:authorize access="isAnonymous()">
-				<a class="nav item f k r" href="${path}/account/login.ll">Login</a>
-				<a class="nav item f k r" href="${path}/account/join.ll">Join</a>
+				<a class="nav item" href="${path}/account/login.ll">Login</a>
+				<a class="nav item" href="${path}/account/join.ll">Join</a>
 			</s:authorize>
 			<s:authorize access="isAuthenticated()">
 				<form id="logout_form" method="post" action="${path}/account/logout.ll">
-					<a class="item f k r" id="logout">Logout</a>
+					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="nav item f k r" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
+				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
 			</s:authorize>
 		</div>
 	</div>
-	<nav class="ui inverted secondary pointing menu container">
-		<a class="item f k r" id="menu">Menu</a>
-		<a class="nav item f k r" href="${path}/league.ll">League</a>
-		<a class="nav item f k r" href="${path}/fifa.ll">FIFA</a>
-		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Club&name=Barcelona">Club</a>
-		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Manager</a>
-		<a class="rail item f k r" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
+	<nav class="ui inverted secondary pointing menu container f k r">
+		<a class="item" id="menu">Menu</a>
+		<a class="ui inverted nav item" href="${path}/master.ll">Master</a>
+		<a class="nav item" href="${path}/league.ll">League</a>
+		<a class="nav item" href="${path}/fifa.ll">FIFA</a>
+		<a class="rail item" href="${path}/fifa/profile.ll?role=Club&name=Barcelona">Club</a>
+		<a class="rail item" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Manager</a>
+		<a class="rail item" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
 	</nav>
 </header>
-<div class="ui vertical inverted menu sidebar">
-	<a class="item f k r" href="${path}/edit/roster.ll">리그 편집</a>
-	<a class="item f k r" href="${path}/edit/club.ll">구단 편집</a>
+<div class="ui vertical inverted menu sidebar f k r">
+	<a class="item" href="${path}/edit/roster.ll">리그 편집</a>
+	<a class="item" href="${path}/edit/club.ll">구단 편집</a>
 </div>

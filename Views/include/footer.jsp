@@ -23,10 +23,29 @@ $(function(){
 	})
 	
 	for (i = 0; i < $('.nav.item').length; i++){
-		if ($('.nav.item').eq(i).attr('href') == window.location.pathname || $('.nav.item').eq(i).attr('href') == '/'+window.location.pathname.split('/')[1]+'/'+window.location.pathname.split('/')[2]+'.ll'){
-			$('.nav.item').eq(i).addClass('active')
+		
+		var menu = $('.nav.item').eq(i)
+		var path = window.location.pathname
+		
+		if (menu.attr('href') == path || menu.attr('href') == '/'+path.split('/')[1]+'/'+path.split('/')[2]+'.ll'){
+			menu.addClass('active')
+			if (menu.attr('href') == path){
+				$.post('/legendleague/visit', {menu : path.split('/')[2].split('.')[0]})
+			}
+			if (menu.attr('href') == '/'+path.split('/')[1]+'/'+path.split('/')[2]+'.ll'){
+				$.post('/legendleague/visit', {menu : path.split('/')[2], submenu : path.split('/')[3].split('.')[0]})
+			}
+			$.post('/legendleague/stay', function(data){
+				$('#visit_now').text(data)
+			})
 		}
 	}
+	
+	setInterval(function(){
+		$.post('/legendleague/stay', function(data){
+			$('#visit_now').text(data)
+		})
+	}, 5000)
 	
 })
 </script>
