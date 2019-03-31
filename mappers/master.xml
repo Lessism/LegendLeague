@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Master">
+
+
+<!--	Visit		-->
+	
+	<insert id="visit" parameterType="map">
+	
+		INSERT
+			INTO Visit (
+				session,
+				menu,
+				quit
+		<if test="submenu != null">, submenu</if>
+			)
+			VALUES (
+				#{session},
+				#{menu},
+				NOW()
+		<if test="submenu != null">, #{submenu}</if>
+			)
+	
+	</insert>
+
+
+<!--	Visit Check		-->
+	
+	<select id="visit_check" parameterType="map" resultType="boolean">
+	
+		SELECT EXISTS (
+			SELECT
+				session
+			FROM
+				Visit
+			WHERE
+				session = #{session}
+			LIMIT
+				1
+		)
+	
+	</select>
+
+
+<!--	Visit Next		-->
+	
+	<update id="visit_next" parameterType="map">
+	
+		UPDATE
+			Visit
+		SET
+			quit = NOW()
+		WHERE
+			session = #{session} AND
+		    visit = ( SELECT * FROM (
+						SELECT
+							MAX(visit)
+						FROM
+							Visit
+						WHERE
+							session = #{session}
+					) AS visit);
+					
+		INSERT
+			INTO Visit (
+				session,
+		        menu,
+				quit
+		<if test="submenu != null">, submenu</if>
+			)
+			VALUES (
+				#{session},
+				#{menu},
+				NOW()
+		<if test="submenu != null">, #{submenu}</if>
+			);
+	
+	</update>
+
+
+<!--	Visit Stay		-->
+	
+	<update id="visit_stay" parameterType="map">
+	
+		UPDATE
+			Visit
+		SET
+			quit = NOW()
+		WHERE
+			session = #{session} AND
+		    visit = ( SELECT * FROM (
+						SELECT
+							MAX(visit)
+						FROM
+							Visit
+						WHERE
+							session = #{session}
+					) AS visit);
+	
+	</update>
+
+
+<!--	Visit Total		-->
+	
+	<select id="visit_total" resultType="int">
+	
+		SELECT
+			COUNT(session)
+		FROM (
+			SELECT
+				*
+			FROM
+				Visit
+			GROUP BY
+				session
+		) AS total
+	
+	</select>
+
+
+<!--	Visit Total		-->
+	
+	<select id="visit_today" resultType="int">
+	
+		SELECT
+			COUNT(session)
+		FROM (
+			SELECT
+				*
+			FROM
+				Visit
+			WHERE
+				DATE(visit) = CURDATE()
+			GROUP BY
+				session
+		) AS today
+	
+	</select>
+
+
+<!--	Visit Total		-->
+	
+	<select id="visit_daily" resultType="map">
+	
+		SELECT
+			DATE(visit)-0 x, COUNT(session) y
+		FROM (
+			SELECT
+				session, MIN(visit) visit
+			FROM
+				Visit
+			GROUP BY
+				session
+		) AS session
+		GROUP BY
+			x
+	
+	</select>
+
+
+<!--	Visit Time		-->
+	
+	<select id="visit_time" resultType="map">
+	
+		SELECT
+			HOUR(visit) x, COUNT(DISTINCT(session)) y
+		FROM
+			Visit
+		WHERE
+			DATE(visit) = CURDATE()
+		GROUP BY
+			HOUR(visit)
+	
+	</select>
+
+
+<!--	Visit Week		-->
+	
+	<select id="visit_week" resultType="map">
+	
+		SELECT
+			CASE WEEKDAY(visit) 
+				WHEN '0' THEN '월'
+				WHEN '1' THEN '화'
+				WHEN '2' THEN '수'
+				WHEN '3' THEN '목'
+				WHEN '4' THEN '금'
+				WHEN '5' THEN '토'
+				WHEN '6' THEN '일'
+			END label, COUNT(DISTINCT(session)) / total * 100 y
+		FROM (
+			SELECT
+				session, visit, (
+					SELECT
+						COUNT(DISTINCT(session))
+					FROM
+						Visit
+				) AS total
+			FROM
+				Visit
+		) as visit
+		GROUP BY
+			WEEKDAY(visit)
+	
+	</select>
+
+
+<!--	Visit Year		-->
+	
+	<select id="visit_year" resultType="map">
+	
+		SELECT
+			YEAR(visit) x, COUNT(DISTINCT(session)) y
+		FROM
+			Visit
+		GROUP BY
+			YEAR(visit)
+	
+	</select>
+
+
+<!--	Visit Month		-->
+	
+	<select id="visit_month" resultType="map">
+	
+		SELECT
+			MONTH(visit) x, COUNT(DISTINCT(session)) y
+		FROM
+			Visit
+		GROUP BY
+			MONTH(visit)
+	
+	</select>
+
+
+<!--	Visit Day		-->
+	
+	<select id="visit_day" resultType="map">
+	
+		SELECT
+			DAY(visit) x, COUNT(DISTINCT(session)) y
+		FROM
+			Visit
+		GROUP BY
+			DAY(visit)
+	
+	</select>
+	
+	
+	
+</mapper>
