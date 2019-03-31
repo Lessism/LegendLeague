@@ -32,6 +32,14 @@ public class MainController {
 		}
 		
 		
+//	Master
+	
+		@RequestMapping("master.ll")
+		public ModelAndView master() {
+			return new ModelAndView("master/master", "master", null);
+		}
+		
+		
 //	Account
 	
 		@RequestMapping("account.ll")
@@ -64,7 +72,7 @@ public class MainController {
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(MediaType.IMAGE_JPEG);
 			
-			return  new ResponseEntity<byte[]>(fDAO.imageConvert(map), header, HttpStatus.OK);
+			return new ResponseEntity<byte[]>(fDAO.imageConvert(map), header, HttpStatus.OK);
 		}
 		
 		
