@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lessism.legendleague.Visit;
 import com.lessism.legendleague.dao.LeagueDAO;
 
 @RestController
-public class LeagueRestController {
+public class MainRestController {
 	
 	@Autowired
 	private LeagueDAO lDAO;
@@ -311,6 +314,70 @@ public class LeagueRestController {
 			
 			return map;
 		}
+		
+		
+//	Visit
+		
+		@RequestMapping(value="visit", produces="application/json")
+		public void visit(@RequestParam Map<String, Object> map, HttpSession session) {
+			
+			map.put("session", session.getId());
+			
+			if ((boolean) db.selectOne("Master.visit_check", map)) {
+				db.update("Master.visit_next", map);
+			} else {
+				db.insert("Master.visit", map);
+			}
+			
+			System.out.println("sessions : " + Visit.getSessions());
+			return;
+		}
+		
+		
+//	Stay
+		
+		@RequestMapping(value="stay", produces="application/json")
+		public int stay(@RequestParam Map<String, Object> map, HttpSession session) {
+			
+			session.setMaxInactiveInterval(60*5);
+			map.put("session", session.getId());
+			db.update("Master.visit_stay", map);
+			
+			return Visit.getSessions();
+		}
+		
+		
+//	Visit Chart
+		
+		@RequestMapping(value="visitChart", produces="application/json")
+		public List<Map<String, Object>> visitChart(@RequestParam Map<String, Object> map) {
+			
+			List<Map<String, Object>> chart = new ArrayList<>();
+			
+			if (map.get("type").equals("daily")) {
+				chart = db.selectList("Master.visit_daily");
+			} else if (map.get("type").equals("time")) {
+				chart = db.selectList("Master.visit_time");
+			} else if (map.get("type").equals("week")) {
+				chart = db.selectList("Master.visit_week");
+			} else if (map.get("type").equals("year")) {
+				chart = db.selectList("Master.visit_year");
+			} else if (map.get("type").equals("month")) {
+				chart = db.selectList("Master.visit_month");
+			} else if (map.get("type").equals("day")) {
+				chart = db.selectList("Master.visit_day");
+			}
+			
+			return chart;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 }
