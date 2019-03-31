@@ -35,7 +35,8 @@ public class SecurityDAO implements UserDetailsService {
 					(String)map.get("id"),
 					(String)map.get("pw"),
 					(String)map.get("name"),
-					role);
+					role
+					);
 		}
 
 }
