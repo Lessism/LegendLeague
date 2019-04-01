@@ -61,15 +61,48 @@
 			<div id="dailyChart" style="height:250px; width:100%;" style="font-family:Noto Serif KR"></div>
 		</div>
 		<div class="ui grid">
-			<div class="eight wide column">
+			<div class="eleven wide column">
 				<div class="ui black segment">
 					<div id="timeChart" style="height:250px; width: 100%;"></div>
 				</div>
-			</div>
-			<div class="eight wide column">
 				<div class="ui black segment">
 					<div id="weekChart" style="height:250px; width: 100%;"></div>
 				</div>
+			</div>
+			<div class="five wide column">
+				<table class="ui center aligned table">
+				<thead>
+					<tr>
+						<th colspan="2">Statistics</th>
+					</tr>
+				</thead>
+					<tbody>
+						<tr>
+							<th>총 방문자 수</th>
+							<td>${master.visit.listtotal.totalcount} 명</td>
+						</tr>
+						<tr>
+							<th>평균 방문자 수</th>
+							<td>${master.visit.listtotal.totalavgcount} 명</td>
+						</tr>
+						<tr>
+							<th>페이지 방문 수</th>
+							<td>${master.visit.listtotal.totalpage} 회</td>
+						</tr>
+						<tr>
+							<th>평균 페이지 방문 수</th>
+							<td>${master.visit.listtotal.totalavgmenucount} 회</td>
+						</tr>
+						<tr>
+							<th>머무르는 시간</th>
+							<td>${master.visit.listtotal.totalstay} 분</td>
+						</tr>
+						<tr>
+							<th>평균 머무르는 시간</th>
+							<td>${master.visit.listtotal.totalavgstay} 분</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -80,8 +113,9 @@
 $(function(){
 	
 	$.get('/legendleague/visitChart', {type : 'daily'}, function(daily){
-		if (!jQuery.isEmptyObject(daily)){
+		
 			var chart = new CanvasJS.Chart('dailyChart', {
+				
 				animationEnabled: true,
 				title:{
 					text		: 'Daily Visit',
@@ -92,9 +126,10 @@ $(function(){
 					content		: '{x} : {y}'
 				},
 				axisX	: {
-					valueFormatString	: '####년 ##월 ##일',
+					valueFormatString	: 'YYYY년 MM월 DD일',
 					labelFontFamily		: 'Noto Serif KR',
-					interval 			: 1,
+					intervalType		: 'day',
+					interval 			: 5,
 				},
 				axisY	: {
 					valueFormatString	: '# 명',
@@ -105,19 +140,21 @@ $(function(){
 					type				: 'splineArea',
 					color				: 'grey',
 					fontFamily			: 'Noto Serif KR',
-					xValueFormatString	: '####년 ##월 ##일',
+					xValueType			: 'dateTime',
+					xValueFormatString	: 'YYYY년 MM월 DD일',
 					yValueFormatString	: '# 명',
 					dataPoints			: daily
 				}]
 			})
 			chart.render()
 			$('.canvasjs-chart-credit').remove()
-		}
+			
 	}, 'json')
 	
 	$.get('/legendleague/visitChart', {type : 'time'}, function(time){
-		if (!jQuery.isEmptyObject(time)){
+		
 			var chart = new CanvasJS.Chart('timeChart', {
+				
 				animationEnabled: true,
 				title:{
 					text		: 'Time Line',
@@ -148,19 +185,21 @@ $(function(){
 			})
 			chart.render()
 			$('.canvasjs-chart-credit').remove()
-		}
+			
 	}, 'json')
 	
 	$.get('/legendleague/visitChart', {type : 'week'}, function(week){
-		if (!jQuery.isEmptyObject(week)){
-			console.log(week)
+		
 			var chart = new CanvasJS.Chart('weekChart', {
+				
 				animationEnabled: true,
 				title:{
 					text		: 'Week',
 					fontFamily	: 'Noto Serif KR'
 				},
 				legend:{
+					fontSize		: 15,
+					fontFamily		: 'Noto Serif KR',
 					horizontalAlign	: 'right',
 					verticalAlign	: 'center'
 				},
@@ -179,7 +218,7 @@ $(function(){
 			})
 			chart.render()
 			$('.canvasjs-chart-credit').remove()
-		}
+			
 	}, 'json')
 	
 })
