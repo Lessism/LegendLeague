@@ -82,9 +82,8 @@
 				</td>
 			</tr>
 		</c:forEach>
-        </tbody>
-    </table>
-    <div style="margin-bottom:250px"></div>
+		</tbody>
+	</table>
 </section>
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
