@@ -141,6 +141,30 @@
 	</select>
 
 
+<!--	Visit Today Toal		-->
+	
+	<select id="visit_today_total" resultType="map">
+	
+		SELECT
+			COUNT(session) visitor,
+            SUM(page) totalpage,
+            SUM(stay) totalstay,
+            ROUND(AVG(page)) avgpage,
+            ROUND(AVG(stay)) avgstay
+		FROM (
+			SELECT
+				*, COUNT(submenu) page, SUM(TIMESTAMPDIFF(MINUTE, visit, quit)) stay
+			FROM
+				Visit
+			WHERE
+				DATE(visit) = CURDATE()
+			GROUP BY
+				session
+		) AS today
+	
+	</select>
+
+
 <!--	Visit Daily		-->
 	
 	<select id="visit_daily" resultType="map">
