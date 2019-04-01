@@ -12,14 +12,15 @@
 			INTO Visit (
 				session,
 				menu,
-				quit
-		<if test="submenu != null">, submenu</if>
+				quit,
+				submenu
 			)
 			VALUES (
 				#{session},
 				#{menu},
-				NOW()
-		<if test="submenu != null">, #{submenu}</if>
+				NOW(),
+		<if test="submenu == null">#{menu}</if>
+		<if test="submenu != null">#{submenu}</if>
 			)
 	
 	</insert>
@@ -66,14 +67,15 @@
 			INTO Visit (
 				session,
 		        menu,
-				quit
-		<if test="submenu != null">, submenu</if>
+				quit,
+				submenu
 			)
 			VALUES (
 				#{session},
 				#{menu},
-				NOW()
-		<if test="submenu != null">, #{submenu}</if>
+				NOW(),
+		<if test="submenu == null">#{menu}</if>
+		<if test="submenu != null">#{submenu}</if>
 			);
 	
 	</update>
@@ -119,7 +121,7 @@
 	</select>
 
 
-<!--	Visit Total		-->
+<!--	Visit Today		-->
 	
 	<select id="visit_today" resultType="int">
 	
@@ -139,12 +141,12 @@
 	</select>
 
 
-<!--	Visit Total		-->
+<!--	Visit Daily		-->
 	
 	<select id="visit_daily" resultType="map">
 	
 		SELECT
-			DATE(visit)-0 x, COUNT(session) y
+			DATE(visit) x, COUNT(session) y
 		FROM (
 			SELECT
 				session, MIN(visit) visit
@@ -188,7 +190,7 @@
 				WHEN '4' THEN '금'
 				WHEN '5' THEN '토'
 				WHEN '6' THEN '일'
-			END label, COUNT(DISTINCT(session)) / total * 100 y
+			END label, ROUND(COUNT(DISTINCT(session)) / total * 100) y
 		FROM (
 			SELECT
 				session, visit, (
@@ -244,6 +246,217 @@
 			Visit
 		GROUP BY
 			DAY(visit)
+	
+	</select>
+
+
+<!--	Visit Menu		-->
+	
+	<select id="visit_menu" resultType="map">
+	
+		SELECT
+			UPPER(menu) label,
+		    ROUND(COUNT(menu) / (
+				SELECT
+					COUNT(menu)
+				FROM
+					Visit
+			) * 100) y
+		FROM
+			Visit
+		GROUP BY
+			menu
+		ORDER BY
+			y DESC
+	
+	</select>
+
+
+<!--	Visit Submenu		-->
+	
+	<select id="visit_submenu" parameterType="map" resultType="map">
+	
+		SELECT
+			UPPER(submenu) indexLabel, ROUND(COUNT(submenu) / (
+				SELECT
+					COUNT(menu)
+				FROM
+					Visit
+				WHERE
+					menu = #{menu}
+			) * 100) AS label, ROUND(COUNT(submenu) / (
+				SELECT
+					COUNT(menu)
+				FROM
+					Visit
+				WHERE
+					menu = #{menu}
+			) * 100) AS y
+		FROM
+			Visit
+		WHERE
+			menu = #{menu}
+		GROUP BY
+			submenu
+		ORDER BY
+			y ASC
+	
+	</select>
+
+
+<!--	Visit AVG Total		-->
+	
+	<select id="visit_avg_total" resultType="map">
+	
+		SELECT (
+			SELECT
+				ROUND(AVG(visitor)) avgyear
+			FROM (
+				SELECT
+					visit, COUNT(DISTINCT(session)) visitor, 'year'
+				FROM
+					Visit
+				GROUP BY
+					YEAR(visit)
+			) AS year
+			GROUP BY
+				year
+		) AS year, (
+			SELECT
+				ROUND(AVG(visitor)) avgmonth
+			FROM (
+				SELECT
+					visit, COUNT(DISTINCT(session)) visitor, 'month'
+				FROM
+					Visit
+				GROUP BY
+					MONTH(visit)
+			) AS month
+			GROUP BY
+				month
+		) AS month, (
+			SELECT
+				ROUND(AVG(visitor)) avgday
+			FROM (
+				SELECT
+					visit, COUNT(DISTINCT(session)) visitor, 'day'
+				FROM
+					Visit
+				GROUP BY
+					DAY(visit)
+			) AS day
+			GROUP BY
+				day
+		) AS day
+	
+	</select>
+
+
+<!--	Visit List Total		-->
+	
+	<select id="visit_list_total" resultType="map">
+	
+		SELECT
+			SUM(visitcount) totalcount,
+			SUM(visitpage) totalpage,
+		    SUM(visitstay) totalstay,
+		    ROUND(AVG(avgmenucount)) totalavgmenucount,
+		    ROUND(AVG(avgstay)) totalavgstay,
+		    ROUND(AVG(visitcount)) totalavgcount
+		FROM (
+			SELECT
+				 DATE(visit) visitday, COUNT(submenu) visitpage, SUM(TIMESTAMPDIFF(Minute, visit, quit)) visitstay
+			FROM
+				Visit
+			GROUP BY
+				visitday
+		) AS visit
+		INNER
+			JOIN (
+				SELECT
+					AVG(menucount) avgmenucount, AVG(stay) avgstay, COUNT(session) visitcount, DATE(visit) visitday
+				FROM (
+					SELECT
+						session, visit, COUNT(submenu) menucount, SUM(TIMESTAMPDIFF(Minute, visit, quit)) stay
+					FROM
+						Visit
+					GROUP BY
+						session
+				) as session
+				GROUP BY
+					DATE(visit)
+			) AS avg
+		ON visit.visitday = avg.visitday
+	
+	</select>
+
+
+<!--	Visit List		-->
+	
+	<select id="visit_list" resultType="map">
+	
+		SELECT
+			*
+		FROM (
+			SELECT
+				 DATE(visit) visitday, COUNT(submenu) visitpage, SUM(TIMESTAMPDIFF(Minute, visit, quit)) visitstay
+			FROM
+				Visit
+			GROUP BY
+				visitday
+		) AS visit
+		INNER
+			JOIN (
+				SELECT
+					ROUND(AVG(menucount)) avgmenucount, ROUND(AVG(stay)) avgstay, COUNT(session) visitcount, DATE(visit) visitday
+				FROM (
+					SELECT
+						session, visit, COUNT(submenu) menucount, SUM(TIMESTAMPDIFF(Minute, visit, quit)) stay
+					FROM
+						Visit
+					GROUP BY
+						session
+				) as session
+				GROUP BY
+					DATE(visit)
+			) AS avg
+		ON visit.visitday = avg.visitday
+	
+	</select>
+
+
+<!--	Visit Stay Menu		-->
+	
+	<select id="visit_stay_menu" parameterType="map" resultType="map">
+	
+		SELECT
+			UPPER(menu) menu, COUNT(menu) menucount, SUM(TIMESTAMPDIFF(MINUTE, visit, quit)) menustay
+		FROM
+			Visit
+		WHERE
+			menu = #{type}
+		GROUP BY
+			menu
+		ORDER BY
+			menustay DESC
+	
+	</select>
+
+
+<!--	Visit Stay Submenu		-->
+	
+	<select id="visit_stay_submenu" parameterType="map" resultType="map">
+	
+		SELECT
+			UPPER(submenu) menu, COUNT(submenu) menucount, SUM(TIMESTAMPDIFF(MINUTE, visit, quit)) menustay
+		FROM
+			Visit
+		WHERE
+			menu = #{type}
+		GROUP BY
+			submenu
+		ORDER BY
+			menustay DESC
 	
 	</select>
 	
