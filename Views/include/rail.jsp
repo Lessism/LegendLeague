@@ -230,6 +230,19 @@
 					<a class="rail item" href="${path}/master/date.ll">Date</a>
 					<a class="rail item" href="${path}/master/menu.ll">Menu</a>
 				</div>
+				<div class="ui divider"></div>
+			</div>
+			<div class="item">
+				<h4 class="f k r">
+					<a class="link f k r" href="${path}/master/edit.ll?role=Club">
+						Edit
+					</a>
+				</h4>
+				<div class="ui secondary vertical pointing menu container f k r">
+					<a class="rail item" href="${path}/master/edit.ll?role=Club">Club</a>
+					<a class="rail item" href="${path}/master/edit.ll?role=Manager">Manager</a>
+					<a class="rail item" href="${path}/master/edit.ll?role=Player">Player</a>
+				</div>
 			</div>
 		</div>
 	</div>

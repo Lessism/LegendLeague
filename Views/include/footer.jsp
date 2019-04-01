@@ -7,13 +7,15 @@ $(function(){
 		xhr.setRequestHeader($("meta[name='csrf_header']").attr("content"), $("meta[name='csrf_token']").attr("content"))
 	})
 	
-	$('.opening, .playing, .ending').transition('set looping').transition('pulse', '2500ms')
-	
 	$('#rail, #subrail').sticky()
 	
 	$('.dropdown').dropdown()
 	
+	$('.ui.modal').modal()
+	
 	$('.tabular.item').tab()
+	
+	$('.opening, .playing, .ending').transition('set looping').transition('pulse', '2500ms')
 	
 	$('#menu').click(function(){
 		$('.sidebar').sidebar('toggle')
