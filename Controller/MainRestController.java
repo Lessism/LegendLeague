@@ -366,6 +366,10 @@ public class MainRestController {
 				chart = db.selectList("Master.visit_month");
 			} else if (map.get("type").equals("day")) {
 				chart = db.selectList("Master.visit_day");
+			} else if (map.get("type").equals("menu")) {
+				chart = db.selectList("Master.visit_menu");
+			} else if (map.get("type").equals("submenu")) {
+				chart = db.selectList("Master.visit_submenu", map);
 			}
 			
 			return chart;

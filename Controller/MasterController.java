@@ -20,9 +20,9 @@ public class MasterController {
 	
 //	Visit
 	
-		@RequestMapping("visit.ll")
+		@RequestMapping("total.ll")
 		public ModelAndView visit(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("master/visit", "master", mDAO.visit(map));
+			return new ModelAndView("master/total", "master", mDAO.total(map));
 		}
 		
 		
@@ -31,6 +31,14 @@ public class MasterController {
 		@RequestMapping("date.ll")
 		public ModelAndView date(@RequestParam Map<String, Object> map) {
 			return new ModelAndView("master/date", "master", mDAO.date(map));
+		}
+		
+		
+//	Visit Menu
+	
+		@RequestMapping("menu.ll")
+		public ModelAndView menu(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("master/menu", "master", mDAO.menu(map));
 		}
 		
 }
