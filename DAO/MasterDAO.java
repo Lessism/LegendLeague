@@ -21,6 +21,7 @@ public class MasterDAO {
 			Map<String, Object> visit = new HashMap<>(map);
 			visit.put("total", db.selectOne("Master.visit_total"));
 			visit.put("today", db.selectOne("Master.visit_today"));
+			visit.put("todaytotal", db.selectOne("Master.visit_today_total"));
 			visit.put("listtotal", db.selectOne("Master.visit_list_total"));
 			
 			map.put("visit", visit);
@@ -66,6 +67,19 @@ public class MasterDAO {
 			
 			return map;
 		}
+		
+		
+//	Edit
+				
+			public Map<String, Object> edit(Map<String, Object> map) {
+				
+				Map<String, Object> edit = new HashMap<>(map);
+				
+				map.put("list", db.selectList("FIFA.list", map));
+				map.put("edit", edit);
+				
+				return map;
+			}
 	
 	
 }
