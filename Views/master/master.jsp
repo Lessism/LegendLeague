@@ -18,15 +18,6 @@
 		<%@	include file="../include/rail.jsp" %>
 	</div>
 	<div class="fourteen wide column">
-		<div>visit</div>
-			<div>방문자</div>
-			<div>방문 메뉴</div>
-			<div>금일 방문자</div>
-			<div>실시간 방문자</div>
-			<div>시간별 방문자</div>
-			<div>일별 방문자</div>
-			<div>요일별 방문자</div>
-			<div>월별 방문자</div>
 		<div>member</div>
 		<div>edit</div>
 			<div>가입비율</div>

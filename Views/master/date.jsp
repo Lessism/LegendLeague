@@ -18,30 +18,97 @@
 		<%@ include file="../include/rail.jsp" %>
 	</div>
 	<div class="thirteen wide column">
-		<div class="ui black segment">
+		<div class="ui black segment"><div class="ui three statistics">
+				<div class="ui statistic">
+					<div class="value">
+						<h2 class="f k r">
+							${master.visit.avgtotal.year} 명
+						</h2>
+					</div>
+					<div class="label">
+						<h5 class="f k r">
+							년 평균
+						</h5>
+					</div>
+				</div>
+				<div class="ui statistic">
+					<div class="value">
+						<h2 class="f k r">
+							${master.visit.avgtotal.month} 명
+						</h2>
+					</div>
+					<div class="label">
+						<h5 class="f k r">
+							월 평균
+						</h5>
+					</div>
+				</div>
+				<div class="ui statistic">
+					<div class="value">
+						<h2 class="f k r">
+							${master.visit.avgtotal.day} 명
+						</h2>
+					</div>
+					<div class="label">
+						<h5 class="f k r">
+							일 평균
+						</h5>
+					</div>
+				</div>
+			</div>
+			<div class="ui divider"></div>
 			<div class="ui three column grid">
 				<div class="column">
-					<div id="yearChart" style="height:250px; width:100%;"></div>
+					<div id="yearChart" style="height:300px; width:100%;"></div>
 				</div>
 				<div class="column">
-					<div id="monthChart" style="height:250px; width:100%;"></div>
+					<div id="monthChart" style="height:300px; width:100%;"></div>
 				</div>
 				<div class="column">
-					<div id="dayChart" style="height:250px; width:100%;"></div>
+					<div id="dayChart" style="height:300px; width:100%;"></div>
 				</div>
 			</div>
-		</div>
-		<div class="ui grid">
-			<div class="eight wide column">
-				<div class="ui black segment">
-					<div id="timeChart" style="height:250px; width: 100%;"></div>
-				</div>
-			</div>
-			<div class="eight wide column">
-				<div class="ui black segment">
-					<div id="weekChart" style="height:250px; width: 100%;"></div>
-				</div>
-			</div>
+			<table class="ui center aligned table">
+			<thead>
+				<tr>
+					<th colspan="6">Visit List</th>
+				</tr>
+				<tr>
+					<th>방문 일자</th>
+					<th>총 방문자</th>
+					<th>페이지 방문 수</th>
+					<th>인당 평균 페이지 방문 수</th>
+					<th>머무른 시간</th>
+					<th>인당 평균 머무른 시간</th>
+				</tr>
+			</thead>
+				<tbody>
+				<c:forEach var="map" items="${master.visit.list}">
+					<tr>
+						<th>${map.visitday}</th>
+						<td>${map.visitcount} 명</td>
+						<td>${map.visitpage} 회</td>
+						<td>${map.avgmenucount} 회</td>
+						<td>
+							<c:if test="${map.visitstay > 0}">
+								${map.visitstay} 분
+							</c:if>
+							<c:if test="${map.visitstay <= 0}">
+								1 분 미만
+							</c:if>
+						</td>
+						<td>
+							<c:if test="${map.avgstay > 0}">
+								${map.avgstay} 분
+							</c:if>
+							<c:if test="${map.avgstay <= 0}">
+								1 분 미만
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
@@ -66,7 +133,7 @@ $(function(){
 				axisX	: {
 					valueFormatString	: '####년',
 					labelFontFamily		: 'Noto Serif KR',
-					intervalType		: "year",
+					intervalType		: 'year',
 					interval			: 1
 				},
 				axisY	: {
@@ -108,7 +175,7 @@ $(function(){
 				axisX	: {
 					valueFormatString	: '##월',
 					labelFontFamily		: 'Noto Serif KR',
-					intervalType		: "month",
+					intervalType		: 'month',
 					interval			: 1
 				},
 				axisY	: {
@@ -150,8 +217,8 @@ $(function(){
 				axisX	: {
 					valueFormatString	: '##일',
 					labelFontFamily		: 'Noto Serif KR',
-					intervalType		: "day",
-					interval			: 1
+					intervalType		: 'day',
+					interval			: 5
 				},
 				axisY	: {
 					valueFormatString	: '# 명',
