@@ -71,9 +71,9 @@
 			</div>
 			<div class="five wide column">
 				<table class="ui center aligned table">
-				<thead>
+				<thead class="ui center aligned inverted table">
 					<tr>
-						<th colspan="2">Statistics</th>
+						<th colspan="2">Total</th>
 					</tr>
 				</thead>
 					<tbody>
@@ -86,7 +86,7 @@
 							<td>${master.visit.listtotal.totalavgcount} 명</td>
 						</tr>
 						<tr>
-							<th>페이지 방문 수</th>
+							<th>총 페이지 방문 수</th>
 							<td>${master.visit.listtotal.totalpage} 회</td>
 						</tr>
 						<tr>
@@ -94,12 +94,41 @@
 							<td>${master.visit.listtotal.totalavgmenucount} 회</td>
 						</tr>
 						<tr>
-							<th>머무르는 시간</th>
+							<th>머무른 시간</th>
 							<td>${master.visit.listtotal.totalstay} 분</td>
 						</tr>
 						<tr>
 							<th>평균 머무르는 시간</th>
 							<td>${master.visit.listtotal.totalavgstay} 분</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="ui center aligned table">
+				<thead class="ui center aligned inverted table">
+					<tr>
+						<th colspan="2">Today</th>
+					</tr>
+				</thead>
+					<tbody>
+						<tr>
+							<th>금일 방문자 수</th>
+							<td>${master.visit.todaytotal.visitor} 명</td>
+						</tr>
+						<tr>
+							<th>총 페이지 방문 수</th>
+							<td>${master.visit.todaytotal.totalpage} 회</td>
+						</tr>
+						<tr>
+							<th>평균 페이지 방문 수</th>
+							<td>${master.visit.todaytotal.avgpage} 회</td>
+						</tr>
+						<tr>
+							<th>머무른 시간</th>
+							<td>${master.visit.todaytotal.totalstay} 분</td>
+						</tr>
+						<tr>
+							<th>평균 머무르는 시간</th>
+							<td>${master.visit.todaytotal.avgstay} 분</td>
 						</tr>
 					</tbody>
 				</table>

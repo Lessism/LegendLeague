@@ -302,7 +302,7 @@
 			<div class="ui divider"></div>
 			<div class="ui grid">
 				<div class="ten wide column">
-					<div id="fifaChart" style="height:250px; width:90%;"></div>
+					<div id="fifaChart" style="height:400px; width:90%;"></div>
 				</div>
 				<div class="six wide column">
 					<table class="ui center aligned striped compact table">

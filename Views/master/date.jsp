@@ -70,7 +70,7 @@
 			</div>
 			<table class="ui center aligned table">
 			<thead>
-				<tr>
+				<tr class="ui center aligned inverted table">
 					<th colspan="6">Visit List</th>
 				</tr>
 				<tr>
