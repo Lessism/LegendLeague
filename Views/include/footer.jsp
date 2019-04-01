@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div style="margin-top:150px"><br></div>
 <script>
 $(function(){
 	
@@ -30,7 +31,11 @@ $(function(){
 		if (menu.attr('href') == path || menu.attr('href') == '/'+path.split('/')[1]+'/'+path.split('/')[2]+'.ll'){
 			menu.addClass('active')
 			if (menu.attr('href') == path){
-				$.post('/legendleague/visit', {menu : path.split('/')[2].split('.')[0]})
+				if (menu.text() == 'Login' || menu.text() == 'Join'){
+					$.post('/legendleague/visit', {menu : path.split('/')[2], submenu : path.split('/')[3].split('.')[0]})
+				} else{
+					$.post('/legendleague/visit', {menu : path.split('/')[2].split('.')[0]})
+				}
 			}
 			if (menu.attr('href') == '/'+path.split('/')[1]+'/'+path.split('/')[2]+'.ll'){
 				$.post('/legendleague/visit', {menu : path.split('/')[2], submenu : path.split('/')[3].split('.')[0]})

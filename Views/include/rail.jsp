@@ -209,7 +209,7 @@
 	</div>
 </c:if>
 <c:if test="${rail == 'master'}">
-	<div class="ui black segment">
+	<div class="ui black sticky segment" id="rail">
 		<div class="header">
 			<h4>
 				<a class="link f k r" href="${path}/master.ll">
@@ -226,9 +226,9 @@
 					</a>
 				</h4>
 				<div class="ui secondary vertical pointing menu container f k r">
-					<a class="rail item" href="${path}/master/visit.ll">Total</a>
+					<a class="rail item" href="${path}/master/total.ll">Total</a>
 					<a class="rail item" href="${path}/master/date.ll">Date</a>
-					<a class="rail item" href="${path}/master/visit.ll">Menu</a>
+					<a class="rail item" href="${path}/master/menu.ll">Menu</a>
 				</div>
 			</div>
 		</div>
