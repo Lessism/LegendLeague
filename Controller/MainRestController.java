@@ -376,6 +376,17 @@ public class MainRestController {
 		}
 		
 		
+//	Edit Modal
+			
+			@RequestMapping(value="editmodal", produces="application/json")
+			public Map<String, Object> editmodal(@RequestParam Map<String, Object> map) {
+				
+				map = db.selectOne("FIFA.personal", map);
+				
+				return map;
+			}
+		
+		
 		
 		
 		
