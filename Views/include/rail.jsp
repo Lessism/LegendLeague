@@ -247,6 +247,47 @@
 		</div>
 	</div>
 </c:if>
+<c:if test="${rail == 'portfolio'}">
+	<div class="ui left very close rail">
+		<div class="ui black sticky segment" id="rail">
+			<div class="header"><h3 class="f k r"><a class="link rail item f k r" href="${path}/portfolio.ll">Portfolio</a></h3></div>
+			<div class="ui divider"></div>
+			<div class="ui secondary vertical menu">
+				<div class="item">
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+							기술소개서
+						</a>
+					</h4>
+					<div class="ui divider"></div>
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">
+							Information
+						</a>
+					</h4>
+					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/fifa/profile.ll?role=${fifa.role}&name=${fifa.name}">Profile</a>
+						<a class="rail item f k r" href="${path}/fifa/detail.ll?role=${fifa.role}&name=${fifa.name}">Detail</a>
+						<c:if test="${fifa.role eq 'Club'}"><a class="rail item f k r" href="${path}/fifa/squad.ll?role=Club&name=${fifa.name}">Squad</a></c:if>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="item">
+					<h4 class="f k r">
+						<a class="link f k r" href="${path}/fifa/title.ll?role=${fifa.role}&name=${fifa.name}">
+							History
+						</a>
+					</h4>
+					<div class="ui secondary vertical pointing menu">
+						<a class="rail item f k r" href="${path}/fifa/title.ll?role=${fifa.role}&name=${fifa.name}">Title</a>
+						<a class="rail item f k r" href="${path}/fifa/award.ll?role=${fifa.role}&name=${fifa.name}">Award</a>
+						<a class="rail item f k r" href="${path}/fifa/record.ll?role=${fifa.role}&name=${fifa.name}">Record</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</c:if>
 <script>
 $(function(){
 	for (i = 0; i < $('.rail.item').length; i++){
