@@ -101,7 +101,7 @@
 				<div class="ui divider"></div>
 				<div class="ui name header f k r" style="margin:0;"></div>
 				<div class="ui country meta f k r">
-					<i></i>
+					<i id="countryicon"></i>
 					<span></span>
 				</div>
 				<div class="ui sub meta f k r">
@@ -109,11 +109,11 @@
 					<span></span>
 				</div>
 				<div class="description">
-					<div class="ui active inverted progress" style="margin-top:10px; margin-bottom:0;">
-						<div class="bar">
+					<div class="ui active inverted black progress" style="margin-top:10px; margin-bottom:0;">
+						<div class="bar" id="ovrbar">
 							<div class="progress f k r">
-								<span class="position"></span>
-								<i></i>
+								<span class="position">OVR</span>
+								<i class="dot circle outline white icon"></i>
 								<span class="ovr"></span>
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 							<label class="ui basic label llab f k r" for="name">
 								${master.role eq 'Club' ? '구단' : '이름'}
 							</label>
-							<input id="name" type="text">
+							<input name="name" id="name" type="text">
 						</div>
 					</div>
 					<div class="ui img field">
@@ -140,7 +140,7 @@
 								${master.role eq 'Club' ? '엠블럼' : '프로필'}
 							</label>
 							<div class="ui action input">
-								<input type="text" placeholder="Image" readonly>
+								<input class="filetext" type="text" placeholder="Image" readonly>
 								<input type="file" accept="image/*" name="img" id="image">
 								<div class="ui basic icon button">
 									<i class="attach icon"></i>
@@ -150,10 +150,10 @@
 					</div>
 					<div class="ui country field">
 						<div class="ui labeled input">
-							<label class="ui basic label llab f k r" for="country">국적</label>
+							<label class="ui basic label llab f k r country" for="country">국적</label>
 							<div class="ui fluid search selection dropdown">
-						  		<input type="hidden" name="country">
-								<div class="default text"></div>
+						  		<input type="hidden" name="country" id="country">
+								<div class="default text" id="phcountry"></div>
 								<i class="dropdown icon"></i>
 								<div class="menu">
 									<c:import url="../include/country.jsp"/>
@@ -172,7 +172,7 @@
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="stadium_img">구장 전경</label>
 							<div class="ui action input">
-								<input type="text" placeholder="Stadium Image" readonly>
+								<input class="filetext" type="text" placeholder="Stadium Image" readonly>
 								<input type="file" accept="image/*" name="img1" id="stadium_img">
 								<div class="ui icon button">
 									<i class="attach icon"></i>
@@ -192,20 +192,20 @@
 					<div class="ui height field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="height">키</label>
-							<input type="text" name="height" id="height">
+							<input type="text" name="height" id="height" maxlength="3">
 						</div>
 					</div>
 					<div class="ui weight field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="weight">몸무게</label>
-							<input type="text" name="weight" id="weight">
+							<input type="text" name="weight" id="weight" maxlength="3">
 						</div>
 					</div>
 					<c:if test="${master.role eq 'Manager'}">
 					<div class="ui tactic field">
 						<div class="ui labeled input">
-							<label class="ui basic label llab f k r" for="tactic">전술</label>
-							<div class="ui fluid search selection dropdown">
+							<label class="ui basic label llab f k r tactic" for="tactic">전술</label>
+							<div class="ui fluid search selection tactic dropdown">
 						  		<input type="hidden" name="tactic" id="tactic">
 								<div class="default text"></div>
 								<i class="dropdown icon"></i>
@@ -221,34 +221,84 @@
 					<c:if test="${master.role eq 'Player'}">
 					<div class="ui position field">
 						<div class="ui labeled input">
-							<label class="ui basic label llab f k r" for="position">포지션</label>
-							<div class="ui fluid search selection dropdown">
-						  		<input type="hidden" name="position">
+							<label class="ui basic label llab f k r position" for="position">포지션</label>
+							<div class="ui fluid search selection position dropdown">
+						  		<input type="hidden" name="position" id="position">
 								<div class="default text"></div>
 								<i class="dropdown icon"></i>
 								<div class="menu">
 									<div class="divider"></div>
 									<div class="header">Forward</div>
 									<div class="divider"></div>
-										<div class="item" data-value="ST"><i class="dot circle outline red icon"></i>Striker</div>
-										<div class="item" data-value="CF"><i class="dot circle outline red icon"></i>Center Foward</div>
-										<div class="item" data-value="WF"><i class="dot circle outline red icon"></i>Wing Foward</div>
+										<div class="item" data-value="ST">
+											<i class="dot circle outline red icon"></i>
+											Striker
+											<span class="poicon" style="display:none;">red</span>
+											<span class="poborder" style="display:none;">#db2828</span>
+										</div>
+										<div class="item" data-value="CF">
+											<i class="dot circle outline red icon"></i>
+											Center Foward
+											<span class="poicon" style="display:none;">red</span>
+											<span class="poborder" style="display:none;">#db2828</span>
+										</div>
+										<div class="item" data-value="WF">
+											<i class="dot circle outline red icon"></i>
+											Wing Foward
+											<span class="poicon" style="display:none;">red</span>
+											<span class="poborder" style="display:none;">#db2828</span>
+										</div>
 									<div class="divider"></div>
 									<div class="header">Midfielder</div>
 									<div class="divider"></div>
-										<div class="item" data-value="CM"><i class="dot circle outline green icon"></i>Center Midfielder</div>
-										<div class="item" data-value="DM"><i class="dot circle outline green icon"></i>Defensive Midfielder</div>
-										<div class="item" data-value="AM"><i class="dot circle outline green icon"></i>Attacking Midfielder</div>
-										<div class="item" data-value="WM"><i class="dot circle outline green icon"></i>Wing Midfielder</div>
+										<div class="item" data-value="CM">
+											<i class="dot circle outline green icon"></i>
+											Center Midfielder
+											<span class="poicon" style="display:none;">green</span>
+											<span class="poborder" style="display:none;">#21ba45</span>
+										</div>
+										<div class="item" data-value="DM">
+											<i class="dot circle outline green icon"></i>
+											Defensive Midfielder
+											<span class="poicon" style="display:none;">green</span>
+											<span class="poborder" style="display:none;">#21ba45</span>
+										</div>
+										<div class="item" data-value="AM">
+											<i class="dot circle outline green icon"></i>
+											Attacking Midfielder
+											<span class="poicon" style="display:none;">green</span>
+											<span class="poborder" style="display:none;">#21ba45</span>
+										</div>
+										<div class="item" data-value="WM">
+											<i class="dot circle outline green icon"></i>
+											Wing Midfielder
+											<span class="poicon" style="display:none;">green</span>
+											<span class="poborder" style="display:none;">#21ba45</span>
+										</div>
 									<div class="divider"></div>
 									<div class="header">Defender</div>
 									<div class="divider"></div>
-										<div class="item" data-value="CB"><i class="dot circle outline blue icon"></i>Centerback</div>
-										<div class="item" data-value="WB"><i class="dot circle outline blue icon"></i>Wingback</div>
+										<div class="item" data-value="CB">
+											<i class="dot circle outline blue icon"></i>
+											Centerback
+											<span class="poicon" style="display:none;">blue</span>
+											<span class="poborder" style="display:none;">#2185d0</span>
+										</div>
+										<div class="item" data-value="WB">
+											<i class="dot circle outline blue icon"></i>
+											Wingback
+											<span class="poicon" style="display:none;">blue</span>
+											<span class="poborder" style="display:none;">#2185d0</span>
+										</div>
 									<div class="divider"></div>
 									<div class="header">Goalkeeper</div>
 									<div class="divider"></div>
-										<div class="item" data-value="GK"><i class="dot circle outline yellow icon"></i>Goalkeeper</div>
+										<div class="item" data-value="GK">
+											<i class="dot circle outline yellow icon"></i>
+											Goalkeeper
+											<span class="poicon" style="display:none;">yellow</span>
+											<span class="poborder" style="display:none;">#fbbd08</span>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -260,7 +310,7 @@
 							<input type="text" name="ovr" id="ovr" maxlength="2">
 						</div>
 						<div class="ui float input">
-							<input type="range" name="ovr" id="ovr" min="1" max="99" value="11">
+							<input type="range" name="ovr" id="ovrrange" min="1" max="99">
 						</div>
 					</div>
 					</c:if>
@@ -273,7 +323,9 @@
 		</div>
 	</div>
 </div>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="${path}/resources/js/calendar.js"></script>
 <script>
 $(function(){
 	
@@ -290,22 +342,33 @@ $(function(){
 			modalcard.children('.ui.name.header').text(data.name)
 			modalcard.children('.ui.country.meta').children('span').text(data.country)
 			modalcard.children('.ui.country.meta').children('i').removeClass().addClass(data.country.toLowerCase() + ' flag')
+			progress.children('.bar').css('width', data.ovr+1+'%')
 			progress.children('.bar').children('.progress').children('span.ovr').text(data.ovr)
+			progress.children('.bar').children('.progress').children('span.position').text(data.position)
+			$('.ui.fluid.search.selection.dropdown').dropdown('set selected', data.country);
+			$('#name').val(data.name)
 			
 			if (inforole == 'Club'){
 				
 				modalcard.children().find('img.main.image').attr('src', '${path}/image.ll?no='+data.emblem)
 				modalcard.children('.ui.sub.meta').children('span').text(data.stadium)
 				modalcard.children().find('img.sub.image').attr('src', '${path}/image.ll?role=Stadium&name='+data.stadium)
+				$('#birth').val(data.birth)
+				$('#stadium').val(data.stadium)
 				
 			} else {
 
 				modalcard.children().find('img.main.image').attr('src', '${path}/image.ll?no='+data.profile)
 				modalcard.children('.ui.sub.meta').children('span').text(data.club)
 				modalcard.children().find('img.sub.image').attr('src', '${path}/image.ll?role=Club&name='+data.club)
-
+				$('#height').val(data.height)
+				$('#weight').val(data.weight)
+				$('#ovr').val(data.ovr)
+				$('#ovrrange').val(data.ovr)
+				
 				if (inforole == 'Manager'){
 					
+					$('.tactic.dropdown').dropdown('set selected', data.tactic)
 					
 				}
 				
@@ -315,17 +378,79 @@ $(function(){
 					modalcard.children('.ui.role.header').text(data.position)
 					progress.removeClass().addClass('ui active inverted progress ' + data.icon).children('.bar').css('width', data.ovr+1+'%')
 					progress.children('.bar').children('.progress').css('color', 'black').children('i').removeClass().addClass('dot circle outline icon ' + data.icon)
-					progress.children('.bar').children('.progress').children('span.position').text(data.position)
+					$('.position.dropdown').dropdown('set selected', data.position)
 					
 				}
 				
 			}
 			
+			$('.ui.modal').modal('show')
+			$('.labeled.input.calendar').calendar({
+				type : 'date'
+			})
+			$('#birth').val(data.birth)
+			
 		},'json')
 		
-		$('.ui.modal').modal('show')
 	})
 	
+	
+	$('.filetext, .attach.icon').click(function() {
+		$(this).parent().parent().find('input:file').click()
+	})
+	
+	$('label.country, label.position, label.tactic').click(function(){
+		$(this).siblings('div.dropdown').dropdown('show')
+	})
+	
+	$('#name, #stadium').keyup(function(){
+		if ($(this).attr('name') == 'name'){
+			$('.name.header').text($(this).val())
+		}
+		if ($(this).attr('name') == 'stadium'){
+			$('.sub.meta').children('span').text($(this).val())
+		}
+	})
+	
+	$('#country').change(function(){
+		$('#countryicon').removeClass().addClass($(this).val().toLowerCase() + ' flag').siblings('span').text($(this).val())
+	})
+	
+	$('#position').change(function(){
+
+		$('.ui.card.segment').css('border-top', '5px solid '+ $(this).siblings('.text').children('span.poborder').text())
+		$('.ui.card.segment').children('.ui.role.header').text($(this).val())
+		$('#ovrbar').parent().removeClass().addClass('ui active inverted progress ' + $(this).siblings('.text').children('span.poicon').text())
+		$('#ovrbar').children('.progress').css('color', 'black').children('i').removeClass().addClass('dot circle outline icon ' + $(this).siblings('.text').children('span.poicon').text())
+		
+	})
+	
+	$('input:file').on('change', function(e) {
+		$('input:text', $(e.target).parent()).val(e.target.files[0].name)
+		var img = $(this).attr('name')
+		var fileReader = new FileReader()
+		fileReader.readAsDataURL(e.target.files[0])
+		fileReader.onload = function(e) {
+			if (img == 'img'){
+				$('.main.image').attr('src', e.target.result)
+			}
+			if (img == 'img1'){
+				$('.sub.image').attr('src', e.target.result)
+			}
+		}
+	})
+	
+	$('#ovrrange').on('input', function(){
+		$('#ovr').val($(this).val())
+		$('#ovrbar').css('width', ($(this).val()+1)/10+'%')
+		$('#ovrbar').children('.progress').children('span.ovr').text($(this).val())
+	})
+	
+	$('#ovr').on('keyup', function(){
+		$('#ovrrange').val($(this).val())
+		$('#ovrbar').css('width', ($(this).val()+1)/10+'%')
+		$('#ovrbar').children('.progress').children('span.ovr').text($(this).val())
+	})
 	
 	$('#list').DataTable({
 		pageLength	: 15,
