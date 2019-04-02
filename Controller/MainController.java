@@ -76,11 +76,18 @@ public class MainController {
 		}
 		
 		
+//	Portfolio
+		
+		@RequestMapping("portfolio.ll")
+		public String portfolio() {
+			return "portfolio/portfolio";
+		}
+		
+		
 //	에러페이지
 		
 		@RequestMapping("/error_403.ll")
 		public String errorpage() {
-			
 			return "error_403";
 		}
 }
