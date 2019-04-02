@@ -36,7 +36,7 @@
 					<th>OVR</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="cursor: pointer">
 			<c:forEach var="role" items="${master.list}">
 				<tr class="edit">
 					<td style="display:none;"></td>
