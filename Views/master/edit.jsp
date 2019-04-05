@@ -317,8 +317,8 @@
 				</form>
 			</div>
 			<div class="actions">
-				<input class="ui black button f k r" type="button" value="수정">
-				<div class="ui button f k r">취소</div>
+				<input class="ui black button f k r" id="edit" type="button" value="수정">
+				<div class="ui button f k r" id="cancel">취소</div>
 			</div>
 		</div>
 	</div>
@@ -328,6 +328,15 @@
 <script src="${path}/resources/js/calendar.js"></script>
 <script>
 $(function(){
+	
+	$('#edit').click(function(){
+		//$.post
+	})
+	
+	$('#cancel').click(function(){
+		$('.ui.modal').modal('hide')
+	})
+	
 	
 	$('tr.edit').click(function(){
 		
