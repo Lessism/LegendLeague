@@ -485,5 +485,65 @@
 	</select>
 	
 	
+<!-- 	Edit	 -->
+
+	<insert id="edit" parameterType="map">
+			
+		<if test="role == 'Club'">
+		
+			UPDATE
+				${role}
+			SET
+				country	= #{country}
+			WHERE
+				name	= #{name};
+				
+			UPDATE
+				Stadium
+			SET
+				std_name = #{stadium}
+			WHERE
+				std_name = #{std_name};
+				
+		</if>
+		<if test="role != 'Club'">
+		
+			UPDATE
+				${role}
+			SET
+				country	= #{country},
+				birth	= #{birth},
+				height	= #{height},
+				weight	= #{weight},
+				ovr		= #{ovr}
+			<if test="tactic != null">, tactic = #{tactic}</if>
+			<if test="position != null">, position = #{position}</if>
+			WHERE
+				name	= #{name};
+			
+		</if>
+		<if test="img != null">
+		
+			UPDATE
+				Image
+			SET
+				img = #{img}
+			WHERE
+				img_no = #{img_no};
+				
+		</if>
+		<if test="img1 != null">
+				
+			UPDATE
+				Image
+			SET
+				img = #{img1}
+			WHERE
+				img_no = #{std_img};
+				
+		</if>
+	</insert>
+	
+	
 	
 </mapper>
