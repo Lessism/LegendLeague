@@ -207,6 +207,11 @@
 			*
 		FROM
 			${role} r
+		<if test="role == 'Club'">
+		INNER
+			JOIN Stadium s
+		    ON r.stadium = s.std_name
+		</if>
 		<if test="role == 'Player'">
 		LEFT
 			JOIN Position p
