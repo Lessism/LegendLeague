@@ -1,5 +1,6 @@
 package com.lessism.legendleague.restcontroller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lessism.legendleague.Visit;
 import com.lessism.legendleague.dao.LeagueDAO;
@@ -377,15 +379,36 @@ public class MainRestController {
 		
 		
 //	Edit Modal
-			
-			@RequestMapping(value="editmodal", produces="application/json")
-			public Map<String, Object> editmodal(@RequestParam Map<String, Object> map) {
-				
-				map = db.selectOne("FIFA.personal", map);
-				
-				return map;
-			}
 		
+		@RequestMapping(value="editmodal", produces="application/json")
+		public Map<String, Object> editmodal(@RequestParam Map<String, Object> map) {
+			
+			map = db.selectOne("FIFA.personal", map);
+			
+			return map;
+		}
+		
+			
+//	Edit
+
+		@RequestMapping(value="edit", produces="application/json")
+		public Map<String, Object> edit(
+				@RequestParam Map<String, Object> map,
+				MultipartHttpServletRequest img
+				) throws IOException {
+			
+			if (!img.getFile("img").isEmpty()) {
+				map.put("img", img.getFile("img").getBytes());
+			}
+			if (map.get("role").equals("Club") && !img.getFile("img1").isEmpty()) {
+				map.put("img1", img.getFile("img1").getBytes());
+			}
+			
+			db.update("Master.edit", map);
+			
+			return map;
+		}
+
 		
 		
 		

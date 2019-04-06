@@ -44,9 +44,9 @@ public class MasterController {
 		
 //	Edit
 		
-			@RequestMapping("edit.ll")
-			public ModelAndView edit(@RequestParam Map<String, Object> map) {
-				return new ModelAndView("master/edit", "master", mDAO.edit(map));
-			}
+		@RequestMapping("edit.ll")
+		public ModelAndView edit(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("master/edit", "master", mDAO.edit(map));
+		}
 		
 }
