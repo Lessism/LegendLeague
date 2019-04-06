@@ -38,9 +38,9 @@
 			</thead>
 			<tbody style="cursor: pointer">
 			<c:forEach var="role" items="${master.list}">
-				<tr class="edit">
+				<tr class="edit" id="${f:replace(role.name, ' ', '_')}">
 					<td style="display:none;"></td>
-					<td class="ui center aligned" style="width:10%;">
+					<td class="ui center aligned type" style="width:10%;">
 						<c:if test="${master.role eq 'Club'}">
 							${role.roster eq 1 ? '등록' : '미등록'}
 						</c:if>
@@ -57,11 +57,11 @@
 						<img class="ui avatar image"src="${path}/image.ll?role=${master.role}&name=${role.name}" style="max-width:20px; max-height:20px;">
 						<span>${role.name}</span>
 					</td>
-					<td style="width:15%;">
+					<td class="country" style="width:15%;">
 						<i class="${f:toLowerCase(role.country)} flag"></i>
-						${role.country}
+						<span>${role.country}</span>
 					</td>
-					<td class="ui center aligned" style="width:10%;">
+					<td class="ui center aligned age" style="width:10%;">
 						<c:if test="${master.role eq 'Club'}">
 							<fmt:formatDate value="${role.regdate}" pattern="yyyy년"/>
 						</c:if>
@@ -69,12 +69,12 @@
 							${f:split(role.age, '.')[0]} 세
 						</c:if>
 					</td>
-					<td class="ui center aligned" style="width:15%;">
+					<td class="ui center aligned ovr" style="width:15%;">
 						<div class="ui active inverted ${master.role eq 'Player' ? role.icon : 'black'} progress"style="margin:0px;">
 							<div class="bar" style="width:${role.ovr+1}%;">
 								<div class="progress f k r" style="color:${master.role eq 'Player' ? 'black' : ''}">
 									<i class="futbol icon"></i>
-									${role.ovr}
+									<span>${role.ovr}</span>
 								</div>
 							</div>
 						</div>
@@ -123,17 +123,11 @@
 		</div>
 		<div class="eleven wide column" style="padding:50px">
 			<div class="ui black segment">
-				<form class="ui form" id="information">
+				<form class="ui form" id="editform" method="post" action="${path}/edit?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 					<h3 class="f k r">Information</h3>
 					<div class="ui divider"></div>
-					<div class="ui name field">
-						<div class="ui fluid labeled input">
-							<label class="ui basic label llab f k r" for="name">
-								${master.role eq 'Club' ? '구단' : '이름'}
-							</label>
-							<input name="name" id="name" type="text">
-						</div>
-					</div>
+					<input type="hidden" name="role" value="${master.role}">
+					<input type="hidden" name="name" id="name">
 					<div class="ui img field">
 						<div class="ui labeled input">
 							<label class="ui basic label llab f k r" for="image">
@@ -142,6 +136,7 @@
 							<div class="ui action input">
 								<input class="filetext" type="text" placeholder="Image" readonly>
 								<input type="file" accept="image/*" name="img" id="image">
+								<input type="hidden" name="img_no" id="img_no">
 								<div class="ui basic icon button">
 									<i class="attach icon"></i>
 								</div>
@@ -166,6 +161,7 @@
 						<div class="ui labeled input field">
 							<label class="ui basic label llab f k r" for="stadium">구장</label>
 							<input type="text" name="stadium" id="stadium">
+							<input type="hidden" name="std_name" id="std_name">
 						</div>
 					</div>
 					<div class="ui stadium_img field">
@@ -174,6 +170,7 @@
 							<div class="ui action input">
 								<input class="filetext" type="text" placeholder="Stadium Image" readonly>
 								<input type="file" accept="image/*" name="img1" id="stadium_img">
+								<input type="hidden" name="std_img" id="std_img">
 								<div class="ui icon button">
 									<i class="attach icon"></i>
 								</div>
@@ -310,13 +307,13 @@
 							<input type="text" name="ovr" id="ovr" maxlength="2">
 						</div>
 						<div class="ui float input">
-							<input type="range" name="ovr" id="ovrrange" min="1" max="99">
+							<input type="range" id="ovrrange" min="1" max="99">
 						</div>
 					</div>
 					</c:if>
 				</form>
 			</div>
-			<div class="actions">
+			<div class="ui center aligned container actions">
 				<input class="ui black button f k r" id="edit" type="button" value="수정">
 				<div class="ui button f k r" id="cancel">취소</div>
 			</div>
@@ -330,7 +327,73 @@
 $(function(){
 	
 	$('#edit').click(function(){
-		//$.post
+		$.ajax({
+			url : '/legendleague/edit',
+            processData: false,
+            contentType: false,
+			data : new FormData($('#editform')[0]),
+			type : 'POST',
+			success : function(result){
+				$('.ui.modal').modal('hide')
+				
+				var row = '#'+result.name.replace(' ', '_')
+				
+				$(row).children('.name').children('img').attr('src', '${path}/image.ll?no='+result.img_no)
+				$(row).children('.country').children('span').text(result.country).siblings('i').removeClass().addClass(result.country.toLowerCase() + ' flag')
+				
+				if (result.role != 'Club'){
+					
+					dob = new Date(result.birth.replace(' ', '').replace('년', '-').replace('월', '-').replace('일', ''))
+					var today = new Date()
+					var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000))
+					
+					$(row).children('.age').text(age+'세')
+					
+					$(row).children('.ovr').children('div').children('div').css('width', (result.ovr+1)/10+'%').children('div').children('span').text(result.ovr)
+					
+				}
+				if (result.role == 'Manager'){
+					$(row).children('.type').text(result.tactic)
+				}
+				if (result.role == 'Player'){
+					
+				}
+				
+
+				/* <td class="ui center aligned type" style="width:10%;">
+					<c:if test="${master.role eq 'Manager'}">
+						${role.tactic}
+					</c:if>
+					<c:if test="${master.role eq 'Player'}">
+						<label class="ui ${role.icon} label llab f k r">
+							${role.type}
+						</label>
+					</c:if>
+				</td>
+				<td class="country" style="width:15%;">
+					<i class="${f:toLowerCase(role.country)} flag"></i>
+					${role.country}
+				</td>
+				<td class="ui center aligned age" style="width:10%;">
+					<c:if test="${master.role eq 'Club'}">
+						<fmt:formatDate value="${role.regdate}" pattern="yyyy년"/>
+					</c:if>
+					<c:if test="${master.role ne 'Club'}">
+						${f:split(role.age, '.')[0]} 세
+					</c:if>
+				</td>
+				<td class="ui center aligned ovr" style="width:15%;">
+					<div class="ui active inverted ${master.role eq 'Player' ? role.icon : 'black'} progress"style="margin:0px;">
+						<div class="bar" style="width:${role.ovr+1}%;">
+							<div class="progress f k r" style="color:${master.role eq 'Player' ? 'black' : ''}">
+								<i class="futbol icon"></i>
+								${role.ovr}
+							</div>
+						</div>
+					</div>
+				</td> */
+			}
+		})
 	})
 	
 	$('#cancel').click(function(){
@@ -354,7 +417,8 @@ $(function(){
 			progress.children('.bar').css('width', data.ovr+1+'%')
 			progress.children('.bar').children('.progress').children('span.ovr').text(data.ovr)
 			progress.children('.bar').children('.progress').children('span.position').text(data.position)
-			$('.ui.fluid.search.selection.dropdown').dropdown('set selected', data.country);
+			$('.filetext').val('')
+			$('.ui.fluid.search.selection.dropdown').dropdown('set selected', data.country)
 			$('#name').val(data.name)
 			
 			if (inforole == 'Club'){
@@ -363,7 +427,9 @@ $(function(){
 				modalcard.children('.ui.sub.meta').children('span').text(data.stadium)
 				modalcard.children().find('img.sub.image').attr('src', '${path}/image.ll?role=Stadium&name='+data.stadium)
 				$('#birth').val(data.birth)
-				$('#stadium').val(data.stadium)
+				$('#stadium, #std_name').val(data.std_name)
+				$('#img_no').val(data.emblem)
+				$('#std_img').val(data.std_img)
 				
 			} else {
 
@@ -374,6 +440,7 @@ $(function(){
 				$('#weight').val(data.weight)
 				$('#ovr').val(data.ovr)
 				$('#ovrrange').val(data.ovr)
+				$('#img_no').val(data.profile)
 				
 				if (inforole == 'Manager'){
 					
