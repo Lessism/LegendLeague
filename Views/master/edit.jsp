@@ -232,18 +232,27 @@
 											Striker
 											<span class="poicon" style="display:none;">red</span>
 											<span class="poborder" style="display:none;">#db2828</span>
+											<input type="hidden" name="potype" value="FW">
+											<input type="hidden" name="poicon" value="red">
+											<input type="hidden" name="poborder" value="#db2828">
 										</div>
 										<div class="item" data-value="CF">
 											<i class="dot circle outline red icon"></i>
 											Center Foward
 											<span class="poicon" style="display:none;">red</span>
 											<span class="poborder" style="display:none;">#db2828</span>
+											<input type="hidden" name="potype" value="FW">
+											<input type="hidden" name="poicon" value="red">
+											<input type="hidden" name="poborder" value="#db2828">
 										</div>
 										<div class="item" data-value="WF">
 											<i class="dot circle outline red icon"></i>
 											Wing Foward
 											<span class="poicon" style="display:none;">red</span>
 											<span class="poborder" style="display:none;">#db2828</span>
+											<input type="hidden" name="potype" value="FW">
+											<input type="hidden" name="poicon" value="red">
+											<input type="hidden" name="poborder" value="#db2828">
 										</div>
 									<div class="divider"></div>
 									<div class="header">Midfielder</div>
@@ -253,24 +262,36 @@
 											Center Midfielder
 											<span class="poicon" style="display:none;">green</span>
 											<span class="poborder" style="display:none;">#21ba45</span>
+											<input type="hidden" name="potype" value="MF">
+											<input type="hidden" name="poicon" value="green">
+											<input type="hidden" name="poborder" value="#21ba45">
 										</div>
 										<div class="item" data-value="DM">
 											<i class="dot circle outline green icon"></i>
 											Defensive Midfielder
 											<span class="poicon" style="display:none;">green</span>
 											<span class="poborder" style="display:none;">#21ba45</span>
+											<input type="hidden" name="potype" value="MF">
+											<input type="hidden" name="poicon" value="green">
+											<input type="hidden" name="poborder" value="#21ba45">
 										</div>
 										<div class="item" data-value="AM">
 											<i class="dot circle outline green icon"></i>
 											Attacking Midfielder
 											<span class="poicon" style="display:none;">green</span>
 											<span class="poborder" style="display:none;">#21ba45</span>
+											<input type="hidden" name="potype" value="MF">
+											<input type="hidden" name="poicon" value="green">
+											<input type="hidden" name="poborder" value="#21ba45">
 										</div>
 										<div class="item" data-value="WM">
 											<i class="dot circle outline green icon"></i>
 											Wing Midfielder
 											<span class="poicon" style="display:none;">green</span>
 											<span class="poborder" style="display:none;">#21ba45</span>
+											<input type="hidden" name="potype" value="MF">
+											<input type="hidden" name="poicon" value="green">
+											<input type="hidden" name="poborder" value="#21ba45">
 										</div>
 									<div class="divider"></div>
 									<div class="header">Defender</div>
@@ -280,12 +301,18 @@
 											Centerback
 											<span class="poicon" style="display:none;">blue</span>
 											<span class="poborder" style="display:none;">#2185d0</span>
+											<input type="hidden" name="potype" value="DF">
+											<input type="hidden" name="poicon" value="blue">
+											<input type="hidden" name="poborder" value="#2185d0">
 										</div>
 										<div class="item" data-value="WB">
 											<i class="dot circle outline blue icon"></i>
 											Wingback
 											<span class="poicon" style="display:none;">blue</span>
 											<span class="poborder" style="display:none;">#2185d0</span>
+											<input type="hidden" name="potype" value="DF">
+											<input type="hidden" name="poicon" value="blue">
+											<input type="hidden" name="poborder" value="#2185d0">
 										</div>
 									<div class="divider"></div>
 									<div class="header">Goalkeeper</div>
@@ -295,6 +322,9 @@
 											Goalkeeper
 											<span class="poicon" style="display:none;">yellow</span>
 											<span class="poborder" style="display:none;">#fbbd08</span>
+											<input type="hidden" name="potype" value="GK">
+											<input type="hidden" name="poicon" value="yellow">
+											<input type="hidden" name="poborder" value="#fbbd08">
 										</div>
 								</div>
 							</div>
@@ -324,6 +354,7 @@
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="${path}/resources/js/calendar.js"></script>
 <script>
+
 $(function(){
 	
 	$('#edit').click(function(){
@@ -334,21 +365,22 @@ $(function(){
 			data : new FormData($('#editform')[0]),
 			type : 'POST',
 			success : function(result){
+				
 				$('.ui.modal').modal('hide')
 				
 				var row = '#'+result.name.replace(' ', '_')
 				
+				$(row).removeClass().addClass('edit positive')
 				$(row).children('.name').children('img').attr('src', '${path}/image.ll?no='+result.img_no)
 				$(row).children('.country').children('span').text(result.country).siblings('i').removeClass().addClass(result.country.toLowerCase() + ' flag')
 				
 				if (result.role != 'Club'){
-					
-					dob = new Date(result.birth.replace(' ', '').replace('년', '-').replace('월', '-').replace('일', ''))
+
 					var today = new Date()
-					var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000))
+					var birth = new Date(result.birth.replace(' ', '').replace('년', '-').replace('월', '-').replace('일', ''))
+					var age = Math.floor((today-birth) / (365.25 * 24 * 60 * 60 * 1000))
 					
 					$(row).children('.age').text(age+'세')
-					
 					$(row).children('.ovr').children('div').children('div').css('width', (result.ovr+1)/10+'%').children('div').children('span').text(result.ovr)
 					
 				}
@@ -356,42 +388,12 @@ $(function(){
 					$(row).children('.type').text(result.tactic)
 				}
 				if (result.role == 'Player'){
-					
+					$(row).children('.type').children('label').removeClass().addClass('ui label llab f k r '+ result.poicon).text(result.potype)
+					$(row).children('.ovr').children('div').removeClass().addClass('ui active inverted progress ' + result.poicon)
 				}
-				
 
-				/* <td class="ui center aligned type" style="width:10%;">
-					<c:if test="${master.role eq 'Manager'}">
-						${role.tactic}
-					</c:if>
-					<c:if test="${master.role eq 'Player'}">
-						<label class="ui ${role.icon} label llab f k r">
-							${role.type}
-						</label>
-					</c:if>
-				</td>
-				<td class="country" style="width:15%;">
-					<i class="${f:toLowerCase(role.country)} flag"></i>
-					${role.country}
-				</td>
-				<td class="ui center aligned age" style="width:10%;">
-					<c:if test="${master.role eq 'Club'}">
-						<fmt:formatDate value="${role.regdate}" pattern="yyyy년"/>
-					</c:if>
-					<c:if test="${master.role ne 'Club'}">
-						${f:split(role.age, '.')[0]} 세
-					</c:if>
-				</td>
-				<td class="ui center aligned ovr" style="width:15%;">
-					<div class="ui active inverted ${master.role eq 'Player' ? role.icon : 'black'} progress"style="margin:0px;">
-						<div class="bar" style="width:${role.ovr+1}%;">
-							<div class="progress f k r" style="color:${master.role eq 'Player' ? 'black' : ''}">
-								<i class="futbol icon"></i>
-								${role.ovr}
-							</div>
-						</div>
-					</div>
-				</td> */
+				$(row).transition('pulse')
+				
 			}
 		})
 	})
