@@ -536,7 +536,7 @@ $(function(){
 			search		: '',
             zeroRecords	: '일치하는 결과를 찾을 수 없습니다.',
             paginate	: {
-            	previous	: "Prev"
+            	previous	: 'Prev'
             }
 		}
 	})
