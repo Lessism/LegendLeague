@@ -239,6 +239,7 @@
 					</a>
 				</h4>
 				<div class="ui secondary vertical pointing menu container f k r">
+					<a class="rail item" href="${path}/master/roster.ll">Roster</a>
 					<a class="rail item" href="${path}/master/edit.ll?role=Club">Club</a>
 					<a class="rail item" href="${path}/master/edit.ll?role=Manager">Manager</a>
 					<a class="rail item" href="${path}/master/edit.ll?role=Player">Player</a>
