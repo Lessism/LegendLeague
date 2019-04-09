@@ -70,16 +70,41 @@ public class MasterDAO {
 		
 		
 //	Edit
-				
-			public Map<String, Object> edit(Map<String, Object> map) {
-				
-				Map<String, Object> edit = new HashMap<>(map);
-				
-				map.put("list", db.selectList("FIFA.list", map));
-				map.put("edit", edit);
-				
-				return map;
-			}
-	
-	
+			
+		public Map<String, Object> edit(Map<String, Object> map) {
+			
+			Map<String, Object> edit = new HashMap<>(map);
+			
+			map.put("list", db.selectList("FIFA.list", map));
+			map.put("edit", edit);
+			
+			return map;
+		}
+		
+		
+//	Edit Roster
+			
+		public Map<String, Object> roster(Map<String, Object> map) {
+			
+			Map<String, Object> roster = new HashMap<>(map);
+			roster.put("list", db.selectList("Master.roster", map));
+			roster.put("unlisted", db.selectList("Master.unrosted", map));
+			
+			map.put("roster", roster);
+			
+			return map;
+		}
+		
+		public Map<String, Object> editRoster(Map<String, Object> map) {
+			
+			Map<String, Object> roster = new HashMap<>(map);
+			roster.put("list", db.selectList("Master.roster", map));
+			roster.put("unlisted", db.selectList("Master.unrosted", map));
+			
+			map.put("roster", roster);
+			
+			return map;
+		}
+		
+		
 }
