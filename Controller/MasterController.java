@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,4 +50,17 @@ public class MasterController {
 			return new ModelAndView("master/edit", "master", mDAO.edit(map));
 		}
 		
+		
+//	Edit Roster
+		
+		@RequestMapping(value="roster.ll", method=RequestMethod.GET)
+		public ModelAndView roster(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("master/roster", "master", mDAO.roster(map));
+		}
+
+		@RequestMapping(value="roster.ll", method=RequestMethod.POST)
+		public ModelAndView editRoster(@RequestParam Map<String, Object> map) {
+			return new ModelAndView("master/roster", "master", mDAO.editRoster(map));
+		}
+	
 }
