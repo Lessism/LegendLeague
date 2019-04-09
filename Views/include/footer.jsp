@@ -15,8 +15,6 @@ $(function(){
 	
 	$('.tabular.item').tab()
 	
-	$('.opening, .playing, .ending').transition('set looping').transition('pulse', '2500ms')
-	
 	$('#menu').click(function(){
 		$('.sidebar').sidebar('toggle')
 	})
