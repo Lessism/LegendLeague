@@ -59,8 +59,19 @@ public class MasterController {
 		}
 
 		@RequestMapping(value="roster.ll", method=RequestMethod.POST)
-		public ModelAndView editRoster(@RequestParam Map<String, Object> map) {
-			return new ModelAndView("master/roster", "master", mDAO.editRoster(map));
+		public String editRoster(
+				@RequestParam Map<String, Object> map,
+				@RequestParam("roster") String roster
+				) {
+			
+			if (roster != null) {
+				map.put("roster", roster);
+				map.put("rosterlist", roster.split(","));
+			}
+			
+			mDAO.editRoster(map);
+
+			return "redirect:roster.ll";
 		}
 	
 }
