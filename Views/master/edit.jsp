@@ -48,7 +48,7 @@
 							${role.tactic}
 						</c:if>
 						<c:if test="${master.role eq 'Player'}">
-							<label class="ui ${role.icon} label llab f k r">
+							<label class="ui ${role.icon} label llab f k r" style="cursor:pointer;">
 								${role.type}
 							</label>
 						</c:if>
@@ -344,6 +344,9 @@
 				</form>
 			</div>
 			<div class="ui center aligned container actions">
+				<c:if test="${master.role eq 'Club'}">
+					<a class="ui black button f k r" id="roster">로스터</a>
+				</c:if>
 				<input class="ui black button f k r" id="edit" type="button" value="수정">
 				<div class="ui button f k r" id="cancel">취소</div>
 			</div>
@@ -368,7 +371,7 @@ $(function(){
 				
 				$('.ui.modal').modal('hide')
 				
-				var row = '#'+result.name.replace(' ', '_')
+				var row = '#'+result.name.replace(/ /g, '_')
 				
 				$(row).removeClass().addClass('edit positive')
 				$(row).children('.name').children('img').attr('src', '${path}/image.ll?no='+result.img_no)
@@ -432,6 +435,7 @@ $(function(){
 				$('#stadium, #std_name').val(data.std_name)
 				$('#img_no').val(data.emblem)
 				$('#std_img').val(data.std_img)
+				$('#roster').attr('href', '${path}/master/roster.ll?name='+data.name)
 				
 			} else {
 
