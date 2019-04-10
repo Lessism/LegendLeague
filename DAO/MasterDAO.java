@@ -87,23 +87,24 @@ public class MasterDAO {
 		public Map<String, Object> roster(Map<String, Object> map) {
 			
 			Map<String, Object> roster = new HashMap<>(map);
-			roster.put("list", db.selectList("Master.roster", map));
-			roster.put("unlisted", db.selectList("Master.unrosted", map));
 			
+			if (!roster.containsKey("name")) {
+				roster.put("list", db.selectList("Master.roster", map));
+				roster.put("unrosted", db.selectList("Master.unrosted", map));
+			} else {
+				roster.put("manager", db.selectOne("Master.rosterManager", map));
+				roster.put("player", db.selectList("Master.rosterPlayer", map));
+				roster.put("unrostedManager", db.selectList("Master.unrostedManager", map));
+				roster.put("unrostedPlayer", db.selectList("Master.unrostedPlayer", map));
+			}
+				
 			map.put("roster", roster);
 			
 			return map;
 		}
 		
-		public Map<String, Object> editRoster(Map<String, Object> map) {
-			
-			Map<String, Object> roster = new HashMap<>(map);
-			roster.put("list", db.selectList("Master.roster", map));
-			roster.put("unlisted", db.selectList("Master.unrosted", map));
-			
-			map.put("roster", roster);
-			
-			return map;
+		public int editRoster(Map<String, Object> map) {
+			return db.update("Master.editRoster", map);
 		}
 		
 		
