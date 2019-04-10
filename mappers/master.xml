@@ -572,6 +572,222 @@
 			roster = 0
 	
 	</select>
+
+
+<!--	Roster Club		-->
+	
+	<select id="rosterManager" parameterType="map" resultType="map">
+	
+		SELECT
+			*, YEAR(NOW()) - birth + 0 age
+		FROM
+			Manager
+		WHERE
+			club = #{name}
+	
+	</select>
+	<select id="rosterPlayer" parameterType="map" resultType="map">
+	
+		SELECT
+			*, YEAR(NOW()) - birth + 0 age
+		FROM
+			Player r
+		INNER
+			JOIN Position p
+			ON r.position = p.position
+		WHERE
+			club = #{name}
+		ORDER BY
+			p.no ASC
+	
+	</select>
+
+
+<!--	Unrosted Club		-->
+	
+	<select id="unrostedManager" parameterType="map" resultType="map">
+	
+		SELECT
+			*, YEAR(NOW()) - birth + 0 age
+		FROM
+			Manager
+		WHERE
+			club IS NULL
+		ORDER BY
+			ovr DESC, name ASC
+	
+	
+	</select>
+	<select id="unrostedPlayer" parameterType="map" resultType="map">
+	
+		SELECT
+			*, YEAR(NOW()) - birth + 0 age
+		FROM
+			Player r
+		INNER
+			JOIN Position p
+			ON r.position = p.position
+		WHERE
+			club IS NULL
+		ORDER BY
+			ovr DESC, name ASC
+	
+	</select>
+
+
+<!--	Edit Roster		-->
+	
+	<update id="editRoster" parameterType="map">
+	
+		<if test="name == null">
+		
+			UPDATE
+				League
+			SET
+				club0 = null,
+				club1 = null,
+				club2 = null,
+				club3 = null,
+				club4 = null,
+				club5 = null,
+				club6 = null,
+				club7 = null,
+				club8 = null,
+				club9 = null
+			WHERE
+				name = 'Legend League';
+			
+			UPDATE
+				Club
+			SET
+				roster = 0
+			WHERE
+				roster = 1;
+			
+			UPDATE
+				Season
+			SET
+				roster = #{roster}
+			WHERE
+				season =
+					(
+						SELECT
+							*
+						FROM
+							(
+								SELECT
+									MAX(season)
+								FROM
+									Season
+							) AS a
+					);
+			
+			<if test="rosterlist != null">
+				<foreach collection="rosterlist" index="idx" separator=";">
+				
+					UPDATE
+						League
+					SET
+						club${idx} = #{rosterlist[${idx}]}
+					WHERE
+						name = 'Legend League';
+				
+					UPDATE
+						Club
+					SET
+						roster = 1
+					WHERE
+						name = #{rosterlist[${idx}]}
+				
+				</foreach>
+			</if>
+		</if>
+		<if test="name != null">
+		
+			UPDATE
+				Club
+			SET
+				manager = #{manager},
+				player0 = null,
+				player1 = null,
+				player2 = null,
+				player3 = null,
+				player4 = null,
+				player5 = null,
+				player6 = null,
+				player7 = null,
+				player8 = null,
+				player9 = null,
+				player10 = null
+			WHERE
+				name = #{name};
+			
+			UPDATE
+				Manager
+			SET
+				club = null
+			WHERE
+				club = #{name};
+				
+			UPDATE
+				Player
+			SET
+				club = null
+			WHERE
+				club = #{name};
+			
+			UPDATE
+				Manager
+			SET
+				club = #{name}
+			WHERE
+				name = #{manager};
+			
+			<if test="rosterlist != null">
+				<foreach collection="rosterlist" index="idx" separator=";" close=";">
+				
+					UPDATE
+						Club
+					SET
+						player${idx} = #{rosterlist[${idx}]}
+					WHERE
+						name = #{name};
+				
+					UPDATE
+						Player
+					SET
+						club = #{name}
+					WHERE
+						name = #{rosterlist[${idx}]}
+				
+				</foreach>
+			</if>
+			
+			UPDATE
+				Club
+			SET
+				ovr =
+					((
+						SELECT
+							AVG(ovr)
+						FROM
+							Player
+						WHERE
+							club = #{name}
+					) + (
+						SELECT
+							ovr
+						FROM
+							Manager
+						WHERE
+							club = #{name}
+					)) / 2
+			WHERE
+				name = #{name}
+		
+		</if>
+	
+	</update>
 	
 	
 	
