@@ -49,7 +49,4 @@
 		<a class="rail item" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
 	</nav>
 </header>
-<div class="ui vertical inverted menu sidebar f k r">
-	<a class="item" href="${path}/edit/roster.ll">리그 편집</a>
-	<a class="item" href="${path}/edit/club.ll">구단 편집</a>
-</div>
+<%@ include file="../include/sidebar.jsp" %>

@@ -221,7 +221,7 @@
 		<div class="ui secondary vertical menu">
 			<div class="item">
 				<h4 class="f k r">
-					<a class="link f k r" href="${path}/master/visit.ll">
+					<a class="link f k r" href="${path}/master/total.ll">
 						Visit
 					</a>
 				</h4>
@@ -234,7 +234,7 @@
 			</div>
 			<div class="item">
 				<h4 class="f k r">
-					<a class="link f k r" href="${path}/master/edit.ll?role=Club">
+					<a class="link f k r" href="${path}/master/roster.ll">
 						Edit
 					</a>
 				</h4>
