@@ -61,7 +61,7 @@ public class MasterController {
 		@RequestMapping(value="roster.ll", method=RequestMethod.POST)
 		public String editRoster(
 				@RequestParam Map<String, Object> map,
-				@RequestParam("roster") String roster
+				@RequestParam(value="roster", required=false) String roster
 				) {
 			
 			if (roster != null) {
@@ -70,7 +70,11 @@ public class MasterController {
 			}
 			
 			mDAO.editRoster(map);
-
+			
+			if (map.containsKey("name")) {
+				return "redirect:roster.ll?name="+map.get("name");
+			}
+			
 			return "redirect:roster.ll";
 		}
 	
