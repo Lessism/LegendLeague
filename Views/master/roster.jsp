@@ -290,7 +290,7 @@
 		<div class="ui divider"></div>
 		<div class="ui center aligned container">
 			<input class="ui black button f k r" id="edit" type="button" value="수정">
-			<div class="ui button f k r" id="cancel">취소</div>
+			<a class="ui button f k r" id="cancel" href="">취소</a>
 		</div>
 	</div>
 </div>
