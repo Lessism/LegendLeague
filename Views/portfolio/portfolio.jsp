@@ -165,7 +165,7 @@
 						보완해야 할 항목
 					</h4>
 					<div class="ui divider"></div>
-						<h6 class="f k r">Master / 메인 페이지, Edit 로스터 수정, 회원정보 수정</h6>
+						<h6 class="f k r">Validate / 회원가입, 로그인, 리그 진행 도중 로스터 편집 불가능</h6>
 						<h6 class="f k r">FIFA Member / 기본 팀 추가, 회원정보 및 상호작용</h6>
 					</div>
 					<div class="ui center aligned column">
