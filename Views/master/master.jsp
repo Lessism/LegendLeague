@@ -18,13 +18,40 @@
 		<%@	include file="../include/rail.jsp" %>
 	</div>
 	<div class="fourteen wide column">
-		<div>member</div>
-		<div>edit</div>
-			<div>가입비율</div>
-			<div>클럽</div>
-			<div>매니저</div>
-			<div>선수</div>
-		<div>item</div>
+		<div class="ui black segment">
+			<h4 class="ui header f k r">
+				Project
+			</h4>
+			<div class="ui divider"></div>
+					<div class="ui active black progress">
+						<div class="bar" style="width:80%;">
+							<div class="progress f k r" style="color:white">
+								80%
+							</div>
+						</div>
+						<div class="label f k r" style="color:black">
+							프로젝트 진행률
+						</div>
+					</div>
+			<div class="ui two column grid f k r">
+				<div class="ui center aligned column">
+				<h4 class="ui header f k r">
+					보완해야 할 항목
+				</h4>
+				<div class="ui divider"></div>
+					<div class="f k r">Validate / 회원가입, 로그인, 리그 진행 도중 로스터 편집 불가능</div><br>
+					<div class="f k r">FIFA Member / 기본 팀 추가, 회원정보 및 상호작용</div><br>
+				</div>
+				<div class="ui center aligned column">
+				<h4 class="ui header f k r">
+					추가할 컨텐츠
+				</h4>
+				<div class="ui divider"></div>
+					<div class="f k r">Shop / Stadium 재건축, OVR 상승, 포지션 및 전술 변경</div><br>
+					<div class="f k r">Transfer / Club, Manager, Player 간의 이적 및 진행상황</div><br>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 </section>

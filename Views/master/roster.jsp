@@ -117,34 +117,35 @@
 						<table class="ui center aligned selectable table f k r" id="roster">
 							<thead class="ui center aligned inverted table">
 								<tr>
-									<th colspan="4"><img class="ui avatar image" src="${path}/image.ll?role=Club&name=${master.name}"> ${master.name}</th>
+									<th colspan="4">
+										<img class="ui avatar image" src="${path}/image.ll?role=Club&name=${master.name}">
+										${master.name}
+										<input type="hidden" name="name" value="${master.name}">
+									</th>
 								</tr>
 							</thead>
 							<tbody style="cursor: pointer">
-								<tr>
-									<th rowspan="2" style="border-right:1px solid rgba(34,36,38,.1);">Manager</th>
-								</tr>
-								<tr class="manager">
-									<td class="ui center aligned type" style="width:10%;">
-										<span>${master.roster.manager.tactic}</span>
-									</td>
-									<td class="img" style="width:20%;">
-										<img class="ui avatar image" src="${path}/image.ll?no=${master.roster.manager.profile}">
-									</td>
-									<td class="name" style="width:70%;">
-										<span>${master.roster.manager.name}</span>
-									</td>
-									<td class="info" style="display:none;">
-										<input type="hidden" name="roster" value="${master.roster.manager.name}">
-										<span class="emblem">${path}/image.ll?no=${master.roster.manager.profile}</span>
-										<span class="country">${master.roster.manager.country}</span>
-										<span class="regdate">${master.roster.manager.birth}</span>
-										<span class="ovr">${master.roster.manager.ovr}</span>
-									</td>
-								</tr>
-								<tr>
-									<th rowspan="12" style="border-top:1px solid rgba(34,36,38,.1); border-right:1px solid rgba(34,36,38,.1);">Player</th>
-								</tr>
+								<c:if test="${!empty master.roster.manager}">
+									<tr class="manager">
+										<td class="ui center aligned type" style="width:10%;">
+											<span>${master.roster.manager.tactic}</span>
+										</td>
+										<td class="img" style="width:20%;">
+											<img class="ui avatar image" src="${path}/image.ll?no=${master.roster.manager.profile}">
+										</td>
+										<td class="name" style="width:70%;">
+											<span>${master.roster.manager.name}</span>
+										</td>
+										<td class="info" style="display:none;">
+											<input type="hidden" name="manager" value="${master.roster.manager.name}">
+											<span class="profile">${path}/image.ll?no=${master.roster.manager.profile}</span>
+											<span class="country">${master.roster.manager.country}</span>
+											<span class="age">${f:split(master.roster.manager.age, '.')[0]} 세</span>
+											<span class="ovr">${master.roster.manager.ovr}</span>
+											<span class="tactic">${master.roster.manager.tactic}</span>
+										</td>
+									</tr>
+								</c:if>
 								<c:forEach var="player" items="${master.roster.player}">
 									<tr class="player">
 										<td class="ui center aligned type" style="width:10%;">
@@ -160,10 +161,12 @@
 										</td>
 										<td class="info" style="display:none;">
 											<input type="hidden" name="roster" value="${player.name}">
-											<span class="emblem">${path}/image.ll?no=${player.profile}</span>
+											<span class="profile">${path}/image.ll?no=${player.profile}</span>
 											<span class="country">${player.country}</span>
-											<span class="regdate">${player.birth}</span>
+											<span class="age">${f:split(player.age, '.')[0]} 세</span>
 											<span class="ovr">${player.ovr}</span>
+											<span class="type">${player.type}</span>
+											<span class="icon">${player.icon}</span>
 										</td>
 									</tr>
 								</c:forEach>
@@ -172,7 +175,7 @@
 					</form>
 				</div>
 				<div class="two wide column">
-					<div class="ui center aligned" style="padding:50px; margin-top:auto; margin-bottom:auto;">
+					<div class="ui center aligned" style="padding:50px; padding-top:250px;">
 						<div>
 							<i class="arrow left huge link icon" id="add"></i>
 						</div>
@@ -252,6 +255,7 @@
 											<label class="ui ${player.icon} label llab f k r" style="cursor:pointer;">
 												${player.type}
 											</label>
+											<span style="display:none;">${player.icon}</span>
 										</td>
 										<td class="name" style="width:50%;">
 											<img class="ui avatar image" src="${path}/image.ll?no=${player.profile}" style="max-width:20px; max-height:20px;">
@@ -307,45 +311,116 @@ $(function(){
 	
 	$('#add').click(function(){
 		
-		var club = $('#list').find('tr.active')
-		
-		for(i = 0; i < club.length; i++){
+		if ('${empty master.name}' == 'true'){
 
-			var rosterlength = $('#roster').children('tbody').children('tr').length
+			var club = $('#list').find('tr.active')
 			
-			if (rosterlength < 10 ) {
+			for(i = 0; i < club.length; i++){
+
+				if ($('#roster').children('tbody').children('tr').length < 10 ) {
+					
+					var clubinfo = club.eq(i)
+					
+					$('#roster').append(
+						'<tr class="club">'+
+						'	<td style="display:none;"></td>'+
+						'	<td class="img" style="width:20%;">'+
+						'		<img class="ui rounded fluid image" src="'+ clubinfo.children('.name').children('img').attr('src') +'">'+
+						'	</td>'+
+						'	<td class="name" style="width:80%;">'+
+						'		<span>'+ clubinfo.children('.name').children('span').text() +'</span>'+
+						'	</td>'+
+						'	<td class="info" style="display:none;">'+
+						'		<input type="hidden" name="roster" value="'+ clubinfo.children('.name').children('span').text() +'">'+
+						'		<span class="emblem">'+ clubinfo.children('.name').children('img').attr('src') +'</span>'+
+						'		<span class="country">'+ clubinfo.children('.country').children('span').text() +'</span>'+
+						'		<span class="regdate">'+ clubinfo.children('.age').text() +'</span>'+
+						'		<span class="ovr">'+ clubinfo.children('.ovr').children('div').children('div').children('div').children('span').text() +'</span>'+
+						'	</td>'+
+						'</tr>'
+					)
+					
+					$('#list').DataTable().row('.active').remove().draw()
+				}
+			}
+		} else {
+
+			var manager = $('#listManager').find('tr.active.rowManager')
+			
+			for(i = 0; i < manager.length; i++){
 				
-				var clubinfo = club.eq(i)
+				var managerinfo = manager.eq(i)
+
+				if ($('#roster').children('tbody').children('tr.manager').length < 1 ) {
+					
+					$('#roster').prepend(
+						'<tr class="manager">'+
+						'	<td class="ui center aligned type" style="width:10%;">'+
+						'		<span>'+managerinfo.children('.type').children('span').text()+'</span>'+
+						'	</td>'+
+						'	<td class="img" style="width:20%;">'+
+						'		<img class="ui avatar image" src="'+ managerinfo.children('.name').children('img').attr('src') +'">'+
+						'	</td>'+
+						'	<td class="name" style="width:80%;">'+
+						'		<span>'+ managerinfo.children('.name').children('span').text() +'</span>'+
+						'	</td>'+
+						'	<td class="info" style="display:none;">'+
+						'		<input type="hidden" name="manager" value="'+ managerinfo.children('.name').children('span').text() +'">'+
+						'		<span class="profile">'+ managerinfo.children('.name').children('img').attr('src') +'</span>'+
+						'		<span class="country">'+ managerinfo.children('.country').children('span').text() +'</span>'+
+						'		<span class="age">'+ managerinfo.children('.age').text() +'</span>'+
+						'		<span class="ovr">'+ managerinfo.children('.ovr').children('div').children('div').children('div').children('span').text() +'</span>'+
+						'		<span class="tactic">'+ managerinfo.children('.type').children('span').text() +'</span>'+
+						'	</td>'+
+						'</tr>'
+					)
+					
+					$('#listManager').DataTable().row('.active').remove().draw()
+				}
+			}
+
+			var player = $('#listPlayer').find('tr.active.rowPlayer')
+			
+			for(i = 0; i < player.length; i++){
 				
-				$('#roster').append(
-					'<tr class="club">'+
-					'	<td style="display:none;"></td>'+
-					'	<td class="img" style="width:20%;">'+
-					'		<img class="ui rounded fluid image" src="'+ clubinfo.children('.name').children('img').attr('src') +'">'+
-					'	</td>'+
-					'	<td class="name" style="width:80%;">'+
-					'		<span>'+ clubinfo.children('.name').children('span').text() +'</span>'+
-					'	</td>'+
-					'	<td class="info" style="display:none;">'+
-					'		<input type="hidden" name="roster" value="'+ clubinfo.children('.name').children('span').text() +'">'+
-					'		<span class="emblem">'+ clubinfo.children('.name').children('img').attr('src') +'</span>'+
-					'		<span class="country">'+ clubinfo.children('.country').children('span').text() +'</span>'+
-					'		<span class="regdate">'+ clubinfo.children('.age').text() +'</span>'+
-					'		<span class="ovr">'+ clubinfo.children('.ovr').children('div').children('div').children('div').children('span').text() +'</span>'+
-					'	</td>'+
-					'</tr>'
-				)
-				
-				$('#list').DataTable().row('.active').remove().draw()
+				var playerinfo = player.eq(i)
+
+				if ($('#roster').children('tbody').children('tr.player').length < 11 ) {
+					
+					$('#roster').append(
+						'<tr class="player">'+
+						'	<td class="ui center aligned type" style="width:10%;">'+
+						'		<label class="ui ' + playerinfo.children('.type').children('span').text() + ' label llab f k r" style="cursor:pointer;">'+
+						'		' + playerinfo.children('.type').children('label').text() +''+
+						'		</label>'+
+						'	</td>'+
+						'	<td class="img" style="width:20%;">'+
+						'		<img class="ui avatar image" src="'+ playerinfo.children('.name').children('img').attr('src') +'">'+
+						'	</td>'+
+						'	<td class="name" style="width:80%;">'+
+						'		<span>'+ playerinfo.children('.name').children('span').text() +'</span>'+
+						'	</td>'+
+						'	<td class="info" style="display:none;">'+
+						'		<input type="hidden" name="roster" value="'+ playerinfo.children('.name').children('span').text() +'">'+
+						'		<span class="profile">'+ playerinfo.children('.name').children('img').attr('src') +'</span>'+
+						'		<span class="country">'+ playerinfo.children('.country').children('span').text() +'</span>'+
+						'		<span class="age">'+ playerinfo.children('.age').text() +'</span>'+
+						'		<span class="ovr">'+ playerinfo.children('.ovr').children('div').children('div').children('div').children('span').text() +'</span>'+
+						'		<span class="type">'+ playerinfo.children('.type').children('label').text() +'</span>'+
+						'		<span class="icon">'+ playerinfo.children('.type').children('span').text() +'</span>'+
+						'	</td>'+
+						'</tr>'
+					)
+					
+					$('#listPlayer').DataTable().row('.active').remove().draw()
+				}
 			}
 		}
 	})
 	
 	$('#remove').click(function(){
 		
-		var role = '${empty master.name}'
-		
-		if (role){
+		if ('${empty master.name}' == 'true'){
 
 			var club = $('#roster').find('tr.active')
 			
@@ -388,33 +463,75 @@ $(function(){
 			var manager = $('#roster').find('tr.active.manager')
 			var managerinfo = manager.children('.info')
 			
-			var row = $('#listManager').DataTable().row.add([
-				'',
-				'<span>미등록</span>',
-				'<img class="ui avatar image"src="' + clubinfo.children('.emblem').text() + '" style="max-width:20px; max-height:20px;">'+
-				'<span>' + clubinfo.children('input').val() + '</span>',
-				'<i class="' + clubinfo.children('.country').text().toLowerCase() + ' flag"></i>'+
-				'<span>' + clubinfo.children('.country').text() + '</span>',
-				'' + clubinfo.children('.regdate').text() +'',
-				'<div class="ui active inverted black progress"style="margin:0px;">'+
-				'	<div class="bar" style="width:' + (clubinfo.children('.ovr').text()+1)/10 + '%;">'+
-				'		<div class="progress f k r">'+
-				'			<i class="futbol icon"></i>'+
-				'			<span>' + clubinfo.children('.ovr').text() + '</span>'+
-				'		</div>'+
-				'	</div>'+
-				'</div>'
-			]).draw().node()
+			if (manager.length > 0){
+				
+				var managerrow = $('#listManager').DataTable().row.add([
+					'',
+					'<span>' + managerinfo.children('.tactic').text() + '</span>',
+					'<img class="ui avatar image"src="' + managerinfo.children('.profile').text() + '" style="max-width:20px; max-height:20px;">'+
+					'<span>' + managerinfo.children('input').val() + '</span>',
+					'<i class="' + managerinfo.children('.country').text().toLowerCase() + ' flag"></i>'+
+					'<span>' + managerinfo.children('.country').text() + '</span>',
+					'' + managerinfo.children('.age').text() +'',
+					'<div class="ui active inverted black progress"style="margin:0px;">'+
+					'	<div class="bar" style="width:' + (managerinfo.children('.ovr').text()+1)/10 + '%;">'+
+					'		<div class="progress f k r">'+
+					'			<i class="futbol icon"></i>'+
+					'			<span>' + managerinfo.children('.ovr').text() + '</span>'+
+					'		</div>'+
+					'	</div>'+
+					'</div>'
+				]).draw().node()
+				
+				$(managerrow).removeClass().addClass('rowManager odd')
+				$(managerrow).find('td').eq(0).addClass('sorting_1').css('display', 'none')
+				$(managerrow).find('td').eq(1).addClass('ui center aligned type').css('width', '10%')
+				$(managerrow).find('td').eq(2).addClass('name').css('width', '50%')
+				$(managerrow).find('td').eq(3).addClass('country').css('width', '15%')
+				$(managerrow).find('td').eq(4).addClass('ui center aligned age').css('width', '10%')
+				$(managerrow).find('td').eq(5).addClass('ui center aligned ovr').css('width', '15%')
+				
+				manager.remove()
+			}
+
+			var player = $('#roster').find('tr.active.player')
 			
-			$(row).removeClass().addClass('club odd')
-			$(row).find('td').eq(0).addClass('sorting_1').css('display', 'none')
-			$(row).find('td').eq(1).addClass('ui center aligned type').css('width', '10%')
-			$(row).find('td').eq(2).addClass('name').css('width', '50%')
-			$(row).find('td').eq(3).addClass('country').css('width', '15%')
-			$(row).find('td').eq(4).addClass('ui center aligned age').css('width', '10%')
-			$(row).find('td').eq(5).addClass('ui center aligned ovr').css('width', '15%')
-			
-			manager.remove()
+			for(i = 0; i < player.length; i++){
+				
+				var playerinfo = player.eq(i).children('.info')
+				
+				var playerrow = $('#listPlayer').DataTable().row.add([
+					'',
+					'<label class="ui ' + playerinfo.children('.icon').text() + ' label llab f k r" style="cursor:pointer;">'+
+					'' + playerinfo.children('.type').text() +''+
+					'</label>'+
+					'<span style="display:none;">' + playerinfo.children('.icon').text() +'</span>',
+					'<img class="ui avatar image"src="' + playerinfo.children('.profile').text() + '" style="max-width:20px; max-height:20px;">'+
+					'<span>' + playerinfo.children('input').val() + '</span>',
+					'<i class="' + playerinfo.children('.country').text().toLowerCase() + ' flag"></i>'+
+					'<span>' + playerinfo.children('.country').text() + '</span>',
+					'' + playerinfo.children('.age').text() +'',
+					'<div class="ui active inverted '+ playerinfo.children('.icon').text() +' progress"style="margin:0px;">'+
+					'	<div class="bar" style="width:' + (playerinfo.children('.ovr').text()+1)/10 + '%;">'+
+					'		<div class="progress f k r" style="color:black;">'+
+					'			<i class="futbol icon"></i>'+
+					'			<span>' + playerinfo.children('.ovr').text() + '</span>'+
+					'		</div>'+
+					'	</div>'+
+					'</div>'
+				]).draw().node()
+				
+				$(playerrow).removeClass().addClass('rowPlayer odd')
+				$(playerrow).find('td').eq(0).addClass('sorting_1').css('display', 'none')
+				$(playerrow).find('td').eq(1).addClass('ui center aligned type').css('width', '10%')
+				$(playerrow).find('td').eq(2).addClass('name').css('width', '50%')
+				$(playerrow).find('td').eq(3).addClass('country').css('width', '15%')
+				$(playerrow).find('td').eq(4).addClass('ui center aligned age').css('width', '10%')
+				$(playerrow).find('td').eq(5).addClass('ui center aligned ovr').css('width', '15%')
+				
+				player.remove()
+				
+			}
 				
 		}
 		
