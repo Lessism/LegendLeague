@@ -14,14 +14,10 @@
 			Image
 		WHERE
 			img_no =
-			
 			<if test="no != null">
-			
 				#{no}
-			
 			</if>
 			<if test="role != null">
-			
 				(
 					SELECT
 						<choose>
@@ -48,7 +44,6 @@
 						</choose>
 						= #{name}
 				)
-				
 			</if>
 	
 	</select>
@@ -197,6 +192,34 @@
 			
 		</if>
 	</insert>
+	
+	
+<!-- 	FIFA info	 -->
+
+	<select id="fifa" parameterType="map" resultType="map">
+	
+		SELECT
+			name, role
+		FROM
+			FIFA
+		WHERE
+			id = #{id}
+			
+	</select>
+	
+	
+<!-- 	Left Bar	 -->
+
+	<select id="leftbar" parameterType="map" resultType="map">
+	
+		SELECT
+			*
+		FROM
+			${role}
+		WHERE
+			name = #{name}
+			
+	</select>
 	
 	
 <!--	 FIFA Personal		-->
