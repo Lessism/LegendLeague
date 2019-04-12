@@ -15,6 +15,8 @@ $(function(){
 	
 	$('.tabular.item').tab()
 	
+	$('.ui.accordion').accordion()
+	
 	$('#menu').click(function(){
 		$('.sidebar').sidebar('toggle')
 	})

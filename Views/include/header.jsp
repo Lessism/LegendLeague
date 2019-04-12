@@ -25,7 +25,7 @@
 		<div class="ui inverted left menu">
 			<a class="ui inverted button" href="https://github.com/Lessism">Lessism</a>
 		</div>
-		<div class="ui inverted secondary pointing right menu">
+		<div class="ui inverted secondary pointing right menu f k r">
 			<s:authorize access="isAnonymous()">
 				<a class="nav item" href="${path}/account/login.ll">Login</a>
 				<a class="nav item" href="${path}/account/join.ll">Join</a>
@@ -35,7 +35,7 @@
 					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication property="principal.username"/></a>
+				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication var="id" property="principal.username"/></a>
 			</s:authorize>
 		</div>
 	</div>
