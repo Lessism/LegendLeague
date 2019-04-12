@@ -408,13 +408,23 @@ public class MainRestController {
 			
 			return map;
 		}
+		
+		
+//	Left Sidebar
 
-		
-		
-		
-		
-		
-		
+		@RequestMapping(value="leftbar", produces="application/json")
+		public Map<String, Object> leftBar(@RequestParam Map<String, Object> map) {
+			
+
+			map = db.selectOne("FIFA.fifa", map);
+			Map<String, Object> personal = db.selectOne("FIFA.personal", map);
+			map.put("personal", personal);
+			if (map.get("role") != "Club") {
+				map.put("club", db.selectOne("FIFA.info_club", personal.get("club")));
+			}
+			
+			return map;
+		}
 		
 		
 		
