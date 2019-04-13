@@ -199,7 +199,7 @@
 	<select id="fifa" parameterType="map" resultType="map">
 	
 		SELECT
-			name, role
+			id, name, role
 		FROM
 			FIFA
 		WHERE
