@@ -35,7 +35,9 @@
 					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="nav item" href="${path}/fifa/info.ll"><s:authentication var="id" property="principal.username"/></a>
+				<a class="nav item" href="${path}/account/information.ll">
+					<s:authentication var="id" property="principal.username"/>
+					<s:authentication property="principal.username"/></a>
 			</s:authorize>
 		</div>
 	</div>
@@ -44,9 +46,6 @@
 		<a class="ui inverted nav item" href="${path}/master.ll">Master</a>
 		<a class="nav item" href="${path}/league.ll">League</a>
 		<a class="nav item" href="${path}/fifa.ll">FIFA</a>
-		<a class="rail item" href="${path}/fifa/profile.ll?role=Club&name=Barcelona">Club</a>
-		<a class="rail item" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Manager</a>
-		<a class="rail item" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
 	</nav>
 </header>
 <%@ include file="../include/sidebar.jsp" %>
