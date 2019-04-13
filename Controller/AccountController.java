@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lessism.legendleague.dao.FifaDAO;
 
@@ -56,4 +58,51 @@ public class AccountController {
 			return "redirect:login.ll";
 		}
 		
+		
+//	Information
+	
+		@RequestMapping(value="information.ll", method=RequestMethod.GET)
+		public ModelAndView information(
+				@RequestParam Map<String, Object> map,
+				Authentication account
+				) {
+			
+			if (account != null) {
+				if (account.isAuthenticated()) {
+					map.put("id", account.getName());
+					return new ModelAndView("account/information", "account", fDAO.accountInfo(map));
+				}
+			} 
+			System.out.println(map);
+			
+			return new ModelAndView("account/login", "", null);
+		}
+	
+		@RequestMapping(value="information.ll", method=RequestMethod.POST)
+		public String information(
+				@RequestParam Map<String, Object> map,
+				Authentication account,
+				MultipartHttpServletRequest img
+				) throws IOException {
+			
+			if (!img.getFile("img").isEmpty()) {
+				map.put("img", img.getFile("img").getBytes());
+			}
+			if (map.get("role").equals("Club") && !img.getFile("img").isEmpty()) {
+				map.put("img1", img.getFile("img1").getBytes());
+			}
+			
+			fDAO.accountEdit(map);
+			
+			return "redirect:/";
+		}
+		
+/*
+
+@SuppressWarnings("serial")
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class PageNotFoundException extends RuntimeException {
+	
+}*/
+
 }

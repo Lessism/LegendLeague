@@ -331,7 +331,6 @@ public class MainRestController {
 				db.insert("Master.visit", map);
 			}
 			
-			System.out.println("sessions : " + Visit.getSessions());
 			return;
 		}
 		
