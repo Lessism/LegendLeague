@@ -41,6 +41,7 @@
 				<div class="ui divider"></div>
 					<div class="f k r">Validate / 회원가입, 로그인, 리그 진행 도중 로스터 편집 불가능</div><br>
 					<div class="f k r">FIFA Member / 기본 팀 추가, 회원정보 및 상호작용</div><br>
+					<div class="f k r">Error Page / 403, 404, 500</div><br>
 				</div>
 				<div class="ui center aligned column">
 				<h4 class="ui header f k r">

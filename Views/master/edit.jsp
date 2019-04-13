@@ -504,6 +504,7 @@ $(function(){
 		$('.ui.card.segment').children('.ui.role.header').text($(this).val())
 		$('#ovrbar').parent().removeClass().addClass('ui active inverted progress ' + $(this).siblings('.text').children('span.poicon').text())
 		$('#ovrbar').children('.progress').css('color', 'black').children('i').removeClass().addClass('dot circle outline icon ' + $(this).siblings('.text').children('span.poicon').text())
+		$('#ovrbar').children('.progress').children('.position').text($(this).val())
 		
 	})
 	

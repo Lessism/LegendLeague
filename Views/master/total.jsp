@@ -163,7 +163,7 @@ $(function(){
 				axisY	: {
 					valueFormatString	: '# 명',
 					labelFontFamily		: 'Noto Serif KR',
-					interval			: 1,
+					interval			: 10,
 				},
 				data	: [{
 					type				: 'splineArea',
@@ -201,7 +201,7 @@ $(function(){
 				axisY	: {
 					valueFormatString	: '# 명',
 					labelFontFamily		: 'Noto Serif KR',
-					interval 			: 1,
+					interval 			: 5,
 				},
 				data	: [{
 					type				: 'spline',
