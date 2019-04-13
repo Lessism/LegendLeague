@@ -1,6 +1,5 @@
 package com.lessism.legendleague.dao;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,24 @@ public class FifaDAO {
 	
 		public int join(Map<String, Object> map) {
 			return db.insert("FIFA.join", map);
+		}
+		
+		
+//	Account Information
+	
+		public Map<String, Object> accountInfo(Map<String, Object> map) {
+
+			Map<String, Object> information = db.selectOne("FIFA.fifa", map);
+			information.put("detail", db.selectOne("FIFA.personal", information));
+			
+			return information;
+		}
+		
+		
+//	Account Edit
+	
+		public int accountEdit(Map<String, Object> map) {
+			return db.update("Master.edit", map);
 		}
 		
 		
@@ -261,51 +278,4 @@ public class FifaDAO {
 			
 			return map;
 		}
-	
-	
-//	구단 정보
-	
-	public Map<String, Object> infoClub(Map<String, Object> map) {
-		
-		return db.selectOne("FIFA.infoclub", map);
-	}
-	
-	
-//	감독 정보
-	
-	public Map<String, Object> infoManager(Map<String, Object> map) {
-		
-		return db.selectOne("FIFA.infomanager", map);
-	}
-	
-	
-//	선수 정보
-	
-	public Map<String, Object> infoPlayer(Map<String, Object> map) throws UnsupportedEncodingException {
-		return  db.selectOne("FIFA.infoplayer", map);
-	}
-	
-	
-//	리그 로스터
-	
-	public Map<String, Object> infoLeague() {
-		
-		return db.selectOne("FIFA.infoleague");
-	}
-	
-	
-//	로스터 등록
-	
-	public int updateRoster(String rosterlist) {
-
-		db.update("FIFA.updaterosterclubclear");
-		
-		if (rosterlist != null) {
-			for (int i = 0; i < rosterlist.split(",").length; i++) {
-				db.update("FIFA.updaterosterclub", rosterlist.split(",")[i]);
-			}
-		}
-		
-		return db.update("FIFA.updateroster", rosterlist);
-	}
 }
