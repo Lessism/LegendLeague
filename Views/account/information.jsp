@@ -295,6 +295,9 @@
 						</c:if>
 				</div>
 				<div class="ui center aligned container actions">
+					<a class="ui button f k r" id="cancel" href="${path}/">계정 비활성화</a>
+					<a class="ui button f k r" id="cancel" href="${path}/">계정 완전 탈퇴</a>
+					<a class="ui button f k r" id="cancel" href="${path}/">비밀번호 재설정</a>
 					<input class="ui black button f k r" id="edit" type="submit" value="수정">
 					<a class="ui button f k r" id="cancel" href="${path}/">취소</a>
 				</div>
