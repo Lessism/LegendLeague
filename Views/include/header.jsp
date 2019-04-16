@@ -35,15 +35,20 @@
 					<a class="item" id="logout">Logout</a>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
-				<a class="nav item" href="${path}/account/information.ll">
-					<s:authentication var="id" property="principal.username"/>
-					<s:authentication property="principal.username"/></a>
+				<s:authorize access="hasAuthority('Master')">
+					<a class="ui inverted nav item" href="${path}/master.ll">Master</a>
+				</s:authorize>
+				<s:authorize access="!hasAuthority('Master')">
+					<a class="nav item" href="${path}/account/information.ll">
+						<s:authentication var="id" property="principal.username"/>
+						<s:authentication property="principal.username"/>
+					</a>
+				</s:authorize>
 			</s:authorize>
 		</div>
 	</div>
 	<nav class="ui inverted secondary pointing menu container f k r">
 		<a class="item" id="menu">Menu</a>
-		<a class="ui inverted nav item" href="${path}/master.ll">Master</a>
 		<a class="nav item" href="${path}/league.ll">League</a>
 		<a class="nav item" href="${path}/fifa.ll">FIFA</a>
 	</nav>
