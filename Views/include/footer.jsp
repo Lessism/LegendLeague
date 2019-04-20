@@ -45,6 +45,9 @@ $(function(){
 			$.post('/legendleague/stay', function(data){
 				$('#visit_now').text(data)
 			})
+			if (menu.text == 'Club' || menu.text == 'Manager' || menu.text == 'Player'){
+				menu.removeClass()
+			}
 		}
 	}
 	
