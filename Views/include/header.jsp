@@ -51,6 +51,9 @@
 		<a class="item" id="menu">Menu</a>
 		<a class="nav item" href="${path}/league.ll">League</a>
 		<a class="nav item" href="${path}/fifa.ll">FIFA</a>
+		<a class="nav item" href="${path}/fifa/profile.ll?role=Club&name=Barcelona">Club</a>
+		<a class="nav item" href="${path}/fifa/profile.ll?role=Manager&name=Pep Guardiola">Manager</a>
+		<a class="nav item" href="${path}/fifa/profile.ll?role=Player&name=Lionel Messi">Player</a>
 	</nav>
 </header>
 <%@ include file="../include/sidebar.jsp" %>
