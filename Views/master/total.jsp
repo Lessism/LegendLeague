@@ -17,7 +17,7 @@
 		<c:set var="rail" value="master"/>
 		<%@ include file="../include/rail.jsp" %>
 	</div>
-	<div class="thirteen wide column">
+	<div class="fourteen wide column">
 		<div class="ui black segment">
 			<div class="ui three huge statistics">
 				<div class="ui huge statistic">
