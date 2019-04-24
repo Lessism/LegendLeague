@@ -1,2 +1,3 @@
-# LegendLeague Ver 0.5
-Sidebar Menu
+# LegendLeague
+
+코드 저장용
